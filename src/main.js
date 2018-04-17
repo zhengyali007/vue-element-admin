@@ -39,3 +39,8 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
+// 自定义导入的插件
+// 1、拖拽
+import VueDND from 'awe-dnd'
+Vue.use(VueDND)

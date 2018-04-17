@@ -53,6 +53,17 @@ export const constantRouterMap = [
       name: '自定义视图',
       meta: { title: '自定义视图', icon: 'dashboard', noCache: true }
     }]
+  },
+  {
+    path: '',
+    component: Layout,
+    redirect: 'testView',
+    children: [{
+      path: 'testView',
+      component: _import('test/test'),
+      name: 'Test',
+      meta: { title: 'test', icon: 'dashboard', noCache: true }
+    }]
   }
   // {
   //   path: '/documentation',
