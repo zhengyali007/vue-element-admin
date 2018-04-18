@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <template>
   <div :class="className" :style="{height:height,width:width}"></div>
 </template>
@@ -22,11 +23,28 @@ export default {
     height: {
       type: String,
       default: '300px'
-    }
+    },
+
   },
   data() {
     return {
-      chart: null
+      chart: null,
+      mockData: [{
+        text: '指标一',
+        value: 2
+      }, {
+        text: '指标二',
+        value: 3.2
+      }, {
+        text: '指标三',
+        value: 5
+      }, {
+        text: '指标四',
+        value: 4.1
+      }, {
+        text: '指标五',
+        value: 2.8
+      }]
     }
   },
   mounted() {
@@ -47,72 +65,129 @@ export default {
     this.chart = null
   },
   methods: {
+    getRandom(range, count){
+      var randomArr = []
+      for(var i = 0; i < count; i++) {
+        var r = Math.round(Math.random() * (range - 1))
+        randomArr.push(r)
+      }
+      return randomArr
+    },
     initChart() {
       this.chart = echarts.init(this.$el, 'macarons')
-
+      var minAngle = 10	// 最小角度
+      var indicator = []
+      var data = []
+      var index = 0
+      var mockData = this.mockData
+      var randomArr = getRandom(360 / minAngle, mockData.length)
+      for (var i=0; i<360 / minAngle; i++) {
+        if(randomArr.indexOf(i) > -1){
+          indicator.push({
+            text: mockData[index].text
+          })
+          data.push(mockData[index].value)
+          index++
+        } else {
+          indicator.push({
+            text: i * 10 + '`'
+          })
+          data.push('-')
+        }
+      }
       this.chart.setOption({
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: { // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+        radar: [
+          {
+            indicator: indicator,
+            center: ['50%', '50%'],
+            radius: 180,
+            startAngle: 90,
+            splitNumber: 4,
+            shape: 'circle',
+            name: {
+              show: false
+              // formatter:'【{value}】',
+              // textStyle: {
+              //     color:'rgba(0, 255, 51, 1)'
+              // }
+            },
+            splitArea: {
+              areaStyle: {
+                color: 'rgba(255, 255, 255, 0)'
+              }
+            },
+            axisLine: {
+              lineStyle: {
+                color: 'rgba(0, 255, 51, 0)'
+              }
+            },
+            splitLine: {
+              lineStyle: {
+                color: 'rgba(0, 255, 51, 1)'
+              }
+            }
           }
-        },
-        radar: {
-          radius: '66%',
-          center: ['50%', '42%'],
-          splitNumber: 8,
-          splitArea: {
-            areaStyle: {
-              color: 'rgba(127,95,132,.3)',
-              opacity: 1,
-              shadowBlur: 45,
-              shadowColor: 'rgba(0,0,0,.5)',
-              shadowOffsetX: 0,
-              shadowOffsetY: 15
-            }
-          },
-          indicator: [
-            { name: 'Sales', max: 10000 },
-            { name: 'Administration', max: 20000 },
-            { name: 'Information Techology', max: 20000 },
-            { name: 'Customer Support', max: 20000 },
-            { name: 'Development', max: 20000 },
-            { name: 'Marketing', max: 20000 }
-          ]
-        },
-        legend: {
-          left: 'center',
-          bottom: '10',
-          data: ['Allocated Budget', 'Expected Spending', 'Actual Spending']
-        },
-        series: [{
-          type: 'radar',
-          symbolSize: 0,
-          areaStyle: {
-            normal: {
-              shadowBlur: 13,
-              shadowColor: 'rgba(0,0,0,.2)',
-              shadowOffsetX: 0,
-              shadowOffsetY: 10,
-              opacity: 1
-            }
-          },
-          data: [
-            {
-              value: [5000, 7000, 12000, 11000, 15000, 14000],
-              name: 'Allocated Budget'
+        ],
+        series: [
+          {
+            name: '雷达图',
+            type: 'radar',
+            symbol: 'circle',
+            symbolSize: 24,
+            silent: true,
+            animationEasing: 'quarticOut',
+            animationEasingUpdate: 'quarticOut',
+            animationDuration: 2000,
+            animationDurationUpdate: 2000,
+            label: {
+              normal: {
+                show: true,
+                textStyle: {
+                  color: 'rgba(0, 255, 51, 1)'
+                }
+              }
             },
-            {
-              value: [4000, 9000, 15000, 15000, 13000, 11000],
-              name: 'Expected Spending'
+            itemStyle: {
+              normal: {
+                opacity: 0
+              },
+              emphasis: {
+                color: {
+                  type: 'radial',
+                  x: 0.5,
+                  y: 0.5,
+                  r: 0.3,
+                  colorStops: [{
+                    offset: 0,
+                    color: 'rgba(0, 255, 51, 1)'
+                  }, {
+                    offset: 1,
+                    color: 'rgba(255, 255, 255, .1)'
+                  }]
+                },
+                borderWidth: 0,
+                opacity: 1
+              }
             },
-            {
-              value: [5500, 11000, 12000, 15000, 12000, 12000],
-              name: 'Actual Spending'
-            }
-          ],
-          animationDuration: animationDuration
-        }]
+            data: [
+              {
+                value: data,
+                label: {
+                  normal: {
+                    textStyle: {
+                      color: 'rgba(0, 255, 51, 1)'
+                    }
+                  }
+                },
+                lineStyle: {
+                  normal: {
+                    opacity: 0
+                  }
+                }
+              }
+            ]
+          }
+        ]
       })
     }
   }

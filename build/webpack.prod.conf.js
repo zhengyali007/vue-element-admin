@@ -18,7 +18,8 @@ function resolve (dir) {
 const env = require('../config/'+process.env.env_config+'.env')
 
 const webpackConfig = merge(baseWebpackConfig, {
-  module: {
+  module:
+    {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
       extract: true,

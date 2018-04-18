@@ -44,3 +44,7 @@ new Vue({
 // 1、拖拽
 import VueDND from 'awe-dnd'
 Vue.use(VueDND)
+
+// 引入echarts
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
