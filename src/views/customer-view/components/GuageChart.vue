@@ -25,12 +25,12 @@
     data() {
       return {
         chart: null,
-        guageData: [{ value: 50, name: '利用率' }]
+        guageData: 50
       }
     },
     created() {
       setInterval(() => {
-        this.guageData[0].value = (Math.random() * 100).toFixed(2) - 0
+        this.guageData = (Math.random() * 100).toFixed(2) - 0
       }, 2000)
     },
     mounted() {
@@ -59,23 +59,7 @@
       initChart() {
         this.chart = echarts.init(this.$el, 'macarons')
         this.chart.setOption({
-          // tooltip: {
-          //   formatter: '{a} <br/> {b} : {c}%'
-          // },
-          // toolbox: {
-          //   feature: {
-          //     restore: {},
-          //     saveAsImage: {}
-          //   }
-          // },
-          series: [
-            {
-              name: '业务指标',
-              type: 'gauge',
-              detail: { formatter: '{value}%' },
-              data: this.guageData
-            }
-          ]
+
         })
       }
     }

@@ -1,86 +1,150 @@
 <template>
-  <!--<div class="color-list">-->
-    <!--<div-->
-      <!--class="color-item"-->
-      <!--v-for="color in colors" v-dragging="{ item: color, list: colors, group: 'color' }"-->
-      <!--:key="color.text"-->
-    <!--&gt;{{color.text}}</div>-->
-  <!--</div>-->
-  <div>
-    <el-row :gutter="20">
-      <el-col :span="6"><div id="smallBox1" class="colBox1 grid-content bg-purple" v-dragging="{ item: smallBoxs[0], list: smallBoxs, group: 'smallBox' }" :key="1">{{smallBoxs[0].text}}</div></el-col>
-      <el-col :span="6"><div id="smallBox2" class="colBox1 grid-content bg-purple" v-dragging="{ item: smallBoxs[1], list: smallBoxs, group: 'smallBox' }" :key="2">{{smallBoxs[1].text}}</div></el-col>
-      <el-col :span="6"><div id="smallBox3" class="colBox1 grid-content bg-purple" v-dragging="{ item: smallBoxs[2], list: smallBoxs, group: 'smallBox' }" :key="3">{{smallBoxs[2].text}}</div></el-col>
-      <el-col :span="6"><div id="smallBox4" class="colBox1 grid-content bg-purple" v-dragging="{ item: smallBoxs[3], list: smallBoxs, group: 'smallBox' }" :key="4">{{smallBoxs[3].text}}</div></el-col>
-    </el-row>
-    <el-row :gutter="20">
-      <el-col :span="6"><div id="middleBox1" class="colBox2 grid-content bg-purple"></div></el-col>
-      <el-col :span="18"><div id="maxBox" class="colBox2 grid-content bg-purple"></div></el-col>
-    </el-row>
-    <el-row :gutter="20">
-      <el-col :span="12"><div id="largeBox" class="colBox3 grid-content bg-purple"></div></el-col>
-      <el-col :span="6"><div id="middleBox2" class="colBox3 grid-content bg-purple"></div></el-col>
-      <el-col :span="6"><div id="middleBox3" class="colBox3 grid-content bg-purple"></div></el-col>
-    </el-row>
-  </div>
+  <div :class="className" :style="{height:height,width:width}"></div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import echarts from 'echarts'
+  require('echarts/theme/macarons') // echarts theme
+  import { debounce } from '@/utils'
+
   export default {
-    name: 'test',
-    components: { },
-    data() {
-      return {
-        smallBoxs: [{
-          text: '第一个box'
-        }, {
-          text: '第二个box'
-        }, {
-          text: '第三个box'
-        }, {
-          text: '第四个box'
-        }]
+    props: {
+      className: {
+        type: String,
+        default: 'chart'
+      },
+      width: {
+        type: String,
+        default: '100%'
+      },
+      height: {
+        type: String,
+        default: '350px'
+      },
+      autoResize: {
+        type: Boolean,
+        default: true
+      },
+      chartData: {
+        type: Object
       }
     },
-    computed: {
-      ...mapGetters([
-      ])
-    },
-    created() {
+    data() {
+      return {
+        chart: null
+      }
     },
     mounted() {
-      this.$dragging.$on('dragged', ({ value }) => {
-        console.log(value.item)
-        console.log(value.list)
-        console.log(value.otherData)
-      })
-      this.$dragging.$on('dragend', () => {
-      })
+      this.initChart()
+      if (this.autoResize) {
+        this.__resizeHanlder = debounce(() => {
+          if (this.chart) {
+            this.chart.resize()
+          }
+        }, 100)
+        window.addEventListener('resize', this.__resizeHanlder)
+      }
+
+      // 监听侧边栏的变化
+      const sidebarElm = document.getElementsByClassName('sidebar-container')[0]
+      sidebarElm.addEventListener('transitionend', this.__resizeHanlder)
+    },
+    beforeDestroy() {
+      if (!this.chart) {
+        return
+      }
+      if (this.autoResize) {
+        window.removeEventListener('resize', this.__resizeHanlder)
+      }
+
+      const sidebarElm = document.getElementsByClassName('sidebar-container')[0]
+      sidebarElm.removeEventListener('transitionend', this.__resizeHanlder)
+
+      this.chart.dispose()
+      this.chart = null
+    },
+    watch: {
+      chartData: {
+        deep: true,
+        handler(val) {
+          this.setOptions(val)
+        }
+      }
+    },
+    methods: {
+      setOptions({ expectedData, actualData } = {}) {
+        this.chart.setOption({
+          xAxis: {
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            boundaryGap: false,
+            axisTick: {
+              show: false
+            }
+          },
+          grid: {
+            left: 10,
+            right: 10,
+            bottom: 20,
+            top: 30,
+            containLabel: true
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross'
+            },
+            padding: [5, 10]
+          },
+          yAxis: {
+            axisTick: {
+              show: false
+            }
+          },
+          legend: {
+            data: ['expected', 'actual']
+          },
+          series: [{
+            name: 'expected', itemStyle: {
+              normal: {
+                color: '#FF005A',
+                lineStyle: {
+                  color: '#FF005A',
+                  width: 2
+                }
+              }
+            },
+            smooth: true,
+            type: 'line',
+            data: expectedData,
+            animationDuration: 2800,
+            animationEasing: 'cubicInOut'
+          },
+          {
+            name: 'actual',
+            smooth: true,
+            type: 'line',
+            itemStyle: {
+              normal: {
+                color: '#3888fa',
+                lineStyle: {
+                  color: '#3888fa',
+                  width: 2
+                },
+                areaStyle: {
+                  color: '#f3f8ff'
+                }
+              }
+            },
+            data: actualData,
+            animationDuration: 2800,
+            animationEasing: 'quadraticOut'
+          }]
+        })
+      },
+      initChart() {
+        this.chart = echarts.init(this.$el, 'macarons')
+        this.setOptions(this.chartData)
+      }
     }
   }
 </script>
-
-<style>
-  .bg-purple {
-    background: #d3dce6;
-  }
-
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-
-  /*#smallBox1{*/
-    /*background-color: Aquamarine;*/
-  /*}*/
-  /*#smallBox2{*/
-    /*background-color: Hotpink;*/
-  /*}*/
-  /*#smallBox3{*/
-    /*background-color: Gold;*/
-  /*}*/
-  /*#smallBox4{*/
-    /*background-color: Crimson;*/
-  /*}*/
-</style>

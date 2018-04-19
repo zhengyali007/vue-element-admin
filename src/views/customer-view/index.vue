@@ -3,32 +3,58 @@
   <el-row :gutter="20">
     <el-col :span="4">
       <div id="box1" class="colBox0 grid-content bg-purple left" >
-        <div class="title"><span></span></div>
+        <div class="title">
+          <span>主机设备数量总览</span>
+        </div>
         <div class="container0" >
-          <liquid-chart width="100%" height="100%" style="margin: auto;"></liquid-chart>
+          <cross-bar width="100%" height="100%" style="margin: auto;"></cross-bar>
         </div>
       </div>
     </el-col>
     <el-col :span="4">
-      <div id="box2" class="colBox0 grid-content bg-purple " >
+      <div id="box2" class="colBox0 grid-content bg-purple" >
+        <div class="title">
+          <span>存储设备数量总览</span>
+        </div>
+        <div class="container0" >
+          <cross-bar width="100%" height="100%" style="margin: auto;"></cross-bar>
+        </div>
       </div>
     </el-col>
     <el-col :span="4">
-      <div id="box3" class="colBox0 grid-content bg-purple " >
+      <div id="box3" class="colBox0 grid-content bg-purple" >
+        <div class="title">
+          <span>网络设备数量总览</span>
+        </div>
+        <div class="container0" >
+          <cross-bar width="100%" height="100%" style="margin: auto;"></cross-bar>
+        </div>
       </div>
     </el-col>
-    <el-col :span="4">
-      <div id="box4" class="colBox0 grid-content bg-purple " >
+    <el-col :span="12">
+      <div id="box4" class="colBox0 grid-content bg-purple" >
+        <div class="title">
+          <span>图</span>
+        </div>
+        <div class="container0" >
+          <!--<number-bar width="100%" height="100%" style="margin: auto;"></number-bar>-->
+        </div>
       </div>
     </el-col>
-    <el-col :span="4">
-      <div id="box5" class="colBox0 grid-content bg-purple " >
-      </div>
-    </el-col>
-    <el-col :span="4">
-      <div id="box6" class="colBox0 grid-content bg-purple right" >
-      </div>
-    </el-col>
+    <!--<el-col :span="4">-->
+      <!--<div id="box5" class="colBox0 grid-content bg-purple container0" >-->
+        <!--&lt;!&ndash;<div class="resourceNumber">556</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="warning">1</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="resourceName">存储设备</div>&ndash;&gt;-->
+      <!--</div>-->
+    <!--</el-col>-->
+    <!--<el-col :span="4">-->
+      <!--<div id="box6" class="colBox0 grid-content bg-purple container0 right" >-->
+        <!--&lt;!&ndash;<div class="resourceNumber">99</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="warning">12</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="resourceName">网络设备</div>&ndash;&gt;-->
+      <!--</div>-->
+    <!--</el-col>-->
   </el-row>
   <el-row :gutter="20">
     <el-col :span="6">
@@ -42,56 +68,77 @@
       </div>
     </el-col>
     <el-col :span="12">
-      <div id="largeBox" class="colBox2 grid-content bg-purple">
+      <div id="box7" class="colBox2 grid-content bg-purple">
         <div class="title">
-          <span>雷达图</span>
+          <span>核心CPU和内存实时利用率</span>
         </div>
-        <div class="container2" >
-          <chart :type="'radar'" :data="waveData3" :options="options"></chart>
+        <div class="mainContainer1" >
+          <break-pie width="90%" height="90%" style="margin: auto;"></break-pie>
+        </div>
+        <div class="mainContainer2" >
+          <break-pie width="90%" height="90%" style="margin: auto;"></break-pie>
+        </div>
+        <div class="mainContainer2" >
+          <break-pie width="90%" height="90%" style="margin: auto;"></break-pie>
         </div>
       </div>
     </el-col>
-    <el-col :span="6"><div id="middleBox2" class="colBox2 grid-content bg-purple right"></div></el-col>
+    <el-col :span="6">
+      <div id="middleBox2" class="colBox2 grid-content bg-purple right">
+        <div class="title">
+          <span>网络设备总览</span>
+        </div>
+        <div class="containerTie" >
+          <pie-chart width="90%" height="90%" style="margin: auto;"></pie-chart>
+        </div>
+        <div class="title">
+          <span>服务器总览</span>
+        </div>
+        <div class="containerTie" >
+          <pie-chart width="90%" height="90%" style="margin: auto;"></pie-chart>
+        </div>
+      </div>
+    </el-col>
   </el-row>
   <el-row :gutter="20">
     <el-col :span="6">
       <!-- v-dragging="{ item: smallBoxs[0], list: smallBoxs, group: 'smallBox' }" :key="1" -->
       <div id="smallBox1" class="colBox1 grid-content bg-purple left" >
         <div class="title">
-          <span>柱状图</span>
+          <span>主机设备CPU利用率Top10</span>
         </div>
         <div class="container1" >
-          <bar-chart width="90%" height="90%" style="margin: auto;"></bar-chart>
+          <chart :type="'bar'" :data="waveData3" :options="options" style="width: 100%; height: 100%"></chart>
         </div>
       </div>
     </el-col>
     <el-col :span="6">
       <div id="smallBox2" class="colBox1 grid-content bg-purple">
         <div class="title">
-          <span>存储设备利用率</span>
+          <span>主机设备内存利用率Top10</span>
         </div>
         <div class="container1" >
-          <guage-chart width="100%" height="100%" style="margin: auto;"></guage-chart>
+          <chart :type="'bar'" :data="waveData4" :options="options" style="width: 100%; height: 100%"></chart>
         </div>
       </div>
     </el-col>
     <el-col :span="6">
       <div id="smallBox3" class="colBox1 grid-content bg-purple" >
         <div class="title">
-          <span>服务器CPU利用率TOP10</span>
+          <span>网络设备CPU利用率Top10</span>
         </div>
-        <div class="container1">
-          <chart :type="'bar'" :data="waveData" :options="options"></chart>
+        <div class="container1 chartContainer">
+          <chart :type="'bar'" :data="waveData" :options="options" style="width: 100%; height: 100%"></chart>
         </div>
       </div>
     </el-col>
     <el-col :span="6">
       <div id="smallBox4" class="colBox1 grid-content bg-purple right" >
         <div class="title">
-          <span>服务器内存利用率TOP10</span>
+          <span>网络设备内存利用率Top10</span>
         </div>
         <div class="container1">
-          <chart :type="'bar'" :data="waveData2" :options="options"></chart>
+          <chart :type="'bar'" :data="waveData2" :options="options" style="width: 100%; height: 100%"></chart>
         </div>
       </div>
     </el-col>
@@ -109,9 +156,10 @@
 <script>
   import { mapGetters } from 'vuex'
   import BarChart from './components/BarChart'
+  import CrossBar from './components/CrossBar'
   import PieChart from './components/PieChart'
-  import RaddarChart from './components/RaddarChart'
-  import LiquidChart from './components/LiquidChart'
+  import BreakPie from './components/PieChart2'
+  import LineChart from './components/LineChart'
   import GuageChart from './components/GuageChart'
   import PictorialBar from './components/PictorialBar'
   import Chart from 'vue-bulma-chartjs'
@@ -122,22 +170,21 @@
     components: {
       BarChart,
       PieChart,
+      BreakPie,
       Chart,
-      RaddarChart,
-      LiquidChart,
+      LineChart,
       GuageChart,
-      PictorialBar
+      PictorialBar,
+      CrossBar
     },
     data() {
       return {
         // 设置背景div的样式
         backgroundStyle: {
-          background: 'url("/src/assets/customView/background5.jpg") no-repeat center fixed',
-          backgroundSize: 'cover'
+          // background: 'url("/src/assets/customView/background5.jpg") no-repeat center fixed',
+          // backgroundSize: 'cover'
         },
         // 动态柱状图数据
-        labels: ['Sleeping', 'Designing', 'Coding', 'Cycling'],
-        data: [65, 59, 90, 81, 56, 55, 40],
         options: {
           legend: {
             labels: {
@@ -154,9 +201,8 @@
           '#FAF43D',
           '#FFFFFF'
         ],
-        label_1: ['May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
-        label_2: ['May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
-        label_3: ['May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
+        // label_1: ['May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
+        label_1: ['', '', '', '', '', '', '', ''],
         data_1: [1, 9, 3, 4, 5, 6, 7, 8, 2].map(e => (Math.sin(e) * 25) + 25),
         data_2: [1, 2, 3, 4, 5, 6, 7, 8, 9].map(e => (Math.sin(e) * 25) + 25),
         data_3: [6, 9, 3, 7, 5, 6, 5, 1, 2].map(e => (Math.sin(e) * 25) + 25),
@@ -177,7 +223,7 @@
       },
       waveData2() {
         return {
-          labels: this.label_2,
+          labels: this.label_1,
           datasets: [{
             label: '内存',
             data: this.data_2,
@@ -187,11 +233,21 @@
       },
       waveData3() {
         return {
-          labels: this.label_3,
+          labels: this.label_1,
           datasets: [{
             label: '带宽',
             data: this.data_3,
             backgroundColor: this.backgroundColor[2]
+          }]
+        }
+      },
+      waveData4() {
+        return {
+          labels: this.label_1,
+          datasets: [{
+            label: '带宽',
+            data: this.data_1,
+            backgroundColor: this.backgroundColor[3]
           }]
         }
       },
@@ -224,7 +280,7 @@
 
 <style>
   #bodyContainer{
-    background: #000033;
+    background: black;
     height: 100%;
     width: 100%;
     margin: auto;
@@ -248,8 +304,17 @@
   }
   .grid-content {
     /*border:1px solid #bfd1eb;*/
+    background: linear-gradient(to left, #f00, #f00) left top no-repeat,
+    linear-gradient(to bottom, #f00, #f00) left top no-repeat,
+    linear-gradient(to left, #f00, #f00) right top no-repeat,
+    linear-gradient(to bottom, #f00, #f00) right top no-repeat,
+    linear-gradient(to left, #f00, #f00) left bottom no-repeat,
+    linear-gradient(to bottom, #f00, #f00) left bottom no-repeat,
+    linear-gradient(to left, #f00, #f00) right bottom no-repeat,
+    linear-gradient(to left, #f00, #f00) right bottom no-repeat;
+    background-size: 1px 20px, 20px 1px, 1px 20px, 20px 1px;
     /*background:#f3faff;*/
-    background:rgba(255,255,255,0.1);
+    /*background:rgba(255,255,255,0.1);*/
     /*border-radius: 4px;*/
     min-height: 36px;
     /*background-color: */
@@ -261,7 +326,7 @@
 
   .colBox0{
     margin-top: 20px;
-    height: 150px;
+    height: 250px;
   }
 
   .colBox1{
@@ -286,21 +351,45 @@
     /*margin-top: 15px;*/
   }
 
+  .container0 {
+    width: 90%;
+    height: 80%;
+    margin: auto;
+    /*position: relative*/
+  }
+
+  #box7 {
+    position: relative;
+  }
+
   .container1{
     width: 98%;
-    height: 200px;
+    height: 98%;
     margin: auto;
   }
 
+  .mainContainer1 {
+    left: 1%;
+    width: 98%;
+    height: 48%;
+  }
+
+  .mainContainer2 {
+    float: left;
+    right: 1%;
+    width: 46%;
+    height: 48%;
+    margin: auto;
+  }
+
+  .containerTie{
+    width: 98%;
+    height: 44%;
+    margin: 5px auto
+  }
   .container2{
     width: 98%;
     height: 550px;
-    margin: auto;
-  }
-
-  .maxContainer{
-    width: 98%;
-    height: 450px;
     margin: auto;
   }
 
@@ -317,8 +406,64 @@
     max-height: 100%;
   }
 
-  .container1{
-    width: 98%;
-    height: 98%;
+
+  .resourceNumber{
+    width: 100%;
+    height: 60%;
+    /*margin: auto;*/
+    line-height: 200%;
+    font-size: 250%;
+    font-weight:bold;
+    padding: 5px;
+    background:transparent;
+    color: #1D4D8F;
+    text-align: center;
+    /*position: relative;*/
+    /*text-shadow: #aaaaaa;*/
   }
+
+  #box6{
+    position: relative;
+  }
+
+  .warning{
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 10px;
+    color: #fff;
+    text-align: center;
+    background-color: #f00;
+    border-radius: 50%;
+    position: absolute;
+    vertical-align: middle;
+    right: 26%;
+    top: 15%;
+  }
+
+
+  .resourceName {
+    width: 100%;
+    height: 40%;
+    text-align: center;
+    line-height: 200%;
+    font-size: 100%;
+  }
+
+
+
+  /*i {*/
+    /*display: block;*/
+    /*background: #f00;*/
+    /*color: white;*/
+    /*border-radius: 50%;*/
+    /*width: 16px;*/
+    /*height: 16px;*/
+    /*top: 2px;*/
+    /*right: -5px;*/
+    /*position: absolute;*/
+    /*font-size: 20%*/
+  /*}*/
+
+
 </style>

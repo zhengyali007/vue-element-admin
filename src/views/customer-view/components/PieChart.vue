@@ -24,11 +24,33 @@ export default {
   },
   data() {
     return {
-      chart: null
+      chart: null,
+      nameList: ['linux', 'windows', '路由器', '交换机', '网关', '安全设备', 'mac', '防火墙'],
+      legendData: [],
+      seriesData: [],
+      selected: []
     }
   },
+  computed: {
+    // timeOut: {
+    //   set(val) {
+    //     this.$store.state.timeout.compileTimeout = val
+    //   },
+    //   get() {
+    //     return this.$store.state.timeout.compileTimeout
+    //   }
+    // }
+  },
   mounted() {
-    this.initChart()
+    // console.log(this)
+    // this.getData()
+    // this.initChart()
+    const that = this
+    setInterval(function() {
+      // console.log(this)
+      that.getData()
+      that.initChart()
+    }, 2000)
     this.__resizeHanlder = debounce(() => {
       if (this.chart) {
         this.chart.resize()
@@ -45,6 +67,31 @@ export default {
     this.chart = null
   },
   methods: {
+    getData() {
+      this.legendData = []
+      this.seriesData = []
+      this.selected = []
+      for (var i = 0; i < this.nameList.length; i++) {
+        var name = this.nameList[i]
+        // Math.random() > 0.65
+        // ? this.makeWord(4, 1) + '·' + this.makeWord(3, 0)
+        // : this.makeWord(2, 1)
+        this.legendData.push(name)
+        this.seriesData.push({
+          name: name,
+          value: Math.round(Math.random() * 100000)
+        })
+        this.selected[name] = i
+      }
+    },
+    // makeWord(max, min) {
+    //   var nameLen = Math.ceil(Math.random() * max + min)
+    //   var name = []
+    //   for (var i = 0; i < nameLen; i++) {
+    //     name.push(this.nameList[Math.round(Math.random() * this.nameList.length - 1)])
+    //   }
+    //   return name.join('')
+    // },
     initChart() {
       this.chart = echarts.init(this.$el, 'macarons')
 
@@ -53,28 +100,29 @@ export default {
           trigger: 'item',
           formatter: '{a} <br/>{b} : {c} ({d}%)'
         },
-        legend: {
-          left: 'center',
-          bottom: '10',
-          data: ['Industries', 'Technology', 'Forex', 'Gold', 'Forecasts']
-        },
-        calculable: true,
+        // legend: {
+        //   type: 'scroll',
+        //   orient: 'vertical',
+        //   right: 10,
+        //   top: 20,
+        //   bottom: 20,
+        //   data: this.legendData,
+        //   selected: this.selected
+        // },
         series: [
           {
-            name: 'WEEKLY WRITE ARTICLES',
+            name: '设备总览',
             type: 'pie',
-            roseType: 'radius',
-            radius: [15, 95],
-            center: ['50%', '38%'],
-            data: [
-              { value: 320, name: 'Industries' },
-              { value: 240, name: 'Technology' },
-              { value: 149, name: 'Forex' },
-              { value: 100, name: 'Gold' },
-              { value: 59, name: 'Forecasts' }
-            ],
-            animationEasing: 'cubicInOut',
-            animationDuration: 2600
+            radius: '55%',
+            center: ['50%', '50%'],
+            data: this.seriesData,
+            itemStyle: {
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
           }
         ]
       })
