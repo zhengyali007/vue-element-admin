@@ -271,8 +271,8 @@
           // this.waringCount = this.jsonData[1]
           const monitered = this.jsonData[2]
           const cpu = this.jsonData[3]
-          const memory = this.jsonData[4]
-          const disk = this.jsonData[5]
+          // const memory = this.jsonData[4]
+          // const disk = this.jsonData[5]
           // console.log(cpu)
           this.deviceCount.push(monitered)
           this.deviceCount.push(totalCount)
