@@ -7,7 +7,7 @@
           <span>主机设备数量总览</span>
         </div>
         <div class="container0" >
-          <cross-bar width="100%" height="100%" style="margin: auto;"></cross-bar>
+          <cross-bar :device-count="deviceCount" width="100%" height="100%" style="margin: auto;"></cross-bar>
         </div>
       </div>
     </el-col>
@@ -22,7 +22,7 @@
       </div>
     </el-col>
     <el-col :span="4">
-      <div id="box3" class="colBox0 grid-content bg-purple" >
+      <div id="box3"  class="colBox0 grid-content bg-purple" >
         <div class="title">
           <span>网络设备数量总览</span>
         </div>
@@ -70,16 +70,10 @@
     <el-col :span="12">
       <div id="box7" class="colBox2 grid-content bg-purple">
         <div class="title">
-          <span>核心CPU和内存实时利用率</span>
+          <span>设备警告数</span>
         </div>
-        <div class="mainContainer1" >
-          <break-pie width="90%" height="90%" style="margin: auto;"></break-pie>
-        </div>
-        <div class="mainContainer2" >
-          <break-pie width="90%" height="90%" style="margin: auto;"></break-pie>
-        </div>
-        <div class="mainContainer2" >
-          <break-pie width="90%" height="90%" style="margin: auto;"></break-pie>
+        <div class="container2" id="radar1">
+          <raddar-chart  width="100%" height="100%" style="margin: auto"></raddar-chart>
         </div>
       </div>
     </el-col>
@@ -163,11 +157,13 @@
   import GuageChart from './components/GuageChart'
   import PictorialBar from './components/PictorialBar'
   import Chart from 'vue-bulma-chartjs'
-  // import getCpu from '@/api/customerView/index'
+  import getHostPanorama from '@/api/customView/index'
+  import RaddarChart from './components/RaddarChart'
 
   export default {
-    name: 'customerView',
+    name: 'customView',
     components: {
+      RaddarChart,
       BarChart,
       PieChart,
       BreakPie,
@@ -184,6 +180,13 @@
           // background: 'url("/src/assets/customView/background5.jpg") no-repeat center fixed',
           // backgroundSize: 'cover'
         },
+        jsonData: [], //  取出的json数据
+        deviceCount: [], // 设备总量和被监控数
+        // waringCount: undefined, // 警告数
+        // monitorCount: undefined, // 已监控数量
+        // cpuUsedRates: [], // CPU使用率TOP10
+        // memoryUsedRates: [], // 内存使用率TOP10
+        // disks: [], // 存储设备使用率TOP10
         // 动态柱状图数据
         options: {
           legend: {
@@ -205,7 +208,8 @@
         label_1: ['', '', '', '', '', '', '', ''],
         data_1: [1, 9, 3, 4, 5, 6, 7, 8, 2].map(e => (Math.sin(e) * 25) + 25),
         data_2: [1, 2, 3, 4, 5, 6, 7, 8, 9].map(e => (Math.sin(e) * 25) + 25),
-        data_3: [6, 9, 3, 7, 5, 6, 5, 1, 2].map(e => (Math.sin(e) * 25) + 25),
+        data_3: [],
+        data_4: [],
         series: ['Product A', 'Product B']
       }
     },
@@ -246,7 +250,7 @@
           labels: this.label_1,
           datasets: [{
             label: '带宽',
-            data: this.data_1,
+            data: this.data_4,
             backgroundColor: this.backgroundColor[3]
           }]
         }
@@ -255,23 +259,34 @@
       ])
     },
     created() {
+    },
+    mounted() {
+      getHostPanorama()
+        .then(response => {
+          const allData = response.data
+          for (var k in allData) {
+            this.jsonData.push(allData[k])
+          }
+          const totalCount = this.jsonData[0]
+          // this.waringCount = this.jsonData[1]
+          const monitered = this.jsonData[2]
+          const cpu = this.jsonData[3]
+          const memory = this.jsonData[4]
+          const disk = this.jsonData[5]
+          // console.log(cpu)
+          this.deviceCount.push(monitered)
+          this.deviceCount.push(totalCount)
+          // console.log(this.deviceCount)
+          for (var index in cpu) {
+            this.data_3.push(cpu[index].usedRate)
+          }
+        })
       setInterval(() => {
         this.data_1.unshift(this.data_1.pop())
         this.data_2.unshift(this.data_2.pop())
         this.data_3.unshift(this.data_3.pop())
+        this.data_4.unshift(this.data_4.pop())
       }, 2000)
-    },
-    mounted() {
-      // getCpu()
-      //   .then(response => {
-      //     console.log(response.data)
-      //     const cpuData = response.data
-      //     console.log(cpuData[0].usedRate)
-      //     for (var i = 0; i < cpuData.length; i++) {
-      //       this.data_2.push(cpuData[i].usedRate)
-      //     }
-      //     console.log(this.data_2)
-      //   })
     },
     method: {
     }
@@ -450,20 +465,28 @@
     font-size: 100%;
   }
 
-
-
-  /*i {*/
-    /*display: block;*/
-    /*background: #f00;*/
-    /*color: white;*/
-    /*border-radius: 50%;*/
-    /*width: 16px;*/
-    /*height: 16px;*/
-    /*top: 2px;*/
-    /*right: -5px;*/
-    /*position: absolute;*/
-    /*font-size: 20%*/
-  /*}*/
+  #radar1:after {
+    content: ' ';
+    display: block;
+    background-image: linear-gradient(44deg, rgba(0, 255, 51, 0) 50%, #00ff33 100%);
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    animation: radar-beam 5s infinite;
+    animation-timing-function: linear;
+    transform-origin: bottom right;
+    border-radius: 100% 0 0 0;
+  }
+  @keyframes radar-beam {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 
 
 </style>

@@ -46,9 +46,9 @@ export const constantRouterMap = [
   {
     path: '',
     component: Layout,
-    redirect: 'customerView',
+    redirect: 'customView',
     children: [{
-      path: 'customerView',
+      path: 'customView',
       component: _import('customer-view/index'),
       name: '自定义视图',
       meta: { title: '自定义视图', icon: 'dashboard', noCache: true }

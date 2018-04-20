@@ -20,15 +20,28 @@
       height: {
         type: String,
         default: '300px'
+      },
+      deviceCount: {
+        type: Array,
+        default: function() {
+          return [10, 10]
+        }
       }
     },
     data() {
       return {
-        chart: null
+        chart: null,
+        dcount: this.deviceCount
+      }
+    },
+    watch: {
+      dcount: function() {
+        this.initChart()
       }
     },
     mounted() {
-      this.initChart()
+      console.log(this.deviceCount)
+      // this.initChart()
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -120,8 +133,8 @@
               },
               barWidth: 25,
               data: [{
-                name: '3',
-                value: 3,
+                name: 'test',
+                value: this.dcount[0],
                 label: {
                   normal: {
                     show: true,
@@ -136,7 +149,7 @@
                     // color:'red',
                   }
                 }
-              }, 1, 5]
+              }, this.dcount[1]]
             }
           ]
         })

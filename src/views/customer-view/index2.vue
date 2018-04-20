@@ -143,10 +143,10 @@
   import GuageChart from './components/GuageChart'
   import PictorialBar from './components/PictorialBar'
   import Chart from 'vue-bulma-chartjs'
-  // import getCpu from '@/api/customerView/index'
+  // import getCpu from '@/api/customView/index'
 
   export default {
-    name: 'customerView',
+    name: 'customView',
     components: {
       BarChart,
       PieChart,

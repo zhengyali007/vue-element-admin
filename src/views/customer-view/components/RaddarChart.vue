@@ -44,7 +44,10 @@ export default {
       }, {
         text: '指标五',
         value: 2.8
-      }]
+      }],
+      indicator: [],
+      testData: [],
+      radarStyle: {}
     }
   },
   mounted() {
@@ -65,47 +68,42 @@ export default {
     this.chart = null
   },
   methods: {
-    getRandom(range, count){
+    initChart() {
+      var minAngle = 10;	// 最小角度
+      // var indicator = [];
+      // var data = [];
+      var idx = 0
       var randomArr = []
-      for(var i = 0; i < count; i++) {
-        var r = Math.round(Math.random() * (range - 1))
+      for(var k = 0;k < this.mockData.length;k++){
+        var r = Math.round(Math.random() * (360 / minAngle - 1))
         randomArr.push(r)
       }
-      return randomArr
-    },
-    initChart() {
-      this.chart = echarts.init(this.$el, 'macarons')
-      var minAngle = 10	// 最小角度
-      var indicator = []
-      var data = []
-      var index = 0
-      var mockData = this.mockData
-      var randomArr = getRandom(360 / minAngle, mockData.length)
-      for (var i=0; i<360 / minAngle; i++) {
-        if(randomArr.indexOf(i) > -1){
-          indicator.push({
-            text: mockData[index].text
-          })
-          data.push(mockData[index].value)
-          index++
+      for (var i = 0; i < 360 / minAngle; i++) {
+        if (randomArr.indexOf(i) > -1) {
+          this.indicator.push({
+            text: this.mockData[idx].text
+          });
+          this.testData.push(this.mockData[idx].value);
+          idx++;
         } else {
-          indicator.push({
+          this.indicator.push({
             text: i * 10 + '`'
-          })
-          data.push('-')
+          });
+          this.testData.push('-');
         }
       }
+      this.chart = echarts.init(this.$el, 'macarons')
       this.chart.setOption({
         radar: [
           {
-            indicator: indicator,
+            indicator: this.indicator,
             center: ['50%', '50%'],
             radius: 180,
             startAngle: 90,
             splitNumber: 4,
             shape: 'circle',
             name: {
-              show: false
+              show: false,
               // formatter:'【{value}】',
               // textStyle: {
               //     color:'rgba(0, 255, 51, 1)'
@@ -171,7 +169,7 @@ export default {
             },
             data: [
               {
-                value: data,
+                value: this.testData,
                 label: {
                   normal: {
                     textStyle: {
@@ -193,3 +191,4 @@ export default {
   }
 }
 </script>
+
