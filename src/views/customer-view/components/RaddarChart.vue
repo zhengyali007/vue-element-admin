@@ -100,7 +100,7 @@ export default {
             center: ['50%', '50%'],
             radius: 180,
             startAngle: 90,
-            splitNumber: 4,
+            splitNumber: 6,
             shape: 'circle',
             name: {
               show: false,

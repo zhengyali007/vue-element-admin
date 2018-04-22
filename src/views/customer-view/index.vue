@@ -34,7 +34,7 @@
     <el-col :span="12">
       <div id="box4" class="colBox0 grid-content bg-purple" >
         <div class="title">
-          <span>图</span>
+          <span>折线图</span>
         </div>
         <div class="container0" >
           <!--<number-bar width="100%" height="100%" style="margin: auto;"></number-bar>-->
@@ -60,7 +60,7 @@
     <el-col :span="6">
       <div id="middleBox1" class="colBox2 grid-content bg-purple left" >
         <div class="title">
-          <span>图</span>
+          <span>存储增量图</span>
         </div>
         <div class="container2" >
           <pictorial-bar width="100%" height="100%" style="margin: auto;"></pictorial-bar>
@@ -72,8 +72,19 @@
         <div class="title">
           <span>设备警告数</span>
         </div>
-        <div class="container2" id="radar1">
-          <raddar-chart  width="100%" height="100%" style="margin: auto"></raddar-chart>
+        <div class="mainContainer">
+          <div class="radar"> </div>
+          <!--<raddar-chart width="100%" height="100%" style="margin: auto" class="radar"/>-->
+        <!--</div>-->
+        <!--<div class="mainContainer2 radar">-->
+          <!--<raddar-chart  width="100%" height="100%" style="margin: auto"></raddar-chart>-->
+        <!--</div>-->
+        <!--<div class="mainContainer3 radar">-->
+          <!--<raddar-chart  width="100%" height="100%" style="margin: auto"></raddar-chart>-->
+        <!--</div>-->
+
+        <!--<div class="container2" id="radar1">-->
+          <!--<raddar-chart  width="100%" height="100%" style="margin: auto"></raddar-chart>-->
         </div>
       </div>
     </el-col>
@@ -177,8 +188,8 @@
       return {
         // 设置背景div的样式
         backgroundStyle: {
-          // background: 'url("/src/assets/customView/background5.jpg") no-repeat center fixed',
-          // backgroundSize: 'cover'
+          background: 'url("/src/assets/customView/background8.jpg") no-repeat center fixed ',
+          backgroundSize: 'cover'
         },
         jsonData: [], //  取出的json数据
         deviceCount: [], // 设备总量和被监控数
@@ -295,12 +306,12 @@
 
 <style>
   #bodyContainer{
-    background: black;
     height: 100%;
     width: 100%;
     margin: auto;
     color: white;
   }
+
   .el-row {
     margin-bottom: 20px;
   }
@@ -383,19 +394,27 @@
     margin: auto;
   }
 
+
   .mainContainer1 {
-    left: 1%;
-    width: 98%;
-    height: 48%;
+    float: left;
+    left: 0.5%;
+    width: 30%;
+    height: 30%;
   }
 
   .mainContainer2 {
     float: left;
-    right: 1%;
-    width: 46%;
-    height: 48%;
-    margin: auto;
+    left: 35%;
+    width: 30%;
+    height: 30%;
   }
+  .mainContainer3 {
+    float: left;
+    left: 70%;
+    width: 30%;
+    height: 30%;
+  }
+
 
   .containerTie{
     width: 98%;
@@ -441,44 +460,64 @@
     position: relative;
   }
 
-  .warning{
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    font-size: 10px;
-    color: #fff;
-    text-align: center;
-    background-color: #f00;
+
+  .mainContainer {
+    left: 10%;
+    top: 10%;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(32, 255, 77, 0.15) 25%, rgba(32, 255, 77, 0.15) 26%, transparent 27%, transparent 74%, rgba(32, 255, 77, 0.15) 75%, rgba(32, 255, 77, 0.15) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(32, 255, 77, 0.15) 25%, rgba(32, 255, 77, 0.15) 26%, transparent 27%, transparent 74%, rgba(32, 255, 77, 0.15) 75%, rgba(32, 255, 77, 0.15) 76%, transparent 77%, transparent);
+    background-size: 5rem 5rem;
+    background-position: -5.2rem -5.2rem;
+    width: 80%;
+    height: 80%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-size: 1.6rem;
+  }
+
+  .radar {
+    /*background: -webkit-radial-gradient(center, rgba(32, 255, 77, 0.3) 0%, rgba(32, 255, 77, 0) 75%)  -webkit-repeating-radial-gradient(rgba(32, 255, 77, 0) 5.8%, rgba(32, 255, 77, 0) 18%, #20ff4d 18.6%, rgba(32, 255, 77, 0) 18.9%), -webkit-linear-gradient(90deg, rgba(32, 255, 77, 0) 49.5%, #20ff4d 50%, #20ff4d 50%, rgba(32, 255, 77, 0) 50.2%), -webkit-linear-gradient(0deg, rgba(32, 255, 77, 0) 49.5%, #20ff4d 50%, #20ff4d 50%, rgba(32, 255, 77, 0) 50.2%);*/
+    /*background: radial-gradient(center, rgba(32, 255, 77, 0.3) 0%, rgba(32, 255, 77, 0) 75%), repeating-radial-gradient(rgba(32, 255, 77, 0) 5.8%, rgba(32, 255, 77, 0) 18%, #20ff4d 18.6%, rgba(32, 255, 77, 0) 18.9%), linear-gradient(90deg, rgba(32, 255, 77, 0) 49.5%, #20ff4d 50%, #20ff4d 50%, rgba(32, 255, 77, 0) 50.2%), linear-gradient(0deg, rgba(32, 255, 77, 0) 49.5%, #20ff4d 50%, #20ff4d 50%, rgba(32, 255, 77, 0) 50.2%);*/
+    /*width: 75vw;*/
+    /*height: 75vw; */
+    width: 75%;
+    height: 75%;
+    max-height: 75%;
+    max-width: 75%;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     border-radius: 50%;
+    border: 0.2rem solid #20ff4d;
+    overflow: hidden;
+  }
+  .radar:before {
+    content: ' ';
+    display: block;
     position: absolute;
-    vertical-align: middle;
-    right: 26%;
-    top: 15%;
-  }
-
-
-  .resourceName {
     width: 100%;
-    height: 40%;
-    text-align: center;
-    line-height: 200%;
-    font-size: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: blips 5s infinite;
+    animation-timing-function: linear;
+    animation-delay: 1.4s;
   }
-
-  #radar1:after {
+  .radar:after {
     content: ' ';
     display: block;
     background-image: linear-gradient(44deg, rgba(0, 255, 51, 0) 50%, #00ff33 100%);
-    width: 180px;
-    height: 180px;
+    width: 50%;
+    height: 50%;
     position: absolute;
-    top: 20%;
-    left: 25%;
+    top: 0;
+    left: 0;
     animation: radar-beam 5s infinite;
     animation-timing-function: linear;
     transform-origin: bottom right;
     border-radius: 100% 0 0 0;
   }
+
   @keyframes radar-beam {
     0% {
       transform: rotate(0deg);
@@ -487,6 +526,50 @@
       transform: rotate(360deg);
     }
   }
+  @keyframes blips {
+    14% {
+      background: radial-gradient(2vmin circle at 75% 70%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%);
+    }
+    14.0002% {
+      background: radial-gradient(2vmin circle at 75% 70%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 63% 72%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%);
+    }
+    25% {
+      background: radial-gradient(2vmin circle at 75% 70%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 63% 72%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 56% 86%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%);
+    }
+    26% {
+      background: radial-gradient(2vmin circle at 75% 70%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 63% 72%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 56% 86%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%);
+      opacity: 1;
+    }
+    100% {
+      background: radial-gradient(2vmin circle at 75% 70%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 63% 72%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%), radial-gradient(2vmin circle at 56% 86%, #ffffff 10%, #20ff4d 30%, rgba(255, 255, 255, 0) 100%);
+      opacity: 0;
+    }
+  }
+
+
+
+  /*.radar :after {*/
+    /*content: ' ';*/
+    /*display: block;*/
+    /*background-image: linear-gradient(44deg, rgba(0, 255, 51, 0) 50%, #00ff33 100%);*/
+    /*!*width: 180px;*!*/
+    /*!*height: 180px;*!*/
+    /*position: absolute;*/
+    /*!*top: 20%;*!*/
+    /*!*left: 25%;*!*/
+    /*animation: radar-beam 5s infinite;*/
+    /*animation-timing-function: linear;*/
+    /*transform-origin: bottom right;*/
+    /*border-radius: 100% 0 0 0;*/
+  /*}*/
+  /*@keyframes radar-beam {*/
+    /*0% {*/
+      /*transform: rotate(0deg);*/
+    /*}*/
+    /*100% {*/
+      /*transform: rotate(360deg);*/
+    /*}*/
+  /*}*/
 
 
 </style>

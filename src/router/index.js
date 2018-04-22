@@ -45,15 +45,33 @@ export const constantRouterMap = [
   },
   {
     path: '',
+    name: 'panorama',
+    title: 'panorama',
     component: Layout,
     redirect: 'customView',
     children: [{
       path: 'customView',
       component: _import('customer-view/index'),
-      name: '自定义视图',
-      meta: { title: '自定义视图', icon: 'dashboard', noCache: true }
+      title: 'panorama1',
+      meta: { title: 'panorama1', icon: 'dashboard', noCache: true }
+    }, {
+      path: 'customView',
+      component: _import('customer-view/index2'),
+      title: 'panorama2',
+      meta: {title: 'panorama2', icon: 'dashboard', noCache: true}
     }]
   },
+  // {
+  //   path: '',
+  //   component: Layout,
+  //   redirect: 'customView2',
+  //   children: [{
+  //     path: 'customView',
+  //     component: _import('customer-view/index2'),
+  //     name: '全景视图2',
+  //     meta: {title: '全景视图2', icon: 'dashboard', noCache: true}
+  //   }]
+  // },
   {
     path: '',
     component: Layout,
