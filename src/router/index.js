@@ -44,22 +44,23 @@ export const constantRouterMap = [
     }]
   },
   {
-    path: '',
-    name: 'panorama',
+    path: '/panorama',
     title: 'panorama',
     component: Layout,
-    redirect: 'customView',
+    redirect: '/panorama/index',
+    alwaysShow: 'true',
+    meta: {title: 'panorama', icon: 'dashboard', noCache: true},
     children: [{
-      path: 'customView',
-      component: _import('customer-view/index'),
-      title: 'panorama1',
+      path: 'index',
+      component: _import('panorama/index'),
+      name: 'panorama1',
       meta: { title: 'panorama1', icon: 'dashboard', noCache: true }
     }, {
-      path: 'customView',
-      component: _import('customer-view/index2'),
-      title: 'panorama2',
-      meta: {title: 'panorama2', icon: 'dashboard', noCache: true}
-    }]
+        path: 'index2',
+        component: _import('panorama/index2'),
+        name: 'panorama2',
+        meta: { title: 'panorama2', icon: 'dashboard', noCache: true }
+      }]
   },
   // {
   //   path: '',
