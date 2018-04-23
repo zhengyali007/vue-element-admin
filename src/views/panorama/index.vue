@@ -1,60 +1,46 @@
 <template>
 <div id="bodyContainer" class="backgroundStyle" :style="backgroundStyle">
   <el-row :gutter="20">
-    <el-col :span="4">
+    <el-col :span="6">
       <div id="box1" class="colBox0 grid-content bg-purple left" >
         <div class="title">
           <span>主机设备数量总览</span>
         </div>
         <div class="container0" >
-          <cross-bar :device-count="hostDeviceCount" width="100%" height="100%" style="margin: auto;"></cross-bar>npm
+          <cross-bar :device-count="hostDeviceCount" width="100%" height="100%" style="margin: auto;"></cross-bar>
         </div>
       </div>
     </el-col>
-    <el-col :span="4">
+    <el-col :span="6">
       <div id="box2" class="colBox0 grid-content bg-purple" >
         <div class="title">
           <span>存储设备数量总览</span>
         </div>
         <div class="container0" >
-          <cross-bar width="100%" height="100%" style="margin: auto;"></cross-bar>
+          <cross-bar :device-count="storageDeviceCount" width="100%" height="100%" style="margin: auto;"></cross-bar>
         </div>
       </div>
     </el-col>
-    <el-col :span="4">
+    <el-col :span="6">
       <div id="box3"  class="colBox0 grid-content bg-purple" >
         <div class="title">
           <span>网络设备数量总览</span>
         </div>
         <div class="container0" >
-          <cross-bar width="100%" height="100%" style="margin: auto;"></cross-bar>
+          <cross-bar :device-count="networkDeviceCount" width="100%" height="100%" style="margin: auto;"></cross-bar>
         </div>
       </div>
     </el-col>
-    <el-col :span="12">
-      <div id="box4" class="colBox0 grid-content bg-purple" >
+    <el-col :span="6">
+      <div id="box6" class="colBox0 grid-content bg-purple right" >
         <div class="title">
-          <span>折线图</span>
+          <span>网络设备带宽利用率Top10</span>
         </div>
-        <div class="container0" >
-          <!--<number-bar width="100%" height="100%" style="margin: auto;"></number-bar>-->
+        <div class="container1" >
+          <chart :type="'bar'" :data="waveData2" :options="options" style="width: 100%; height:85%;margin-top: 5px"></chart>
         </div>
       </div>
     </el-col>
-    <!--<el-col :span="4">-->
-      <!--<div id="box5" class="colBox0 grid-content bg-purple container0" >-->
-        <!--&lt;!&ndash;<div class="resourceNumber">556</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="warning">1</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="resourceName">存储设备</div>&ndash;&gt;-->
-      <!--</div>-->
-    <!--</el-col>-->
-    <!--<el-col :span="4">-->
-      <!--<div id="box6" class="colBox0 grid-content bg-purple container0 right" >-->
-        <!--&lt;!&ndash;<div class="resourceNumber">99</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="warning">12</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="resourceName">网络设备</div>&ndash;&gt;-->
-      <!--</div>-->
-    <!--</el-col>-->
   </el-row>
   <el-row :gutter="20">
     <el-col :span="6">
@@ -63,7 +49,8 @@
           <span>存储增量图</span>
         </div>
         <div class="container2" >
-          <pictorial-bar width="100%" height="100%" style="margin: auto;"></pictorial-bar>
+          <pictorial-bar :storage-count="storageCount" width="100%" height="100%" style="margin: auto"></pictorial-bar>
+          <!--<pictorial-bar width="100%" height="100%" style="margin: auto;"></pictorial-bar>-->
         </div>
       </div>
     </el-col>
@@ -94,13 +81,13 @@
           <span>网络设备总览</span>
         </div>
         <div class="containerTie" >
-          <pie-chart width="90%" height="90%" style="margin: auto;"></pie-chart>
+          <pie-chart :device-name="netDeviceOverviewName" :overview-data="netDeviceOverview"  width="90%" height="90%" style="margin: auto;"></pie-chart>
         </div>
         <div class="title">
           <span>服务器总览</span>
         </div>
         <div class="containerTie" >
-          <pie-chart width="90%" height="90%" style="margin: auto;"></pie-chart>
+          <pie-chart :device-name="serverOverviewName" :overview-data="serverOverview" width="90%" height="90%" style="margin: auto;"></pie-chart>
         </div>
       </div>
     </el-col>
@@ -162,6 +149,7 @@
   import { mapGetters } from 'vuex'
   // 组件
   import BarChart from './components/BarChart'
+  import BarLine from './components/BarChart2'
   import CrossBar from './components/CrossBar'
   import PieChart from './components/PieChart'
   import BreakPie from './components/PieChart2'
@@ -171,11 +159,11 @@
   import Chart from 'vue-bulma-chartjs'
   import RaddarChart from './components/RaddarChart'
   // 接口
-  import getHostPanorama from '@/api/customView/index'
-  // import getDeviceCount from '@/api/customView/index'
-  import getHostDevice from '@/api/customView/index'
-  import getNetworkDevice from '@/api/customView/index'
-  import getStorageDevice from '@/api/customView/index'
+  // import getHostPanorama from '@/api/customView/index'
+  import { getDeviceCount } from '@/api/customView/index'
+  import { getHostDevice } from '@/api/customView/index'
+  import { getNetworkDevice } from '@/api/customView/index'
+  import { getStorageDevice } from '@/api/customView/index'
 
   export default {
     name: 'customView',
@@ -188,7 +176,8 @@
       LineChart,
       GuageChart,
       PictorialBar,
-      CrossBar
+      CrossBar,
+      BarLine
     },
     data() {
       return {
@@ -199,6 +188,8 @@
         },
         jsonData: [], //  取出的json数据
         deviceCount: [], // 设备总量和被监控数
+        jsonData0_key: [],
+        jsonData0_value: [],
         jsonData1: [],
         jsonData2: [],
         jsonData3: [],
@@ -206,6 +197,11 @@
         hostDeviceCount: [],
         networkDeviceCount: [],
         storageDeviceCount: [],
+        storageCount: [],
+        serverOverviewName: [],
+        serverOverview: [],
+        netDeviceOverviewName: [],
+        netDeviceOverview: [],
         // 动态柱状图数据
         options: {
           legend: {
@@ -225,18 +221,20 @@
         ],
         // label_1: ['May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
         label_1: ['', '', '', '', '', ''],
+        label_2: ['', '', '', '', '', '', '', '', '', '', ''],
         data_1: [],
         data_2: [],
         data_3: [],
         data_4: [],
-        series: ['Product A', 'Product B']
+        data_5: []
+        // series: ['Product A', 'Product B']
       }
     },
     computed: {
       // 动态柱状图的数据绑定
       waveData() {
         return {
-          labels: this.label_1,
+          labels: this.label_2,
           datasets: [{
             label: 'CPU利用率',
             data: this.data_1,
@@ -246,7 +244,7 @@
       },
       waveData2() {
         return {
-          labels: this.label_1,
+          labels: this.label_2,
           datasets: [{
             label: '内存利用率',
             data: this.data_2,
@@ -256,7 +254,7 @@
       },
       waveData3() {
         return {
-          labels: this.label_1,
+          labels: this.label_2,
           datasets: [{
             label: 'CPU利用率',
             data: this.data_3,
@@ -268,9 +266,13 @@
         return {
           labels: this.label_1,
           datasets: [{
-            label: '内存利用率',
+            label: '输入率',
             data: this.data_4,
-            backgroundColor: this.backgroundColor[3]
+            backgroundColor: this.backgroundColor[0]
+          }, {
+            label: '输出率',
+            data: this.data_5,
+            backgroundColor: this.backgroundColor[1]
           }]
         }
       },
@@ -282,68 +284,90 @@
     mounted() {
       // 接口
       // 设备数量信息
-      // getDeviceCount()
-      //   .then(response => {
-      //     console.log(response.data)
-      //   })
+      getDeviceCount()
+        .then(response => {
+          const data0 = response.data
+          // console.log(data)
+          for (var k in data0) {
+            // console.log(k)
+            this.jsonData0_key.push(k)
+            this.jsonData0_value.push(data0[k])
+          }
+          this.serverOverviewName.push(this.jsonData0_key[0], this.jsonData0_key[1])
+          this.netDeviceOverviewName.push(this.jsonData0_key[2], this.jsonData0_key[3])
+          this.serverOverview.push(this.jsonData0_value[0], this.jsonData0_value[1])
+          this.netDeviceOverview.push(this.jsonData0_value[2], this.jsonData0_value[3])
+        })
       // 主机设备信息
       getHostDevice()
         .then(response => {
           const data1 = response.data
-          // console.log(data1)
           // 取出json数据
           for (var k in data1) {
             // console.log(data1[k])
             this.jsonData1.push(data1[k])
           }
-          const total_1 = this.jsonData1[0] // 设备总数量
+          const monitor_1 = this.jsonData1[0] // 设备总数量
           // const warning_1 = this.jsonData1[1] // 设备警告数
-          const monitor_1 = this.jsonData1[2] // 设备监控数
+          const total_1 = this.jsonData1[2] // 设备监控数
           const cpuUsedRate_1 = this.jsonData1[3] //  CPU利用率
           const memoryUsedRate_1 = this.jsonData1[4] // 内存利用率
           // const diskUsedRate_1 = this.jsonData1[5] // 存储利用率
           // this.hostDeviceCount = []
           this.hostDeviceCount.push(monitor_1, total_1)
-          // this.hostDeviceCount.push()
-          // console.log(this.hostDeviceCount)
           for (var index1 in cpuUsedRate_1) {
+            // console.log(cpuUsedRate_1[index1])
             this.data_1.push(cpuUsedRate_1[index1].usedRate)
           }
           for (var index2 in memoryUsedRate_1) {
             this.data_2.push(memoryUsedRate_1[index2].usedRate)
           }
           // console.log(this.data_1)
-          // console.log(this.data_2)
         })
-      // // 网络设备信息
-      // getNetworkDevice()
-      //   .then(response => {
-      //     console.log(response.data)
-      //   })
-      // // 存储设备信息
-      // getStorageDevice()
-      //   .then(response => {
-      //     console.log(response.data)
-      //   })
-      getHostPanorama()
+      // 网络设备信息
+      getNetworkDevice()
         .then(response => {
-          const allData = response.data
-          for (var k in allData) {
-            this.jsonData.push(allData[k])
+          const data2 = response.data
+          // console.log(data2)
+          // 取出json数据
+          for (var k in data2) {
+            // console.log(data1[k])
+            this.jsonData2.push(data2[k])
           }
-          const totalCount = this.jsonData[0]
-          // this.waringCount = this.jsonData[1]
-          const monitered = this.jsonData[2]
-          const cpu = this.jsonData[3]
-          // const memory = this.jsonData[4]
-          // const disk = this.jsonData[5]
-          // console.log(cpu)
-          this.deviceCount.push(monitered)
-          this.deviceCount.push(totalCount)
-          // console.log(this.deviceCount)
-          for (var index in cpu) {
-            this.data_3.push(cpu[index].usedRate)
+          const monitor_2 = this.jsonData2[0] // 设备总数量
+          // const warning_1 = this.jsonData1[1] // 设备警告数
+          const total_2 = this.jsonData2[2] // 设备监控数
+          const cpuUsedRate_2 = this.jsonData2[3] //  CPU利用率
+          const ioRate = this.jsonData2[4] // 内存利用率
+          // const diskUsedRate_2 = this.jsonData1[5] // 存储利用率
+          // this.hostDeviceCount = []
+          this.networkDeviceCount.push(monitor_2, total_2)
+          for (var index1 in cpuUsedRate_2) {
+            this.data_3.push(cpuUsedRate_2[index1].usedRate)
           }
+          for (var index2 in ioRate) {
+            this.data_4.push(ioRate[index2].inputRate)
+            this.data_5.push(ioRate[index2].outputRate)
+          }
+        })
+      // // 存储设备信息
+      getStorageDevice()
+        .then(response => {
+          const data3 = response.data
+          // console.log(data3)
+          // 取出json数据
+          for (var k in data3) {
+            // console.log(data3[k])
+            this.jsonData3.push(data3[k])
+          }
+          // const total_3 = this.jsonData3[0] // 设备总数量
+          // const warning_3 = this.jsonData3[1] // 设备警告数
+          // const monitor_3 = this.jsonData3[2] // 设备监控数
+          const totalStorage = this.jsonData3[3]
+          const thisMonthStorage = this.jsonData3[4]
+          const lastMonthStorage = this.jsonData3[5]
+          this.storageDeviceCount.push(this.jsonData3[2], this.jsonData3[0])
+          this.storageCount.push(lastMonthStorage, thisMonthStorage, totalStorage)
         })
       // 柱状图轮播效果
       setInterval(() => {
@@ -351,6 +375,7 @@
         this.data_2.unshift(this.data_2.pop())
         this.data_3.unshift(this.data_3.pop())
         this.data_4.unshift(this.data_4.pop())
+        this.data_5.unshift(this.data_5.pop())
       }, 2000)
     },
     method: {
@@ -363,6 +388,10 @@
 </script>
 
 <style>
+  html {
+    width: 100%;
+    height: 100%;
+  }
   #bodyContainer{
     height: 100%;
     width: 100%;
@@ -410,7 +439,7 @@
 
   .colBox0{
     margin-top: 20px;
-    height: 250px;
+    height: 300px;
   }
 
   .colBox1{
@@ -429,7 +458,7 @@
   .title{
     font-weight: bold;
     width: 80%;
-    height: 30px;
+    height: 0;
     margin-left: 10px;
     padding: 10px;
     /*margin-top: 15px;*/
@@ -539,7 +568,8 @@
     /*width: 75vw;*/
     /*height: 75vw; */
     width: 75%;
-    height: 75%;
+    height: 0;
+    padding-bottom: 75%;
     max-height: 75%;
     max-width: 75%;
     position: relative;

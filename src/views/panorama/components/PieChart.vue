@@ -20,12 +20,26 @@ export default {
     height: {
       type: String,
       default: '300px'
+    },
+    deviceName: {
+      type: Array,
+      default: function() {
+        return ['', '']
+      }
+    },
+    overviewData: {
+      type: Array,
+      default: function() {
+        return [10, 10]
+      }
     }
   },
   data() {
     return {
       chart: null,
-      nameList: ['linux', 'windows', '路由器', '交换机', '网关', '安全设备', 'mac', '防火墙'],
+      ovData: this.overviewData,
+      ovName: this.deviceName,
+      // nameList: ['linux', 'windows', '路由器', '交换机', '网关', '安全设备', 'mac', '防火墙'],
       legendData: [],
       seriesData: [],
       selected: []
@@ -41,16 +55,26 @@ export default {
     //   }
     // }
   },
+  watch: {
+    ovData: function() {
+      this.getData()
+      this.initChart()
+    },
+    deviceName: function() {
+      this.getData()
+      this.initChart()
+    }
+  },
   mounted() {
     // console.log(this)
     // this.getData()
     // this.initChart()
-    const that = this
-    setInterval(function() {
-      // console.log(this)
-      that.getData()
-      that.initChart()
-    }, 2000)
+    // const that = this
+    // setInterval(function() {
+    //   // console.log(this)
+    //   that.getData()
+    //   that.initChart()
+    // }, 2000)
     this.__resizeHanlder = debounce(() => {
       if (this.chart) {
         this.chart.resize()
@@ -71,27 +95,16 @@ export default {
       this.legendData = []
       this.seriesData = []
       this.selected = []
-      for (var i = 0; i < this.nameList.length; i++) {
-        var name = this.nameList[i]
-        // Math.random() > 0.65
-        // ? this.makeWord(4, 1) + '·' + this.makeWord(3, 0)
-        // : this.makeWord(2, 1)
+      for (var i = 0; i < this.deviceName.length; i++) {
+        var name = this.deviceName[i]
         this.legendData.push(name)
         this.seriesData.push({
           name: name,
-          value: Math.round(Math.random() * 100000)
+          value: this.ovData[i]
         })
         this.selected[name] = i
       }
     },
-    // makeWord(max, min) {
-    //   var nameLen = Math.ceil(Math.random() * max + min)
-    //   var name = []
-    //   for (var i = 0; i < nameLen; i++) {
-    //     name.push(this.nameList[Math.round(Math.random() * this.nameList.length - 1)])
-    //   }
-    //   return name.join('')
-    // },
     initChart() {
       this.chart = echarts.init(this.$el, 'macarons')
 

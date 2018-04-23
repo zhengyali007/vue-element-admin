@@ -49,170 +49,216 @@
         this.chart = echarts.init(this.$el, 'macarons')
 
         this.chart.setOption({
-          legend: {
-            bottom: 20,
-            textStyle: {
-              color: '#fff'
-            },
-            data: ['男', '女']
-          },
-          grid: {
-            left: '10%',
-            right: '10%',
-            bottom: '10%',
-            containLabel: true
-          },
-
-          tooltip: {
-            show: 'true',
-            trigger: 'axis',
-            axisPointer: { // 坐标轴指示器，坐标轴触发有效
-              type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-            }
-          },
-          yAxis: {
-            type: 'value',
-            axisTick: {
-              show: false
-            },
-            axisLine: {
-              show: false,
-              lineStyle: {
-                color: '#fff'
-              }
-            },
-            splitLine: {
-              show: true,
-              lineStyle: {
-                color: '#aaa'
+          // 'title': {
+          //   'text': '自定义的折柱混合--BarLine',
+          //   'left': 'center',
+          //   'y': '10',
+          //   'textStyle': {
+          //     'color': '#fff'
+          //   }
+          // },
+          'backgroundColor': '#1c2e40',
+          'color': '#384757',
+          'tooltip': {
+            'trigger': 'axis',
+            'axisPointer': {
+              'type': 'cross',
+              'crossStyle': {
+                'color': '#384757'
               }
             }
           },
-          xAxis: [{
-            type: 'category',
-            axisTick: {
-              show: false
-            },
-            axisLine: {
-              show: true,
-              lineStyle: {
-                color: '#fff'
+          'legend': {
+            'data': [
+              {
+                'name': '待处理',
+                'icon': 'circle',
+                'textStyle': {
+                  'color': '#7d838b'
+                }
+              },
+              {
+                'name': '已处理',
+                'icon': 'circle',
+                'textStyle': {
+                  'color': '#7d838b'
+                }
+              },
+              {
+                'name': '完成率',
+                'icon': 'circle',
+                'textStyle': {
+                  'color': '#7d838b'
+                }
               }
-            },
-            data: ['会', '不会', '看情况']
-          }, {
-            type: 'category',
-            axisLine: {
-              show: false
-            },
-            axisTick: {
-              show: false
-            },
-            axisLabel: {
-              show: false
-            },
-            splitArea: {
-              show: false
-            },
-            splitLine: {
-              show: false
-            },
-            data: ['会', '不会', '看情况']
-          }
-
+            ],
+            'top': '10%',
+            'textStyle': {
+              'color': '#fff'
+            }
+          },
+          'xAxis': [
+            {
+              'type': 'category',
+              'data': [
+                '1街',
+                '2街',
+                '3街',
+                '4街',
+                '5街',
+                '6街'
+              ],
+              'axisPointer': {
+                'type': 'shadow'
+              },
+              'axisLabel': {
+                'show': true,
+                'textStyle': {
+                  'color': '#7d838b'
+                }
+              }
+            }
           ],
-          series: [{
-            name: '总人数',
-            type: 'bar',
-            xAxisIndex: 1,
-            itemStyle: {
-              normal: {
-                show: true,
-                color: '#277ace',
-                barBorderRadius: 50,
-                borderWidth: 0,
-                borderColor: '#333'
-              }
-            },
-            barWidth: '20%',
-            data: [33, 33, 33]
-          }, {
-            name: '总人数',
-            type: 'bar',
-            xAxisIndex: 1,
-
-            itemStyle: {
-              normal: {
-                show: true,
-                color: '#277ace',
-                barBorderRadius: 50,
-                borderWidth: 0,
-                borderColor: '#333'
-              }
-            },
-            barWidth: '20%',
-            barGap: '100%',
-            data: [51, 51, 51]
-          }, {
-            name: '男',
-            type: 'bar',
-            itemStyle: {
-              normal: {
-                show: true,
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: '#00FFE6'
-                }, {
-                  offset: 1,
-                  color: '#007CC6'
-                }]),
-                barBorderRadius: 50,
-                borderWidth: 0,
-                borderColor: '#333'
-              }
-            },
-            label: {
-              normal: {
-                show: true,
-                position: 'top',
-                textStyle: {
-                  color: '#fff'
+          'yAxis': [
+            {
+              'type': 'value',
+              'name': '不文明现象',
+              'nameTextStyle': {
+                'color': '#7d838b'
+              },
+              'min': 0,
+              'max': 50,
+              'interval': 10,
+              'axisLabel': {
+                'show': true,
+                'textStyle': {
+                  'color': '#7d838b'
+                }
+              },
+              'axisLine': {
+                'show': true
+              },
+              'splitLine': {
+                'lineStyle': {
+                  'color': '#7d838b'
                 }
               }
             },
-            barWidth: '20%',
-            data: [8, 15, 10]
-          }, {
-            name: '女',
-            type: 'bar',
-            barWidth: '20%',
-            itemStyle: {
-              normal: {
-                show: true,
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: '#3023AE'
-                }, {
-                  offset: 1,
-                  color: '#C96DD8'
-                }]),
-                barBorderRadius: 50,
-                borderWidth: 0,
-                borderColor: '#333'
+            {
+              'type': 'value',
+              'name': '完成率',
+              'show': true,
+              'axisLabel': {
+                'show': true,
+                'textStyle': {
+                  'color': '#7d838b'
+                }
               }
-            },
-            label: {
-              normal: {
-                show: true,
-                position: 'top',
-                textStyle: {
-                  color: '#fff'
+            }
+          ],
+          'grid': {
+            'top': '20%'
+          },
+          'series': [
+            {
+              'name': '待处理',
+              'type': 'bar',
+              'data': [
+                4,
+                6,
+                36,
+                6,
+                8,
+                6
+              ],
+              'barWidth': 'auto',
+              'itemStyle': {
+                'normal': {
+                  'color': {
+                    'type': 'linear',
+                    'x': 0,
+                    'y': 0,
+                    'x2': 0,
+                    'y2': 1,
+                    'colorStops': [
+                      {
+                        'offset': 0,
+                        'color': 'rgba(255,37,117,0.7)'
+                      },
+                      {
+                        'offset': 0.5,
+                        'color': 'rgba(0,133,245,0.7)'
+                      },
+                      {
+                        'offset': 1,
+                        'color': 'rgba(0,133,245,0.3)'
+                      }
+                    ],
+                    'globalCoord': false
+                  }
                 }
               }
             },
-            barGap: '100%',
-            data: [8, 17, 26]
-          }]
+            {
+              'name': '已处理',
+              'type': 'bar',
+              'data': [
+                4,
+                2,
+                36,
+                6,
+                8,
+                6
+              ],
+              'barWidth': 'auto',
+              'itemStyle': {
+                'normal': {
+                  'color': {
+                    'type': 'linear',
+                    'x': 0,
+                    'y': 0,
+                    'x2': 0,
+                    'y2': 1,
+                    'colorStops': [
+                      {
+                        'offset': 0,
+                        'color': 'rgba(255,37,117,0.7)'
+                      },
+                      {
+                        'offset': 0.5,
+                        'color': 'rgba(0,255,252,0.7)'
+                      },
+                      {
+                        'offset': 1,
+                        'color': 'rgba(0,255,252,0.3)'
+                      }
+                    ],
+                    'globalCoord': false
+                  }
+                }
+              },
+              'barGap': '0'
+            },
+            {
+              'name': '完成率',
+              'type': 'line',
+              'yAxisIndex': 1,
+              'data': [
+                100,
+                33,
+                100,
+                100,
+                100,
+                100
+              ],
+              'itemStyle': {
+                'normal': {
+                  'color': '#ffaa00'
+                }
+              },
+              'smooth': true
+            }
+          ]
         })
       }
     }

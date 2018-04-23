@@ -1,11 +1,11 @@
 import request from '@/utils/request'
 
-export default function getHostPanorama() {
-  return request({
-    url: '/src/api/customView/HostPanorama.json'
-    // method: 'get'
-  })
-}
+// export default function getHostPanorama() {
+//   return request({
+//     url: '/src/api/customView/HostPanorama.json'
+//     // method: 'get'
+//   })
+// }
 
 export function getDeviceCount() {
   return request({
@@ -16,7 +16,7 @@ export function getDeviceCount() {
 
 export function getHostDevice() {
   return request({
-    url: '/src/api/customView/hostdevice.json'
+    url: 'src/api/customView/hostdevice.json'
     // method: 'get'
   })
 }

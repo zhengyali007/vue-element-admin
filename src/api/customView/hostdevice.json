@@ -11,47 +11,47 @@
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "c22d61882df9494e8b5d017ffc9aef18",
-      "usedRate": "0.00"
+      "usedRate": "90.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "94d1edd97bef40b29e500b6df92ab08f",
-      "usedRate": "0.00"
+      "usedRate": "15.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "66ad25c0562c4c9f9c4a43e01c69f1f8",
-      "usedRate": "0.00"
+      "usedRate": "56.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "5d75bd23bb9844db8f360fea15cef702",
-      "usedRate": "0.00"
+      "usedRate": "34.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "60d32250dabf4f1793422cb9086261c3",
-      "usedRate": "0.00"
+      "usedRate": "55.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "446994fa3bb94f6dbb12539a68aad04b",
-      "usedRate": "0.00"
+      "usedRate": "66.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "6c00473241ba4a0faf052a4e7455b1aa",
-      "usedRate": "0.00"
+      "usedRate": "89.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "c88a7025ec7b4331a4a3b7f6ea13af61",
-      "usedRate": "0.00"
+      "usedRate": "23.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "bc2915d846004ea3b79ae1361fd449b8",
-      "usedRate": "0.00"
+      "usedRate": "89.00"
     }
   ],
   "memoryUsedRates": [
@@ -63,47 +63,47 @@
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "c22d61882df9494e8b5d017ffc9aef18",
-      "usedRate": "0.00"
+      "usedRate": "45.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "94d1edd97bef40b29e500b6df92ab08f",
-      "usedRate": "0.00"
+      "usedRate": "19.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "66ad25c0562c4c9f9c4a43e01c69f1f8",
-      "usedRate": "0.00"
+      "usedRate": "99.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "5d75bd23bb9844db8f360fea15cef702",
-      "usedRate": "0.00"
+      "usedRate": "100.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "60d32250dabf4f1793422cb9086261c3",
-      "usedRate": "0.00"
+      "usedRate": "62.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "446994fa3bb94f6dbb12539a68aad04b",
-      "usedRate": "0.00"
+      "usedRate": "66.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "6c00473241ba4a0faf052a4e7455b1aa",
-      "usedRate": "0.00"
+      "usedRate": "41.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "c88a7025ec7b4331a4a3b7f6ea13af61",
-      "usedRate": "0.00"
+      "usedRate": "5.00"
     },
     {
       "createDate": "2018-04-20 12:34:49",
       "resourceId": "bc2915d846004ea3b79ae1361fd449b8",
-      "usedRate": "0.00"
+      "usedRate": "88.00"
     }
   ],
   "disks": [
@@ -119,7 +119,7 @@
       "total": null,
       "used": null,
       "free": null,
-      "usedRate": "544.73",
+      "usedRate": "88.73",
       "resourceId": "bf0d3e9344ea418f8e3f1492219256d2",
       "sort": null
     },
@@ -135,7 +135,7 @@
       "total": null,
       "used": null,
       "free": null,
-      "usedRate": "152.21",
+      "usedRate": "69.21",
       "resourceId": "c688f05428094993bef9241e36d1806c",
       "sort": null
     },
