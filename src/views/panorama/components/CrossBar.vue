@@ -40,7 +40,7 @@
       }
     },
     mounted() {
-      console.log(this.deviceCount)
+      // console.log(this.deviceCount)
       // this.initChart()
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {

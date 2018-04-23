@@ -7,7 +7,7 @@
           <span>主机设备数量总览</span>
         </div>
         <div class="container0" >
-          <cross-bar :device-count="deviceCount" width="100%" height="100%" style="margin: auto;"></cross-bar>npm
+          <cross-bar :device-count="hostDeviceCount" width="100%" height="100%" style="margin: auto;"></cross-bar>npm
         </div>
       </div>
     </el-col>
@@ -113,7 +113,7 @@
           <span>主机设备CPU利用率Top10</span>
         </div>
         <div class="container1" >
-          <chart :type="'bar'" :data="waveData3" :options="options" style="width: 100%; height: 100%"></chart>
+          <chart :type="'bar'" :data="waveData" :options="options" style="width: 100%; height: 100%"></chart>
         </div>
       </div>
     </el-col>
@@ -123,7 +123,7 @@
           <span>主机设备内存利用率Top10</span>
         </div>
         <div class="container1" >
-          <chart :type="'bar'" :data="waveData4" :options="options" style="width: 100%; height: 100%"></chart>
+          <chart :type="'bar'" :data="waveData2" :options="options" style="width: 100%; height: 100%"></chart>
         </div>
       </div>
     </el-col>
@@ -133,7 +133,7 @@
           <span>网络设备CPU利用率Top10</span>
         </div>
         <div class="container1 chartContainer">
-          <chart :type="'bar'" :data="waveData" :options="options" style="width: 100%; height: 100%"></chart>
+          <chart :type="'bar'" :data="waveData3" :options="options" style="width: 100%; height: 100%"></chart>
         </div>
       </div>
     </el-col>
@@ -143,7 +143,7 @@
           <span>网络设备内存利用率Top10</span>
         </div>
         <div class="container1">
-          <chart :type="'bar'" :data="waveData2" :options="options" style="width: 100%; height: 100%"></chart>
+          <chart :type="'bar'" :data="waveData4" :options="options" style="width: 100%; height: 100%"></chart>
         </div>
       </div>
     </el-col>
@@ -160,6 +160,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  // 组件
   import BarChart from './components/BarChart'
   import CrossBar from './components/CrossBar'
   import PieChart from './components/PieChart'
@@ -168,8 +169,13 @@
   import GuageChart from './components/GuageChart'
   import PictorialBar from './components/PictorialBar'
   import Chart from 'vue-bulma-chartjs'
-  import getHostPanorama from '@/api/customView/index'
   import RaddarChart from './components/RaddarChart'
+  // 接口
+  import getHostPanorama from '@/api/customView/index'
+  // import getDeviceCount from '@/api/customView/index'
+  import getHostDevice from '@/api/customView/index'
+  import getNetworkDevice from '@/api/customView/index'
+  import getStorageDevice from '@/api/customView/index'
 
   export default {
     name: 'customView',
@@ -193,11 +199,13 @@
         },
         jsonData: [], //  取出的json数据
         deviceCount: [], // 设备总量和被监控数
-        // waringCount: undefined, // 警告数
-        // monitorCount: undefined, // 已监控数量
-        // cpuUsedRates: [], // CPU使用率TOP10
-        // memoryUsedRates: [], // 内存使用率TOP10
-        // disks: [], // 存储设备使用率TOP10
+        jsonData1: [],
+        jsonData2: [],
+        jsonData3: [],
+        jsonData4: [],
+        hostDeviceCount: [],
+        networkDeviceCount: [],
+        storageDeviceCount: [],
         // 动态柱状图数据
         options: {
           legend: {
@@ -216,9 +224,9 @@
           '#FFFFFF'
         ],
         // label_1: ['May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
-        label_1: ['', '', '', '', '', '', '', ''],
-        data_1: [1, 9, 3, 4, 5, 6, 7, 8, 2].map(e => (Math.sin(e) * 25) + 25),
-        data_2: [1, 2, 3, 4, 5, 6, 7, 8, 9].map(e => (Math.sin(e) * 25) + 25),
+        label_1: ['', '', '', '', '', ''],
+        data_1: [],
+        data_2: [],
         data_3: [],
         data_4: [],
         series: ['Product A', 'Product B']
@@ -230,7 +238,7 @@
         return {
           labels: this.label_1,
           datasets: [{
-            label: 'CPU',
+            label: 'CPU利用率',
             data: this.data_1,
             backgroundColor: this.backgroundColor[0]
           }]
@@ -240,7 +248,7 @@
         return {
           labels: this.label_1,
           datasets: [{
-            label: '内存',
+            label: '内存利用率',
             data: this.data_2,
             backgroundColor: this.backgroundColor[1]
           }]
@@ -250,7 +258,7 @@
         return {
           labels: this.label_1,
           datasets: [{
-            label: '带宽',
+            label: 'CPU利用率',
             data: this.data_3,
             backgroundColor: this.backgroundColor[2]
           }]
@@ -260,7 +268,7 @@
         return {
           labels: this.label_1,
           datasets: [{
-            label: '带宽',
+            label: '内存利用率',
             data: this.data_4,
             backgroundColor: this.backgroundColor[3]
           }]
@@ -272,6 +280,51 @@
     created() {
     },
     mounted() {
+      // 接口
+      // 设备数量信息
+      // getDeviceCount()
+      //   .then(response => {
+      //     console.log(response.data)
+      //   })
+      // 主机设备信息
+      getHostDevice()
+        .then(response => {
+          const data1 = response.data
+          // console.log(data1)
+          // 取出json数据
+          for (var k in data1) {
+            // console.log(data1[k])
+            this.jsonData1.push(data1[k])
+          }
+          const total_1 = this.jsonData1[0] // 设备总数量
+          // const warning_1 = this.jsonData1[1] // 设备警告数
+          const monitor_1 = this.jsonData1[2] // 设备监控数
+          const cpuUsedRate_1 = this.jsonData1[3] //  CPU利用率
+          const memoryUsedRate_1 = this.jsonData1[4] // 内存利用率
+          // const diskUsedRate_1 = this.jsonData1[5] // 存储利用率
+          // this.hostDeviceCount = []
+          this.hostDeviceCount.push(monitor_1, total_1)
+          // this.hostDeviceCount.push()
+          // console.log(this.hostDeviceCount)
+          for (var index1 in cpuUsedRate_1) {
+            this.data_1.push(cpuUsedRate_1[index1].usedRate)
+          }
+          for (var index2 in memoryUsedRate_1) {
+            this.data_2.push(memoryUsedRate_1[index2].usedRate)
+          }
+          // console.log(this.data_1)
+          // console.log(this.data_2)
+        })
+      // // 网络设备信息
+      // getNetworkDevice()
+      //   .then(response => {
+      //     console.log(response.data)
+      //   })
+      // // 存储设备信息
+      // getStorageDevice()
+      //   .then(response => {
+      //     console.log(response.data)
+      //   })
       getHostPanorama()
         .then(response => {
           const allData = response.data
@@ -292,6 +345,7 @@
             this.data_3.push(cpu[index].usedRate)
           }
         })
+      // 柱状图轮播效果
       setInterval(() => {
         this.data_1.unshift(this.data_1.pop())
         this.data_2.unshift(this.data_2.pop())
@@ -301,6 +355,10 @@
     },
     method: {
     }
+    // watch: {
+    //   hostDeviceCount: function() {
+    //   }
+    // }
   }
 </script>
 
