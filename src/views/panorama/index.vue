@@ -32,12 +32,12 @@
       </div>
     </el-col>
     <el-col :span="6">
-      <div id="box6" class="colBox0 grid-content bg-purple right" >
+      <div id="smallBox4" class="colBox0 grid-content bg-purple right" >
         <div class="title">
           <span>网络设备带宽利用率Top10</span>
         </div>
-        <div class="container1" >
-          <chart :type="'bar'" :data="waveData2" :options="options" style="width: 100%; height:85%;margin-top: 5px"></chart>
+        <div class="container0">
+          <chart :type="'bar'" :data="waveData4" :options="options" style="width: 100%; height: 100%"></chart>
         </div>
       </div>
     </el-col>
@@ -62,15 +62,15 @@
         <div class="mainContainer">
           <div class="radar">
             <div class="warning">99</div>
-            <div class="deviceName">主机设备</div>
+            <!--<div class="deviceName">主机设备</div>-->
           </div>
           <div class="radar">
             <div class="warning">223</div>
-            <div class="deviceName">网络设备</div>
+            <!--<div class="deviceName">网络设备</div>-->
           </div>
           <div class="radar">
             <div class="warning">56</div>
-            <div class="deviceName">存储设备</div>
+            <!--<div class="deviceName">存储设备</div>-->
           </div>
           <!--<div class="warning">-->
             <!--<guage-chart width="100%" height="100%"></guage-chart>-->
@@ -145,12 +145,12 @@
       </div>
     </el-col>
     <el-col :span="6">
-      <div id="smallBox4" class="colBox1 grid-content bg-purple right" >
+      <div id="box6" class="colBox1 grid-content bg-purple right" >
         <div class="title">
           <span>网络设备内存利用率Top10</span>
         </div>
-        <div class="container1">
-          <chart :type="'bar'" :data="waveData4" :options="options" style="width: 100%; height: 100%"></chart>
+        <div class="container1" >
+          <chart :type="'bar'" :data="waveData2" :options="options" style="width: 100%; height:100%;margin-top: 5px"></chart>
         </div>
       </div>
     </el-col>
@@ -583,11 +583,12 @@
   }
 
   .warning {
-    margin-top: 30%;
-    left: 35%;
+    margin-top: 35%;
+    left: 25%;
     color: #f00;
-    height: 30px;
-    width: 50px;
+    height: 30%;
+    width: 50%;
+    text-align: center;
     position: relative;
     font-size: 200%;
   }
