@@ -1,18 +1,32 @@
 <template>
-  <div id="bodyContainer" class="backgroundStyle" :style="backgroundStyle">
+  <div id="bodyContainer2" class="backgroundStyle" :style="backgroundStyle">
     <el-row :gutter="20">
-      <el-col :span="8">
-        <div id="box1" class=" grid-content left" >
-          <div class="container"></div>
-          <div class="container"></div>
+      <el-col :span="10">
+        <div class=" grid-content2 left" >
+          <div class="s_container1">
+            <div class="title">
+              <span>安全设备环比</span>
+            </div>
+            <div class="s_mainContainer">
+              <pie-chart  width="90%" height="90%"></pie-chart>
+            </div>
+          </div>
+          <div class="s_container2">
+            <div class="title">
+              <span>安全设备状态</span>
+            </div>
+            <div class="s_mainContainer">
+              <cross-bar width="90%" height="90%"></cross-bar>
+            </div>
+          </div>
         </div>
       </el-col>
-      <el-col :span="16">
-        <div id="box2" class="grid-content right" >
+      <el-col :span="14">
+        <div class="grid-content2 right" >
           <div class="title">
             <span>应用</span>
           </div>
-          <div class="mainContainer">
+          <div class="s_mainContainer">
             <bar-line width="100%" height="100%"></bar-line>
           </div>
         </div>
@@ -30,32 +44,34 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import BarChart from './components/BarChart'
+  // import BarChart from './components/BarChart'
   import BarLine from './components/BarChart2'
-  import PieChart from './components/PieChart'
-  import RaddarChart from './components/RaddarChart'
-  import GuageChart from './components/GuageChart'
-  import PictorialBar from './components/PictorialBar'
-  import Chart from 'vue-bulma-chartjs'
+  import PieChart from './components/PieChart2'
+  import CrossBar from './components/CrossBar2'
+  // import RaddarChart from './components/RaddarChart'
+  // import GuageChart from './components/GuageChart'
+  // import PictorialBar from './components/PictorialBar'
+  // import Chart from 'vue-bulma-chartjs'
   // import getCpu from '@/api/customView/index'
 
   export default {
     name: 'customView',
     components: {
-      BarChart,
+      // BarChart,
       PieChart,
-      Chart,
-      RaddarChart,
-      GuageChart,
-      PictorialBar,
+      CrossBar,
+      // Chart,
+      // RaddarChart,
+      // GuageChart,
+      // PictorialBar,
       BarLine
     },
     data() {
       return {
         // 设置背景div的样式
         backgroundStyle: {
-          // background: 'url("/src/assets/customView/background5.jpg") no-repeat center fixed',
-          // backgroundSize: 'cover'
+          background: 'url("/src/assets/customView/background8.jpg") no-repeat center fixed',
+          backgroundSize: 'cover'
         }
       }
     },
@@ -73,22 +89,22 @@
 </script>
 
 <style>
-  html body {
-    height: 100%;
-    width: 100%;
-  }
-  /*body {*/
+  /*html body {*/
     /*height: 100%;*/
     /*width: 100%;*/
   /*}*/
-  #bodyContainer{
+  body {
+    height: 100%;
+    width: 100%;
+  }
+  #bodyContainer2{
     /*background: #191970;*/
     height: 100%;
     width: 100%;
-    /*color: white;*/
+    color: #fff;
   }
 
-  .grid-content {
+  .grid-content2 {
     /*border:1px solid #bfd1eb;*/
     background: linear-gradient(to left, #f00, #f00) left top no-repeat,
     linear-gradient(to bottom, #f00, #f00) left top no-repeat,
@@ -107,6 +123,7 @@
 
     height: 800px;
     margin-top: 20px;
+    margin-bottom: 20px;
     /*margin-bottom: 5%;*/
     /*margin-top: 20px;*/
     /*margin-bottom: 20px;*/
@@ -114,9 +131,26 @@
   }
 
 
-  .container{
-    height: 44%;
-    margin: 10px auto;
+  .s_container1{
+     height: 60%;
+     margin: auto;
+   }
+
+  .s_container2{
+    height: 40%;
+    margin: auto;
+  }
+
+  /*.container1 {*/
+    /*height: 95%;*/
+    /*width: 98%;*/
+    /*margin: auto;*/
+  /*}*/
+
+  .s_mainContainer {
+    height: 95%;
+    width: 98%;
+    margin: auto;
   }
 
   .title{

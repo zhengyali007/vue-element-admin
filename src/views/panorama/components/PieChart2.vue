@@ -31,11 +31,7 @@
     computed: {
     },
     mounted() {
-      const that = this
-      setInterval(function() {
-        that.getData()
-        that.initChart()
-      }, 2000)
+      this.initChart()
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -52,157 +48,198 @@
       this.chart = null
     },
     methods: {
-      getData() {
-        this.breakNumber = Math.floor(Math.random() * 100)
-      },
       initChart() {
-        this.chart = echarts.init(this.$el, 'macarons')
-
-        this.chart.setOption({
-          tooltip: {
-            formatter: '{a} <br/>{b} : {c}'
-          },
-          grid: {
-            width: 200,
-            height: 95
-          },
-          series: [{
-            name: '主机设备总数',
-            type: 'gauge',
-            radius: '75%',
-            center: ['50%', '50%'],
-            startAngle: 180,
-            endAngle: 0,
-            axisLine: {
-              lineStyle: {
-                width: 4,
-                color: [[1, 'cyan']]
-              }
-            },
-            splitLine: {
-              length: -6,
-              lineStyle: {
-                color: 'red',
-                width: 4
-              }
-            },
-            axisLabel: {
-              show: false
-            },
-            axisTick: {
-              splitNumber: 1,
-              lineStyle: {
-                opacity: 0
-              }
-            },
-            detail: {
-              show: false
-            },
-            pointer: {
-              show: false
-            }
-
-          }, {
-            name: '主机设备',
-            type: 'gauge',
-            radius: '70%',
-            center: ['50%', '50%'],
-            startAngle: 180,
-            endAngle: 0,
-            axisLine: {
-              lineStyle: {
-                opacity: 0
-              }
-            },
-            splitLine: {
-              length: 20
-            },
-            axisLabel: {
-              distance: -80,
-              color: '#fff',
-              fontSize: 24,
-              formatter: function(param) {
-                if ((param % 50) === 0) {
-                  return param
-                }
-              }
-            },
-            detail: {
+        var placeHolderStyle = {
+          normal: {
+            label: {
               show: false,
-              formatter: '{value}%'
-              // backgroundColor:'#fff'
-            },
-            itemStyle: {
-              normal: {
-                color: 'cyan'
-              }
-            },
-            pointer: {
-              width: 10,
-              length: '90%'
-            },
-            data: [{
-              value: this.breakNumber,
-              name: '故障数：'
-            }]
-          }, {
-            name: '最内层线',
-            type: 'gauge',
-            radius: '35%',
-            center: ['50%', '50%'],
-            startAngle: 180,
-            endAngle: 0,
-            axisLine: {
-              lineStyle: {
-                width: 4,
-                color: [[1, 'cyan']]
-              }
-            },
-            splitLine: {
-              length: -6,
-              lineStyle: {
-                opacity: 0
-              }
-            },
-            axisLabel: {
-              show: false
-            },
-            axisTick: {
-              splitNumber: 1,
-              lineStyle: {
-                opacity: 0
-              }
-            },
-            detail: {
-              show: false
-            },
-            pointer: {
-              show: false
-            }
-
-          }, {
-            name: '饼图',
-            tooltip: {
-              show: false
-            },
-            type: 'pie',
-            radius: ['0%', '34%'],
-            hoverAnimation: false,
-            itemStyle: {
-              normal: {
-                color: '#333'
-              },
-              emphasis: {
-                color: '#333'
-              }
+              position: 'center'
             },
             labelLine: {
+              show: false
+            },
+            color: '#fff',
+            borderColor: '#fff',
+            borderWidth: 0
+          },
+          emphasis: {
+            color: '#fff',
+            borderColor: '#fff',
+            borderWidth: 0
+          }
+        }
+        this.chart = echarts.init(this.$el, 'macarons')
+        this.chart.setOption({
+          // backgroundColor: '#fff',
+          color: ['#fc7a26', '#fff', '#ffa127', '#fff', '#ffcd26'],
+          legend: [{
+            orient: '',
+            icon: 'circle',
+            left: 'right',
+            top: 'center',
+            data: ['安全攻击', '违规事件', '安全漏洞'],
+            textStyle: {
+              color: '#fff'
+            }
+          }],
+          series: [{
+            name: '值',
+            type: 'pie',
+            clockWise: true, // 顺时加载
+            hoverAnimation: false, // 鼠标移入变大
+            radius: [199, 200],
+            itemStyle: {
               normal: {
-                show: false
+                label: {
+                  show: true,
+                  position: 'outside'
+                },
+                labelLine: {
+                  show: true,
+                  length: 100,
+                  smooth: 0.5
+                },
+                borderWidth: 5,
+                shadowBlur: 40,
+                borderColor: '#fc7a26',
+                shadowColor: 'rgba(0, 0, 0, 0)' // 边框阴影
               }
             },
-            animation: false,
-            data: [1]
+            data: [{
+              value: 7,
+              name: '70%'
+            }, {
+              value: 3,
+              name: '',
+              itemStyle: placeHolderStyle
+            }]
+          }, {
+            name: '白',
+            type: 'pie',
+            clockWise: false,
+            radius: [180, 180],
+            hoverAnimation: false,
+            data: [{
+              value: 1
+            }]
+          }, {
+            name: '值',
+            type: 'pie',
+            clockWise: true,
+            hoverAnimation: false,
+            radius: [159, 160],
+            itemStyle: {
+              normal: {
+                label: {
+                  show: true
+                },
+                labelLine: {
+                  show: true,
+                  length: 100,
+                  smooth: 0.5
+                },
+                borderWidth: 5,
+                shadowBlur: 40,
+                borderColor: '#ffa127',
+                shadowColor: 'rgba(0, 0, 0, 0)' // 边框阴影
+              }
+            },
+            data: [{
+              value: 6,
+              name: '60%'
+            }, {
+              value: 4,
+              name: '',
+              itemStyle: placeHolderStyle
+            }]
+          }, {
+            name: '白',
+            type: 'pie',
+            clockWise: false,
+            hoverAnimation: false,
+            radius: [140, 140],
+            data: [{
+              value: 1
+            }]
+          }, {
+            name: '值',
+            type: 'pie',
+            clockWise: true,
+            hoverAnimation: false,
+            radius: [119, 120],
+            itemStyle: {
+              normal: {
+                label: {
+                  show: true
+                },
+                labelLine: {
+                  show: true,
+                  length: 100,
+                  smooth: 0.5
+                },
+                borderWidth: 5,
+                shadowBlur: 40,
+                borderColor: '#ffcd26',
+                shadowColor: 'rgba(0, 0, 0, 0)' // 边框阴影
+              }
+            },
+            data: [{
+              value: 4,
+              name: '40%'
+            }, {
+              value: 6,
+              name: '',
+              itemStyle: placeHolderStyle
+            }]
+          }, {
+            type: 'pie',
+            color: ['#fc7a26', '#ffa127', '#ffcd26'],
+            data: [{
+              value: '',
+              name: '安全攻击'
+            }, {
+              value: '',
+              name: '违规事件'
+            }, {
+              value: '',
+              name: '安全漏洞'
+            }]
+          }, {
+            name: '白',
+            type: 'pie',
+            clockWise: true,
+            hoverAnimation: false,
+            radius: [100, 100],
+            label: {
+              normal: {
+                position: 'center'
+              }
+            },
+            data: [{
+              value: 1,
+              label: {
+                normal: {
+                  formatter: '安全事件',
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 26
+                  }
+                }
+              }
+            }, {
+              tooltip: {
+                show: false
+              },
+              label: {
+                normal: {
+                  formatter: '\n1800',
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 26
+                  }
+                }
+              }
+            }]
           }]
         })
       }
