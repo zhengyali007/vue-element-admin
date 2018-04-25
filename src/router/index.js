@@ -49,30 +49,48 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/panorama/index',
     alwaysShow: 'true',
-    meta: {title: 'panorama', icon: 'dashboard', noCache: true},
+    meta: { title: '全景视图', icon: 'dashboard', noCache: true },
     children: [{
       path: 'index',
       component: _import('panorama/index'),
       name: 'panorama1',
       meta: { title: 'panorama1', icon: 'dashboard', noCache: true }
     }, {
-        path: 'index2',
-        component: _import('panorama/index2'),
-        name: 'panorama2',
-        meta: { title: 'panorama2', icon: 'dashboard', noCache: true }
-      }]
+      path: 'index2',
+      component: _import('panorama/index2'),
+      name: 'panorama2',
+      meta: { title: 'panorama2', icon: 'dashboard', noCache: true }
+    }]
   },
-  // {
-  //   path: '',
-  //   component: Layout,
-  //   redirect: 'customView2',
-  //   children: [{
-  //     path: 'customView',
-  //     component: _import('customer-view/index2'),
-  //     name: '全景视图2',
-  //     meta: {title: '全景视图2', icon: 'dashboard', noCache: true}
-  //   }]
-  // },
+  {
+    path: '/effectEvaluation',
+    title: 'effectEvaluation',
+    component: Layout,
+    redirect: '/effectEvaluation/index',
+    alwaysShow: 'true',
+    meta: { title: '效能评估', icon: 'dashboard', noCache: true },
+    children: [{
+      path: 'index',
+      component: _import('effectEvaluation/index'),
+      name: 'effectEvaluation',
+      meta: { title: 'effectEvaluation', icon: 'dashboard', noCache: true }
+    }]
+  },
+
+  {
+    path: '/qualityControl',
+    title: 'qualityControl',
+    component: Layout,
+    redirect: '/qualityControl/index',
+    alwaysShow: 'true',
+    meta: { title: '质控态势', icon: 'dashboard', noCache: true },
+    children: [{
+      path: 'index',
+      component: _import('qualityControl/index'),
+      name: 'qualityControl',
+      meta: { title: 'qualityControl', icon: 'dashboard', noCache: true }
+    }]
+  },
   {
     path: '',
     component: Layout,

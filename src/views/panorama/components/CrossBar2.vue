@@ -51,7 +51,7 @@
       initChart() {
         var colorArray = [
           {
-            top: 'rgba(173,39,49)', // 红shen
+            top: 'rgba(173,39,49)', // 红
             bottom: 'rgba(173,39,49, 0.3)'
           },
           {

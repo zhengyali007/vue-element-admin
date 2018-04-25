@@ -106,6 +106,8 @@ export default {
       }
     },
     initChart() {
+      var i = 0
+      var colors = ['#FB3B4E', '#1D4D8F', '#05F1D6', '#FAF43D', '#c3b4df']
       this.chart = echarts.init(this.$el, 'macarons')
 
       this.chart.setOption({
@@ -130,6 +132,17 @@ export default {
             center: ['50%', '50%'],
             data: this.seriesData,
             itemStyle: {
+              normal: {
+                color: function() {
+                  return colors[i++]
+                },
+                label: {
+                  show: false
+                },
+                labelLine: {
+                  show: false
+                }
+              },
               emphasis: {
                 shadowBlur: 10,
                 shadowOffsetX: 0,

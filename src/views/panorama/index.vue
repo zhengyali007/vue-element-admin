@@ -150,7 +150,7 @@
           <span>网络设备内存利用率Top10</span>
         </div>
         <div class="container1" >
-          <chart :type="'bar'" :data="waveData2" :options="options" style="width: 100%; height:100%;margin-top: 5px"></chart>
+          <chart :type="'bar'" :data="waveData5" :options="options" style="width: 100%; height:100%;margin-top: 5px"></chart>
         </div>
       </div>
     </el-col>
@@ -186,12 +186,10 @@
   import { getStorageDevice } from '@/api/customView/index'
 
   export default {
-    name: 'customView',
+    name: 'panorama',
     components: {
-      RaddarChart,
       BarChart,
       PieChart,
-      // BreakPie,
       Chart,
       LineChart,
       GuageChart,
@@ -203,10 +201,10 @@
       return {
         // 设置背景div的样式
         backgroundStyle: {
-          background: 'url("/src/assets/customView/background8.jpg") no-repeat center fixed ',
+          background: 'url("/src/assets/customView/background9.jpg") no-repeat center fixed ',
           backgroundSize: 'cover'
         },
-        jsonData: [], //  取出的json数据
+        // 接口数据
         deviceCount: [], // 设备总量和被监控数
         jsonData0_key: [],
         jsonData0_value: [],
@@ -214,15 +212,18 @@
         jsonData2: [],
         jsonData3: [],
         jsonData4: [],
-        hostDeviceCount: [],
-        networkDeviceCount: [],
-        storageDeviceCount: [],
-        storageCount: [],
-        serverOverviewName: [],
-        serverOverview: [],
-        netDeviceOverviewName: [],
-        netDeviceOverview: [],
-        // 动态柱状图数据
+        hostDeviceCount: [], // 主机设备总数和监控数
+        networkDeviceCount: [], // 网络设备总数和监控数
+        storageDeviceCount: [], // 存储设备总数和监控数
+        hostWarningCount: undefined, // 主机设备警告数
+        netWarningCount: undefined, // 网络设备警告数
+        storageWarningCount: undefined, // 存储设备警告数
+        storageCount: [], // 上月存储量，本月存储量，存储总量
+        serverOverviewName: [], // 服务器总览 （设备名称）
+        serverOverview: [], // 服务器总览 （设备数量和占比）
+        netDeviceOverviewName: [], // 网络设备总览 （设备名称）
+        netDeviceOverview: [], // 网络设备总览 （设备名称）
+        // 动态柱状图公共配置
         options: {
           legend: {
             labels: {
@@ -231,14 +232,16 @@
           },
           segmentShowStroke: false
         },
+        // 动态柱状图颜色配置
         backgroundColor: [
-          '#02105B',
-          '#FB3B4E',
-          '#1D4D8F',
-          '#05F1D6',
-          '#FAF43D',
-          '#FFFFFF'
+          '#e58e26',
+          '#eb2f06',
+          '#1e3799',
+          '#3c6382',
+          '#38ada9'
+          // '#FFFFFF'
         ],
+        // 动态柱状图数据展示
         // label_1: ['May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
         label_1: ['', '', '', '', '', ''],
         label_2: ['', '', '', '', '', '', '', '', '', '', ''],
@@ -254,11 +257,13 @@
       // 动态柱状图的数据绑定
       waveData() {
         return {
+          // 横坐标
           labels: this.label_2,
+          // 纵坐标
           datasets: [{
             label: 'CPU利用率',
             data: this.data_1,
-            backgroundColor: this.backgroundColor[0]
+            backgroundColor: this.backgroundColor[4]
           }]
         }
       },
@@ -296,6 +301,16 @@
           }]
         }
       },
+      waveData5() {
+        return {
+          labels: this.label_2,
+          datasets: [{
+            label: '内存利用率',
+            data: this.data_3,
+            backgroundColor: this.backgroundColor[3]
+          }]
+        }
+      },
       ...mapGetters([
       ])
     },
@@ -303,32 +318,30 @@
     },
     mounted() {
       // 接口
-      // 设备数量信息
+      // 1.设备数量信息
       getDeviceCount()
         .then(response => {
           const data0 = response.data
-          // console.log(data)
+          // 取出接口数据
           for (var k in data0) {
-            // console.log(k)
             this.jsonData0_key.push(k)
             this.jsonData0_value.push(data0[k])
           }
+          // 把接口数据放到对应的数组里，然后再将数据与标签动态绑定，传值给子组件
           this.serverOverviewName.push(this.jsonData0_key[0], this.jsonData0_key[1])
           this.netDeviceOverviewName.push(this.jsonData0_key[2], this.jsonData0_key[3])
           this.serverOverview.push(this.jsonData0_value[0], this.jsonData0_value[1])
           this.netDeviceOverview.push(this.jsonData0_value[2], this.jsonData0_value[3])
         })
-      // 主机设备信息
+      // 2.主机设备信息
       getHostDevice()
         .then(response => {
           const data1 = response.data
-          // 取出json数据
           for (var k in data1) {
-            // console.log(data1[k])
             this.jsonData1.push(data1[k])
           }
           const monitor_1 = this.jsonData1[0] // 设备总数量
-          // const warning_1 = this.jsonData1[1] // 设备警告数
+          this.hostWarningCount = this.jsonData1[1] // 设备警告数
           const total_1 = this.jsonData1[2] // 设备监控数
           const cpuUsedRate_1 = this.jsonData1[3] //  CPU利用率
           const memoryUsedRate_1 = this.jsonData1[4] // 内存利用率
@@ -336,7 +349,6 @@
           // this.hostDeviceCount = []
           this.hostDeviceCount.push(monitor_1, total_1)
           for (var index1 in cpuUsedRate_1) {
-            // console.log(cpuUsedRate_1[index1])
             this.data_1.push(cpuUsedRate_1[index1].usedRate)
           }
           for (var index2 in memoryUsedRate_1) {
@@ -344,23 +356,19 @@
           }
           // console.log(this.data_1)
         })
-      // 网络设备信息
+      // 3.网络设备信息
       getNetworkDevice()
         .then(response => {
           const data2 = response.data
-          // console.log(data2)
-          // 取出json数据
           for (var k in data2) {
-            // console.log(data1[k])
             this.jsonData2.push(data2[k])
           }
           const monitor_2 = this.jsonData2[0] // 设备总数量
-          // const warning_1 = this.jsonData1[1] // 设备警告数
+          this.netWarningCount = this.jsonData1[1] // 设备警告数
           const total_2 = this.jsonData2[2] // 设备监控数
           const cpuUsedRate_2 = this.jsonData2[3] //  CPU利用率
           const ioRate = this.jsonData2[4] // 内存利用率
           // const diskUsedRate_2 = this.jsonData1[5] // 存储利用率
-          // this.hostDeviceCount = []
           this.networkDeviceCount.push(monitor_2, total_2)
           for (var index1 in cpuUsedRate_2) {
             this.data_3.push(cpuUsedRate_2[index1].usedRate)
@@ -370,18 +378,15 @@
             this.data_5.push(ioRate[index2].outputRate)
           }
         })
-      // // 存储设备信息
+      // 4.存储设备信息
       getStorageDevice()
         .then(response => {
           const data3 = response.data
-          // console.log(data3)
-          // 取出json数据
           for (var k in data3) {
-            // console.log(data3[k])
             this.jsonData3.push(data3[k])
           }
           // const total_3 = this.jsonData3[0] // 设备总数量
-          // const warning_3 = this.jsonData3[1] // 设备警告数
+          this.storageWarningCount = this.jsonData3[1] // 设备警告数
           // const monitor_3 = this.jsonData3[2] // 设备监控数
           const totalStorage = this.jsonData3[3]
           const thisMonthStorage = this.jsonData3[4]
@@ -425,16 +430,7 @@
   .el-col {
     border-radius: 4px;
   }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    /*background: #d3dce6;*/
-    /*background-color: rgba(248,248,255,0.3)*/
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
+
   .grid-content {
     /*border:1px solid #bfd1eb;*/
     background: linear-gradient(to left, #f00, #f00) left top no-repeat,
@@ -451,10 +447,6 @@
     /*border-radius: 4px;*/
     min-height: 36px;
     /*background-color: */
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
   }
 
   .colBox0{
@@ -501,28 +493,6 @@
     margin: auto;
   }
 
-
-  .mainContainer1 {
-    float: left;
-    left: 0.5%;
-    width: 30%;
-    height: 30%;
-  }
-
-  .mainContainer2 {
-    float: left;
-    left: 35%;
-    width: 30%;
-    height: 30%;
-  }
-  .mainContainer3 {
-    float: left;
-    left: 70%;
-    width: 30%;
-    height: 30%;
-  }
-
-
   .containerTie{
     width: 98%;
     height: 44%;
@@ -545,22 +515,6 @@
   canvas.chartjs {
     max-width: 80%;
     max-height: 100%;
-  }
-
-
-  .resourceNumber{
-    width: 100%;
-    height: 60%;
-    /*margin: auto;*/
-    line-height: 200%;
-    font-size: 250%;
-    font-weight:bold;
-    padding: 5px;
-    background:transparent;
-    color: #1D4D8F;
-    text-align: center;
-    /*position: relative;*/
-    /*text-shadow: #aaaaaa;*/
   }
 
   #box6{
@@ -591,16 +545,6 @@
     text-align: center;
     position: relative;
     font-size: 200%;
-  }
-
-  .deviceName {
-    margin-top: 20px;
-    left: 35%;
-    /*color: #fff;*/
-    height: 30px;
-    width: 100px;
-    position: relative;
-    font-size: 20px;
   }
 
   .radar {
@@ -673,38 +617,6 @@
     /*}*/
   /*}*/
 
-
-  /*.warning {*/
-    /*float: right;*/
-    /*width: 50%;*/
-    /*height: 30%;*/
-    /*right: 10px;*/
-    /*margin-top: 10px;*/
-  /*}*/
-
-
-  /*.radar :after {*/
-    /*content: ' ';*/
-    /*display: block;*/
-    /*background-image: linear-gradient(44deg, rgba(0, 255, 51, 0) 50%, #00ff33 100%);*/
-    /*!*width: 180px;*!*/
-    /*!*height: 180px;*!*/
-    /*position: absolute;*/
-    /*!*top: 20%;*!*/
-    /*!*left: 25%;*!*/
-    /*animation: radar-beam 5s infinite;*/
-    /*animation-timing-function: linear;*/
-    /*transform-origin: bottom right;*/
-    /*border-radius: 100% 0 0 0;*/
-  /*}*/
-  /*@keyframes radar-beam {*/
-    /*0% {*/
-      /*transform: rotate(0deg);*/
-    /*}*/
-    /*100% {*/
-      /*transform: rotate(360deg);*/
-    /*}*/
-  /*}*/
 
 
 </style>
