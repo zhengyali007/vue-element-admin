@@ -135,13 +135,13 @@ export default {
               normal: {
                 color: function() {
                   return colors[i++]
-                },
-                label: {
-                  show: false
-                },
-                labelLine: {
-                  show: false
                 }
+                // label: {
+                //   show: false
+                // },
+                // labelLine: {
+                //   show: false
+                // }
               },
               emphasis: {
                 shadowBlur: 10,

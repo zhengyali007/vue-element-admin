@@ -170,7 +170,7 @@
                       //global Coord: false
                     }
                   },
-                  barBorderRadius: 88,
+                  // barBorderRadius: 88,
                   borderWidth: 0,
                   borderColor: '#333'
                 }

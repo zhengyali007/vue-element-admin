@@ -2,7 +2,7 @@
 <div id="bodyContainer" class="backgroundStyle" :style="backgroundStyle">
   <el-row :gutter="20">
     <el-col :span="6">
-      <div id="box1" class="colBox0 grid-content bg-purple left" >
+      <div id="box1" class="colBox0 grid-content left" >
         <div class="title">
           <span>主机设备数量总览</span>
         </div>
@@ -12,7 +12,7 @@
       </div>
     </el-col>
     <el-col :span="6">
-      <div id="box2" class="colBox0 grid-content bg-purple" >
+      <div id="box2" class="colBox0 grid-content" >
         <div class="title">
           <span>存储设备数量总览</span>
         </div>
@@ -22,7 +22,7 @@
       </div>
     </el-col>
     <el-col :span="6">
-      <div id="box3"  class="colBox0 grid-content bg-purple" >
+      <div id="box3"  class="colBox0 grid-content" >
         <div class="title">
           <span>网络设备数量总览</span>
         </div>
@@ -32,7 +32,7 @@
       </div>
     </el-col>
     <el-col :span="6">
-      <div id="smallBox4" class="colBox0 grid-content bg-purple right" >
+      <div id="smallBox4" class="colBox0 grid-content right" >
         <div class="title">
           <span>网络设备带宽利用率Top10</span>
         </div>
@@ -44,59 +44,38 @@
   </el-row>
   <el-row :gutter="20">
     <el-col :span="6">
-      <div id="middleBox1" class="colBox2 grid-content bg-purple left" >
+      <div id="middleBox1" class="colBox2 grid-content left" >
         <div class="title">
           <span>存储增量图</span>
         </div>
         <div class="container2" >
           <pictorial-bar :storage-count="storageCount" width="100%" height="100%" style="margin: auto"></pictorial-bar>
-          <!--<pictorial-bar width="100%" height="100%" style="margin: auto;"></pictorial-bar>-->
         </div>
       </div>
     </el-col>
     <el-col :span="12">
-      <div id="box7" class="colBox2 grid-content bg-purple">
+      <div id="box7" class="colBox2 grid-content">
         <div class="title">
           <span>设备警告数</span>
         </div>
         <div class="mainContainer">
           <div class="radar">
-            <div class="warning">99</div>
-            <!--<div class="deviceName">主机设备</div>-->
+            <div class="warning">{{ hostWarningCount }}</div>
           </div>
+          <div class="deviceName device1"><span>主机设备</span></div>
           <div class="radar">
-            <div class="warning">223</div>
-            <!--<div class="deviceName">网络设备</div>-->
+            <div class="warning">{{ netWarningCount }}</div>
           </div>
+          <div class="deviceName device2"><span>网络设备</span></div>
           <div class="radar">
-            <div class="warning">56</div>
-            <!--<div class="deviceName">存储设备</div>-->
+            <div class="warning"> {{ storageWarningCount }}</div>
           </div>
-          <!--<div class="warning">-->
-            <!--<guage-chart width="100%" height="100%"></guage-chart>-->
-          <!--</div>-->
-          <!--<div class="warning">-->
-            <!--<guage-chart width="100%" height="100%"></guage-chart>-->
-          <!--</div>-->
-          <!--<div class="warning">-->
-            <!--<guage-chart width="100%" height="100%"></guage-chart>-->
-          <!--</div>-->
-          <!--<raddar-chart width="100%" height="100%" style="margin: auto" class="radar"/>-->
-        <!--</div>-->
-        <!--<div class="mainContainer2 radar">-->
-          <!--<raddar-chart  width="100%" height="100%" style="margin: auto"></raddar-chart>-->
-        <!--</div>-->
-        <!--<div class="mainContainer3 radar">-->
-          <!--<raddar-chart  width="100%" height="100%" style="margin: auto"></raddar-chart>-->
-        <!--</div>-->
-
-        <!--<div class="container2" id="radar1">-->
-          <!--<raddar-chart  width="100%" height="100%" style="margin: auto"></raddar-chart>-->
+          <div class="deviceName device3"><span>存储设备</span></div>
         </div>
       </div>
     </el-col>
     <el-col :span="6">
-      <div id="middleBox2" class="colBox2 grid-content bg-purple right">
+      <div id="middleBox2" class="colBox2 grid-content right">
         <div class="title">
           <span>网络设备总览</span>
         </div>
@@ -114,8 +93,7 @@
   </el-row>
   <el-row :gutter="20">
     <el-col :span="6">
-      <!-- v-dragging="{ item: smallBoxs[0], list: smallBoxs, group: 'smallBox' }" :key="1" -->
-      <div id="smallBox1" class="colBox1 grid-content bg-purple left" >
+      <div id="smallBox1" class="colBox1 grid-content left" >
         <div class="title">
           <span>主机设备CPU利用率Top10</span>
         </div>
@@ -125,7 +103,7 @@
       </div>
     </el-col>
     <el-col :span="6">
-      <div id="smallBox2" class="colBox1 grid-content bg-purple">
+      <div id="smallBox2" class="colBox1 grid-content ">
         <div class="title">
           <span>主机设备内存利用率Top10</span>
         </div>
@@ -135,7 +113,7 @@
       </div>
     </el-col>
     <el-col :span="6">
-      <div id="smallBox3" class="colBox1 grid-content bg-purple" >
+      <div id="smallBox3" class="colBox1 grid-content" >
         <div class="title">
           <span>网络设备CPU利用率Top10</span>
         </div>
@@ -145,7 +123,7 @@
       </div>
     </el-col>
     <el-col :span="6">
-      <div id="box6" class="colBox1 grid-content bg-purple right" >
+      <div id="box6" class="colBox1 grid-content right" >
         <div class="title">
           <span>网络设备内存利用率Top10</span>
         </div>
@@ -177,7 +155,6 @@
   import GuageChart from './components/GuageChart'
   import PictorialBar from './components/PictorialBar'
   import Chart from 'vue-bulma-chartjs'
-  import RaddarChart from './components/RaddarChart'
   // 接口
   // import getHostPanorama from '@/api/customView/index'
   import { getDeviceCount } from '@/api/customView/index'
@@ -201,7 +178,7 @@
       return {
         // 设置背景div的样式
         backgroundStyle: {
-          background: 'url("/src/assets/customView/background9.jpg") no-repeat center fixed ',
+          background: 'url("/src/assets/customView/background8.jpg") no-repeat center fixed ',
           backgroundSize: 'cover'
         },
         // 接口数据
@@ -234,13 +211,18 @@
         },
         // 动态柱状图颜色配置
         backgroundColor: [
-          '#e58e26',
-          '#eb2f06',
-          '#1e3799',
-          '#3c6382',
-          '#38ada9'
-          // '#FFFFFF'
-        ],
+          '#FB3B4E',
+          '#1D4D8F',
+          // '#05F1D6',
+          '#FFCD26',
+          // '#c3b4df',
+          '#FC7A26',
+          // '#eb2f06',
+          // '#1e3799',
+          // '#3c6382',
+          '#38ada9'],
+        //   // '#FFFFFF'
+        // ],
         // 动态柱状图数据展示
         // label_1: ['May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
         label_1: ['', '', '', '', '', ''],
@@ -364,7 +346,7 @@
             this.jsonData2.push(data2[k])
           }
           const monitor_2 = this.jsonData2[0] // 设备总数量
-          this.netWarningCount = this.jsonData1[1] // 设备警告数
+          this.netWarningCount = this.jsonData2[1] // 设备警告数
           const total_2 = this.jsonData2[2] // 设备监控数
           const cpuUsedRate_2 = this.jsonData2[3] //  CPU利用率
           const ioRate = this.jsonData2[4] // 内存利用率
@@ -534,6 +516,25 @@
     padding: 0;
     margin: 0;
     font-size: 1.6rem;
+  }
+
+  .deviceName {
+    height: 30px;
+    font-size: 18px;
+    top: 22%;
+    /*left: 14%;*/
+    text-align: center;
+    position: absolute;
+  }
+
+  .device1 {
+    left: 14%;
+  }
+  .device2 {
+    left: 45%;
+  }
+  .device3 {
+    left: 76%;
   }
 
   .warning {
