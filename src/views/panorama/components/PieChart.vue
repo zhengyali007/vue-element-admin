@@ -107,7 +107,13 @@ export default {
     },
     initChart() {
       var i = 0
-      var colors = ['#FB3B4E', '#1D4D8F', '#05F1D6', '#FAF43D', '#c3b4df']
+      var colors = [
+        '#E41A1C',
+        '#377EB8',
+        '#4DAF4A',
+        '#FF7F00',
+        '#FFFF33'
+      ]
       this.chart = echarts.init(this.$el, 'macarons')
 
       this.chart.setOption({
@@ -134,6 +140,9 @@ export default {
             itemStyle: {
               normal: {
                 color: function() {
+                  if (i === 5) {
+                    i = 0
+                  }
                   return colors[i++]
                 }
                 // label: {

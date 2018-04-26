@@ -79,7 +79,13 @@
       initChart() {
         var deemph_color = 'rgb(165,165,165)'
         var bar_category_gap = '30%'
-        var deemph_colors = ['#02105B', '#FB3B4E','#1D4D8F']
+        var deemph_colors = [
+          '#4DAF4A',
+          '#377EB8',
+          '#E41A1C',
+          '#FF7F00',
+          '#FFFF33'
+        ]
         var axis_line_color = 'rgb(135,135,135)'
         var category = ['上月存储量', '本月存储量', '总存储量']
 
@@ -97,6 +103,28 @@
             backgroundColor: '#ffffff',
           }
           ],
+          // yAxis: {
+          //   type: 'category',
+          //   data: [{
+          //     value: '上月存储量',
+          //     textStyle: {
+          //       color: 'white'
+          //     }
+          //   }, {
+          //     value: '本月存储量',
+          //     textStyle: {
+          //       color: 'white'
+          //     }
+          //   }, {
+          //     value: '存储总量',
+          //     textStyle: {
+          //       color:'white'
+          //     }
+          //   }],
+          //   axisLabel: {
+          //     color: 'white'
+          //   }
+          // },
           yAxis: [{
             gridIndex: 0,
             type: 'category',
@@ -111,6 +139,7 @@
             },
             axisLabel: {
               show: true,
+              color: 'white',
             },
           }, {
             gridIndex: 1,
@@ -130,6 +159,7 @@
             inverse: true,
             axisLabel: {
               show: false,
+              color: 'white',
             }
           }],
           xAxis: [{

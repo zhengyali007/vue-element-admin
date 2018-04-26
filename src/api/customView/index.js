@@ -34,3 +34,10 @@ export function getStorageDevice() {
     // method: 'get'
   })
 }
+
+export function getApplication() {
+  return request({
+    url: 'src/api/customView/AppPanorama.json'
+    // method: 'get'
+  })
+}

@@ -86,10 +86,10 @@
           y2: 1,
           colorStops: [{
             offset: 0.2,
-            color: 'rgba(112,73,240,0.1)' // 0% 处的颜色
+            color: 'rgba(225,41,69,0.1)' // 0% 处的颜色
           }, {
             offset: 1,
-            color: 'rgba(112,73,240,0.8)' // 100% 处的颜色
+            color: 'rgba(225,41,69,0.8)' // 100% 处的颜色
           }],
           globalCoord: false // 缺省为 false
         }, 'none']
@@ -102,10 +102,10 @@
           y2: 1,
           colorStops: [{
             offset: 0.3,
-            color: 'rgba(225,41,69,0.1)' // 0% 处的颜色
+            color: 'rgba(112,73,240,0.1)' // 0% 处的颜色
           }, {
             offset: 1,
-            color: 'rgba(225,41,69,0.8)' // 100% 处的颜色
+            color: 'rgba(112,73,240,0.8)' // 100% 处的颜色
           }],
           globalCoord: false // 缺省为 false
         }, 'none']

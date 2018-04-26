@@ -2,7 +2,7 @@
 
   <div id="evalContainer">
     <el-row :gutter="20">
-      <el-col :span="6">
+      <el-col :span="6" >
         <div  class="effBox1 effLeft">
           <div class="effTitle">
             <span>应用效能访问量</span>
@@ -105,8 +105,8 @@
     position: relative;
     border:1px solid #bfd1eb;
     background:#f3faff;
-    height: 400px;
-    /*height: 41%;*/
+    /*height: 400px;*/
+    height: 41%;
     margin-top: 6%;
     margin-bottom: 6%;
   }
@@ -115,8 +115,8 @@
     position: relative;
     border:1px solid #bfd1eb;
     background:#f3faff;
-    height: 500px;
-    /*height: 41%;*/
+    /*height: 500px;*/
+    height: 41%;
     margin-bottom: 6%;
   }
 

@@ -77,10 +77,10 @@
           //
           // },
           grid: {
-            top: '2%',
-            left: '2%',
-            right: '2%',
-            bottom: '2%',
+            top: '10%',
+            left: '3%',
+            right: '3%',
+            bottom: '3%',
             containLabel: true
           },
           xAxis: {
@@ -98,16 +98,16 @@
             data: [{
               value: '总数',
               textStyle: {
-                // color: 'white'
+                color: 'white'
               }
             }, {
               value: '监控数',
               textStyle: {
-                // color:'white'
+                color: 'white'
               }
             }],
             axisLabel: {
-              // color: 'white'
+              color: 'white'
             }
           },
           series: [
@@ -126,7 +126,13 @@
               itemStyle: {
                 normal: {
                   color: function(params) {
-                    var colorList = ['blue', 'green']
+                    var colorList = [
+                      // '#FF7F00',
+                      // '#FFFF33',
+                      '#E41A1C',
+                      '#377EB8',
+                      '#4DAF4A'
+                    ]
                     return colorList[params.dataIndex]
                   }
                 }

@@ -34,10 +34,11 @@
     <el-col :span="6">
       <div id="smallBox4" class="colBox0 grid-content right" >
         <div class="title">
-          <span>网络设备带宽利用率Top10</span>
+          <span>应用统计</span>
         </div>
         <div class="container0">
-          <chart :type="'bar'" :data="waveData4" :options="options" style="width: 100%; height: 100%"></chart>
+          <!--:normal-count="normalCount" :exception-count="exceptionCount"-->
+          <app-bar :normal-count="normalCount" :exception-count="exceptionCount" width="100%" height="100%"></app-bar>
         </div>
       </div>
     </el-col>
@@ -98,7 +99,7 @@
           <span>主机设备CPU利用率Top10</span>
         </div>
         <div class="container1" >
-          <chart :type="'bar'" :data="waveData" :options="options" style="width: 100%; height: 100%"></chart>
+          <chart :type="'bar'" :data="waveData" :options="options" style="width: 100%; height: 100%; padding-top: 10px"></chart>
         </div>
       </div>
     </el-col>
@@ -108,7 +109,7 @@
           <span>主机设备内存利用率Top10</span>
         </div>
         <div class="container1" >
-          <chart :type="'bar'" :data="waveData2" :options="options" style="width: 100%; height: 100%"></chart>
+          <chart :type="'bar'" :data="waveData2" :options="options" style="width: 100%; height: 100%; padding-top: 10px"></chart>
         </div>
       </div>
     </el-col>
@@ -118,17 +119,17 @@
           <span>网络设备CPU利用率Top10</span>
         </div>
         <div class="container1 chartContainer">
-          <chart :type="'bar'" :data="waveData3" :options="options" style="width: 100%; height: 100%"></chart>
+          <chart :type="'bar'" :data="waveData3" :options="options" style="width: 100%; height: 100%; padding-top: 10px"></chart>
         </div>
       </div>
     </el-col>
     <el-col :span="6">
       <div id="box6" class="colBox1 grid-content right" >
         <div class="title">
-          <span>网络设备内存利用率Top10</span>
+          <span>网络设备带宽利用率Top10</span>
         </div>
         <div class="container1" >
-          <chart :type="'bar'" :data="waveData5" :options="options" style="width: 100%; height:100%;margin-top: 5px"></chart>
+          <chart :type="'bar'" :data="waveData4" :options="options" style="width: 100%; height: 100%; padding-top: 10px"></chart>
         </div>
       </div>
     </el-col>
@@ -149,6 +150,7 @@
   import BarChart from './components/BarChart'
   import BarLine from './components/BarChart2'
   import CrossBar from './components/CrossBar'
+  import AppBar from './components/CrossBar3'
   import PieChart from './components/PieChart'
   // import BreakPie from './components/PieChart2'
   import LineChart from './components/LineChart'
@@ -161,6 +163,7 @@
   import { getHostDevice } from '@/api/customView/index'
   import { getNetworkDevice } from '@/api/customView/index'
   import { getStorageDevice } from '@/api/customView/index'
+  import { getApplication } from '@/api/customView/index'
 
   export default {
     name: 'panorama',
@@ -172,14 +175,15 @@
       GuageChart,
       PictorialBar,
       CrossBar,
+      AppBar,
       BarLine
     },
     data() {
       return {
         // 设置背景div的样式
         backgroundStyle: {
-          background: 'url("/src/assets/customView/background8.jpg") no-repeat center fixed ',
-          backgroundSize: 'cover'
+          // background: 'url("/src/assets/customView/background8.jpg") no-repeat center fixed ',
+          // backgroundSize: 'cover'
         },
         // 接口数据
         deviceCount: [], // 设备总量和被监控数
@@ -200,6 +204,8 @@
         serverOverview: [], // 服务器总览 （设备数量和占比）
         netDeviceOverviewName: [], // 网络设备总览 （设备名称）
         netDeviceOverview: [], // 网络设备总览 （设备名称）
+        normalCount: [], // 应用正常数量
+        exceptionCount: [], // 应用异常数量
         // 动态柱状图公共配置
         options: {
           legend: {
@@ -211,27 +217,34 @@
         },
         // 动态柱状图颜色配置
         backgroundColor: [
-          '#FB3B4E',
-          '#1D4D8F',
+          '#E41A1C',
+          '#377EB8',
+          '#4DAF4A',
+          '#FF7F00',
+          '#FFFF33'
+          // '#FB3B4E',
+          // '#1D4D8F',
           // '#05F1D6',
-          '#FFCD26',
+          // '#FFCD26',
           // '#c3b4df',
-          '#FC7A26',
+          // '#FC7A26',
           // '#eb2f06',
           // '#1e3799',
           // '#3c6382',
-          '#38ada9'],
+          // '#38ada9'
+        ],
         //   // '#FFFFFF'
         // ],
         // 动态柱状图数据展示
-        // label_1: ['May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
+        // label_1: ['May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         label_1: ['', '', '', '', '', ''],
         label_2: ['', '', '', '', '', '', '', '', '', '', ''],
         data_1: [],
         data_2: [],
         data_3: [],
         data_4: [],
-        data_5: []
+        data_5: [],
+        data_6: []
         // series: ['Product A', 'Product B']
       }
     },
@@ -245,7 +258,7 @@
           datasets: [{
             label: 'CPU利用率',
             data: this.data_1,
-            backgroundColor: this.backgroundColor[4]
+            backgroundColor: this.backgroundColor[0]
           }]
         }
       },
@@ -283,16 +296,16 @@
           }]
         }
       },
-      waveData5() {
-        return {
-          labels: this.label_2,
-          datasets: [{
-            label: '内存利用率',
-            data: this.data_3,
-            backgroundColor: this.backgroundColor[3]
-          }]
-        }
-      },
+      // waveData5() {
+      //   return {
+      //     labels: this.label_2,
+      //     datasets: [{
+      //       label: '内存利用率',
+      //       data: this.data_6,
+      //       backgroundColor: this.backgroundColor[3]
+      //     }]
+      //   }
+      // },
       ...mapGetters([
       ])
     },
@@ -349,11 +362,11 @@
           this.netWarningCount = this.jsonData2[1] // 设备警告数
           const total_2 = this.jsonData2[2] // 设备监控数
           const cpuUsedRate_2 = this.jsonData2[3] //  CPU利用率
-          const ioRate = this.jsonData2[4] // 内存利用率
+          const ioRate = this.jsonData2[4] // 输入输出率
           // const diskUsedRate_2 = this.jsonData1[5] // 存储利用率
           this.networkDeviceCount.push(monitor_2, total_2)
           for (var index1 in cpuUsedRate_2) {
-            this.data_3.push(cpuUsedRate_2[index1].usedRate)
+            this.data_3.push(cpuUsedRate_2[index1].usedRate) // 内存利用率
           }
           for (var index2 in ioRate) {
             this.data_4.push(ioRate[index2].inputRate)
@@ -375,6 +388,36 @@
           const lastMonthStorage = this.jsonData3[5]
           this.storageDeviceCount.push(this.jsonData3[2], this.jsonData3[0])
           this.storageCount.push(lastMonthStorage, thisMonthStorage, totalStorage)
+        })
+      // 5.应用信息
+      getApplication()
+        .then(response => {
+          const allData = response.data
+          // 服务人民群众应用资源
+          const peopleApp = allData.peopleApp
+          const exceptionCount1 = peopleApp.exceptionCount
+          const normalCount1 = peopleApp.totalCount - exceptionCount1 - peopleApp.degradationCount
+          // 服务司法管理应用资源
+          const managerApp = allData.managerApp
+          const exceptionCount2 = managerApp.exceptionCount
+          const normalCount2 = managerApp.totalCount - exceptionCount2 - managerApp.degradationCount
+          // 服务审判执行应用资源
+          const executionApp = allData.managerApp
+          const exceptionCount3 = executionApp.exceptionCount
+          const normalCount3 = executionApp.totalCount - exceptionCount3 - executionApp.degradationCount
+          // 传递给子组件的数组
+          this.normalCount.push(normalCount1, normalCount2, normalCount3)
+          this.exceptionCount.push(exceptionCount1, exceptionCount2, exceptionCount2)
+          // 异常应用的服务器信息
+          // const exception = executionApp.exceptionApplication
+          // // console.log(exception)
+          // const serverIp = []
+          // for (var k in exception) {
+          //   // console.log(exception[k])
+          //   // console.log(exception[k].serverIp)
+          //   serverIp.push(exception[k].serverIp)
+          // }
+          // console.log(serverIp)
         })
       // 柱状图轮播效果
       setInterval(() => {
@@ -404,6 +447,7 @@
     width: 100%;
     margin: auto;
     color: white;
+    background-color: #04243E;
   }
 
   .el-row {
@@ -415,20 +459,22 @@
 
   .grid-content {
     /*border:1px solid #bfd1eb;*/
-    background: linear-gradient(to left, #f00, #f00) left top no-repeat,
-    linear-gradient(to bottom, #f00, #f00) left top no-repeat,
-    linear-gradient(to left, #f00, #f00) right top no-repeat,
-    linear-gradient(to bottom, #f00, #f00) right top no-repeat,
-    linear-gradient(to left, #f00, #f00) left bottom no-repeat,
-    linear-gradient(to bottom, #f00, #f00) left bottom no-repeat,
-    linear-gradient(to left, #f00, #f00) right bottom no-repeat,
-    linear-gradient(to left, #f00, #f00) right bottom no-repeat;
-    background-size: 1px 20px, 20px 1px, 1px 20px, 20px 1px;
+
+    /*******div边框*************/
+    /*background: linear-gradient(to left, #f00, #f00) left top no-repeat,*/
+    /*linear-gradient(to bottom, #f00, #f00) left top no-repeat,*/
+    /*linear-gradient(to left, #f00, #f00) right top no-repeat,*/
+    /*linear-gradient(to bottom, #f00, #f00) right top no-repeat,*/
+    /*linear-gradient(to left, #f00, #f00) left bottom no-repeat,*/
+    /*linear-gradient(to bottom, #f00, #f00) left bottom no-repeat,*/
+    /*linear-gradient(to left, #f00, #f00) right bottom no-repeat,*/
+    /*linear-gradient(to left, #f00, #f00) right bottom no-repeat;*/
+    /*background-size: 1px 20px, 20px 1px, 1px 20px, 20px 1px;*/
+    /***********************/
     /*background:#f3faff;*/
     /*background:rgba(255,255,255,0.1);*/
     /*border-radius: 4px;*/
     min-height: 36px;
-    /*background-color: */
   }
 
   .colBox0{

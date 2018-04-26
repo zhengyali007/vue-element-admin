@@ -20,15 +20,37 @@
       height: {
         type: String,
         default: '300px'
+      },
+      normalCount: {
+        type: Array,
+        default: function() {
+          return [10, 10]
+        }
+      },
+      exceptionCount: {
+        type: Array,
+        default: function() {
+          return [10, 10]
+        }
       }
     },
     data() {
       return {
-        chart: null
+        chart: null,
+        nCount: this.normalCount,
+        eCount: this.exceptionCount
+      }
+    },
+    watch: {
+      nCount: function() {
+        this.initChart()
+      },
+      eCount: function() {
+        this.initChart()
       }
     },
     mounted() {
-      this.initChart()
+      // this.initChart()
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -100,14 +122,7 @@
           xAxis: [
             {
               type: 'category',
-              data: [
-                '服务人民群众',
-                '服务审判执行',
-                '服务司法管理'
-                // '4街',
-                // '5街',
-                // '6街'
-              ],
+              data: ['服务人民群众', '服务司法管理', '服务审判执行'],
               axisPointer: {
                 type: 'shadow'
               },
@@ -126,8 +141,6 @@
               nameTextStyle: {
                 color: '#7d838b'
               },
-              min: 0,
-              max: 500,
               interval: 50,
               axisLabel: {
                 show: true,
@@ -143,19 +156,7 @@
                   color: '#7d838b'
                 }
               }
-            }
-            // {
-            //   type: 'value',
-            //   name: '',
-            //   show: true,
-            //   axisLabel: {
-            //     show: true,
-            //     textStyle: {
-            //       color: '#7d838b'
-            //     }
-            //   }
-            // }
-          ],
+            }],
           grid: {
             top: '20%'
           },
@@ -163,14 +164,7 @@
             {
               name: '正常数量',
               type: 'bar',
-              data: [
-                20,
-                60,
-                80
-                // 6,
-                // 8,
-                // 6
-              ],
+              data: this.nCount,
               barWidth: 'auto',
               itemStyle: {
                 normal: {
@@ -202,14 +196,7 @@
             {
               name: '异常数量',
               type: 'bar',
-              data: [
-                40,
-                20,
-                36
-                // 6,
-                // 8,
-                // 6
-              ],
+              data: this.eCount,
               barWidth: 'auto',
               itemStyle: {
                 normal: {

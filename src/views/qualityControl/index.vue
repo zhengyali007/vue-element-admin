@@ -1,7 +1,7 @@
 <template>
 
-  <div id="quaContainer">
-    <el-row :gutter="20">
+  <div id="quaContainer" style="height: 100%">
+    <el-row :gutter="20" >
       <el-col :span="12">
         <div  class="quaBox1 quaLeft">
           <div class="qua1">
