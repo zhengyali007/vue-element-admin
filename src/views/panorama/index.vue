@@ -312,113 +312,7 @@
     created() {
     },
     mounted() {
-      // 接口
-      // 1.设备数量信息
-      getDeviceCount()
-        .then(response => {
-          const data0 = response.data
-          // 取出接口数据
-          for (var k in data0) {
-            this.jsonData0_key.push(k)
-            this.jsonData0_value.push(data0[k])
-          }
-          // 把接口数据放到对应的数组里，然后再将数据与标签动态绑定，传值给子组件
-          this.serverOverviewName.push(this.jsonData0_key[0], this.jsonData0_key[1])
-          this.netDeviceOverviewName.push(this.jsonData0_key[2], this.jsonData0_key[3])
-          this.serverOverview.push(this.jsonData0_value[0], this.jsonData0_value[1])
-          this.netDeviceOverview.push(this.jsonData0_value[2], this.jsonData0_value[3])
-        })
-      // 2.主机设备信息
-      getHostDevice()
-        .then(response => {
-          const data1 = response.data
-          for (var k in data1) {
-            this.jsonData1.push(data1[k])
-          }
-          const monitor_1 = this.jsonData1[0] // 设备总数量
-          this.hostWarningCount = this.jsonData1[1] // 设备警告数
-          const total_1 = this.jsonData1[2] // 设备监控数
-          const cpuUsedRate_1 = this.jsonData1[3] //  CPU利用率
-          const memoryUsedRate_1 = this.jsonData1[4] // 内存利用率
-          // const diskUsedRate_1 = this.jsonData1[5] // 存储利用率
-          // this.hostDeviceCount = []
-          this.hostDeviceCount.push(monitor_1, total_1)
-          for (var index1 in cpuUsedRate_1) {
-            this.data_1.push(cpuUsedRate_1[index1].usedRate)
-          }
-          for (var index2 in memoryUsedRate_1) {
-            this.data_2.push(memoryUsedRate_1[index2].usedRate)
-          }
-          // console.log(this.data_1)
-        })
-      // 3.网络设备信息
-      getNetworkDevice()
-        .then(response => {
-          const data2 = response.data
-          for (var k in data2) {
-            this.jsonData2.push(data2[k])
-          }
-          const monitor_2 = this.jsonData2[0] // 设备总数量
-          this.netWarningCount = this.jsonData2[1] // 设备警告数
-          const total_2 = this.jsonData2[2] // 设备监控数
-          const cpuUsedRate_2 = this.jsonData2[3] //  CPU利用率
-          const ioRate = this.jsonData2[4] // 输入输出率
-          // const diskUsedRate_2 = this.jsonData1[5] // 存储利用率
-          this.networkDeviceCount.push(monitor_2, total_2)
-          for (var index1 in cpuUsedRate_2) {
-            this.data_3.push(cpuUsedRate_2[index1].usedRate) // 内存利用率
-          }
-          for (var index2 in ioRate) {
-            this.data_4.push(ioRate[index2].inputRate)
-            this.data_5.push(ioRate[index2].outputRate)
-          }
-        })
-      // 4.存储设备信息
-      getStorageDevice()
-        .then(response => {
-          const data3 = response.data
-          for (var k in data3) {
-            this.jsonData3.push(data3[k])
-          }
-          // const total_3 = this.jsonData3[0] // 设备总数量
-          this.storageWarningCount = this.jsonData3[1] // 设备警告数
-          // const monitor_3 = this.jsonData3[2] // 设备监控数
-          const totalStorage = this.jsonData3[3]
-          const thisMonthStorage = this.jsonData3[4]
-          const lastMonthStorage = this.jsonData3[5]
-          this.storageDeviceCount.push(this.jsonData3[2], this.jsonData3[0])
-          this.storageCount.push(lastMonthStorage, thisMonthStorage, totalStorage)
-        })
-      // 5.应用信息
-      getApplication()
-        .then(response => {
-          const allData = response.data
-          // 服务人民群众应用资源
-          const peopleApp = allData.peopleApp
-          const exceptionCount1 = peopleApp.exceptionCount
-          const normalCount1 = peopleApp.totalCount - exceptionCount1 - peopleApp.degradationCount
-          // 服务司法管理应用资源
-          const managerApp = allData.managerApp
-          const exceptionCount2 = managerApp.exceptionCount
-          const normalCount2 = managerApp.totalCount - exceptionCount2 - managerApp.degradationCount
-          // 服务审判执行应用资源
-          const executionApp = allData.managerApp
-          const exceptionCount3 = executionApp.exceptionCount
-          const normalCount3 = executionApp.totalCount - exceptionCount3 - executionApp.degradationCount
-          // 传递给子组件的数组
-          this.normalCount.push(normalCount1, normalCount2, normalCount3)
-          this.exceptionCount.push(exceptionCount1, exceptionCount2, exceptionCount2)
-          // 异常应用的服务器信息
-          // const exception = executionApp.exceptionApplication
-          // // console.log(exception)
-          // const serverIp = []
-          // for (var k in exception) {
-          //   // console.log(exception[k])
-          //   // console.log(exception[k].serverIp)
-          //   serverIp.push(exception[k].serverIp)
-          // }
-          // console.log(serverIp)
-        })
+      this.initView()
       // 柱状图轮播效果
       setInterval(() => {
         this.data_1.unshift(this.data_1.pop())
@@ -428,7 +322,116 @@
         this.data_5.unshift(this.data_5.pop())
       }, 2000)
     },
-    method: {
+    methods: {
+      initView() {
+        // 接口
+        // 1.设备数量信息
+        getDeviceCount()
+          .then(response => {
+            const data0 = response.data
+            // 取出接口数据
+            for (var k in data0) {
+              this.jsonData0_key.push(k)
+              this.jsonData0_value.push(data0[k])
+            }
+            // 把接口数据放到对应的数组里，然后再将数据与标签动态绑定，传值给子组件
+            this.serverOverviewName.push(this.jsonData0_key[0], this.jsonData0_key[1])
+            this.netDeviceOverviewName.push(this.jsonData0_key[2], this.jsonData0_key[3])
+            this.serverOverview.push(this.jsonData0_value[0], this.jsonData0_value[1])
+            this.netDeviceOverview.push(this.jsonData0_value[2], this.jsonData0_value[3])
+          })
+        // 2.主机设备信息
+        getHostDevice()
+          .then(response => {
+            const data1 = response.data
+            for (var k in data1) {
+              this.jsonData1.push(data1[k])
+            }
+            const monitor_1 = this.jsonData1[0] // 设备总数量
+            this.hostWarningCount = this.jsonData1[1] // 设备警告数
+            const total_1 = this.jsonData1[2] // 设备监控数
+            const cpuUsedRate_1 = this.jsonData1[3] //  CPU利用率
+            const memoryUsedRate_1 = this.jsonData1[4] // 内存利用率
+            // const diskUsedRate_1 = this.jsonData1[5] // 存储利用率
+            // this.hostDeviceCount = []
+            this.hostDeviceCount.push(monitor_1, total_1)
+            for (var index1 in cpuUsedRate_1) {
+              this.data_1.push(cpuUsedRate_1[index1].usedRate)
+            }
+            for (var index2 in memoryUsedRate_1) {
+              this.data_2.push(memoryUsedRate_1[index2].usedRate)
+            }
+            // console.log(this.data_1)
+          })
+        // 3.网络设备信息
+        getNetworkDevice()
+          .then(response => {
+            const data2 = response.data
+            for (var k in data2) {
+              this.jsonData2.push(data2[k])
+            }
+            const monitor_2 = this.jsonData2[0] // 设备总数量
+            this.netWarningCount = this.jsonData2[1] // 设备警告数
+            const total_2 = this.jsonData2[2] // 设备监控数
+            const cpuUsedRate_2 = this.jsonData2[3] //  CPU利用率
+            const ioRate = this.jsonData2[4] // 输入输出率
+            // const diskUsedRate_2 = this.jsonData1[5] // 存储利用率
+            this.networkDeviceCount.push(monitor_2, total_2)
+            for (var index1 in cpuUsedRate_2) {
+              this.data_3.push(cpuUsedRate_2[index1].usedRate) // 内存利用率
+            }
+            for (var index2 in ioRate) {
+              this.data_4.push(ioRate[index2].inputRate)
+              this.data_5.push(ioRate[index2].outputRate)
+            }
+          })
+        // 4.存储设备信息
+        getStorageDevice()
+          .then(response => {
+            const data3 = response.data
+            for (var k in data3) {
+              this.jsonData3.push(data3[k])
+            }
+            // const total_3 = this.jsonData3[0] // 设备总数量
+            this.storageWarningCount = this.jsonData3[1] // 设备警告数
+            // const monitor_3 = this.jsonData3[2] // 设备监控数
+            const totalStorage = this.jsonData3[3]
+            const thisMonthStorage = this.jsonData3[4]
+            const lastMonthStorage = this.jsonData3[5]
+            this.storageDeviceCount.push(this.jsonData3[2], this.jsonData3[0])
+            this.storageCount.push(lastMonthStorage, thisMonthStorage, totalStorage)
+          })
+        // 5.应用信息
+        getApplication()
+          .then(response => {
+            const allData = response.data
+            // 服务人民群众应用资源
+            const peopleApp = allData.peopleApp
+            const exceptionCount1 = peopleApp.exceptionCount
+            const normalCount1 = peopleApp.totalCount - exceptionCount1 - peopleApp.degradationCount
+            // 服务司法管理应用资源
+            const managerApp = allData.managerApp
+            const exceptionCount2 = managerApp.exceptionCount
+            const normalCount2 = managerApp.totalCount - exceptionCount2 - managerApp.degradationCount
+            // 服务审判执行应用资源
+            const executionApp = allData.managerApp
+            const exceptionCount3 = executionApp.exceptionCount
+            const normalCount3 = executionApp.totalCount - exceptionCount3 - executionApp.degradationCount
+            // 传递给子组件的数组
+            this.normalCount.push(normalCount1, normalCount2, normalCount3)
+            this.exceptionCount.push(exceptionCount1, exceptionCount2, exceptionCount2)
+            // 异常应用的服务器信息
+            // const exception = executionApp.exceptionApplication
+            // // console.log(exception)
+            // const serverIp = []
+            // for (var k in exception) {
+            //   // console.log(exception[k])
+            //   // console.log(exception[k].serverIp)
+            //   serverIp.push(exception[k].serverIp)
+            // }
+            // console.log(serverIp)
+          })
+      }
     }
     // watch: {
     //   hostDeviceCount: function() {

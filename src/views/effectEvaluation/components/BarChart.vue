@@ -105,7 +105,7 @@
             //			left: "8%",
             // bottom: '2%',
             textStyle: {
-              // color: '#fff',
+              color: '#fff',
               fontSize: 14
               //				padding: [3, 5, 5, 2]
             },

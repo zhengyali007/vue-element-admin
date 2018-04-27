@@ -41,3 +41,17 @@ export function getApplication() {
     // method: 'get'
   })
 }
+
+export function getQualityControl() {
+  return request({
+    url: 'src/api/customView/QualityControl.json'
+    // method: 'get'
+  })
+}
+
+export function getAppNum() {
+  return request({
+    url: 'src/api/customView/AppNum.json'
+    // method: 'get'
+  })
+}

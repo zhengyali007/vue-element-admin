@@ -20,21 +20,29 @@
       height: {
         type: String,
         default: '300px'
+      },
+      totalNum: {
+        type: Array,
+        default: function() {
+          return [0, 0]
+        }
       }
     },
     data() {
       return {
         chart: null,
-        breakNumber: undefined,
-        vTp2: 35,
-        vTp1: 15,
-        vTp0: 18
+        total: this.totalNum
       }
     },
     computed: {
     },
+    watch: {
+      total: function() {
+        this.initChart()
+      }
+    },
     mounted() {
-      this.initChart()
+      // this.initChart()
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -53,7 +61,7 @@
     methods: {
       initChart() {
         var exemptData = [{
-          value: 48,
+          value: this.total[1],
           name: '未监控设备数'
         }, {
           value: 70,
@@ -65,7 +73,7 @@
           }
         }]
         var examNum = [{
-          value: 199,
+          value: this.total[0],
           name: '已监控设备数'
         }, {
           value: 28,
@@ -86,10 +94,10 @@
           y2: 1,
           colorStops: [{
             offset: 0.2,
-            color: 'rgba(225,41,69,0.1)' // 0% 处的颜色
+            color: 'rgba(225,41,69,0.3)' // 0% 处的颜色
           }, {
             offset: 1,
-            color: 'rgba(225,41,69,0.8)' // 100% 处的颜色
+            color: 'rgba(225,41,69,1.0)' // 100% 处的颜色
           }],
           globalCoord: false // 缺省为 false
         }, 'none']
@@ -102,10 +110,10 @@
           y2: 1,
           colorStops: [{
             offset: 0.3,
-            color: 'rgba(112,73,240,0.1)' // 0% 处的颜色
+            color: 'rgba(26,152,248,0.3)' // 0% 处的颜色
           }, {
             offset: 1,
-            color: 'rgba(112,73,240,0.8)' // 100% 处的颜色
+            color: 'rgba(26,152,248,1.0)' // 100% 处的颜色
           }],
           globalCoord: false // 缺省为 false
         }, 'none']
@@ -128,7 +136,7 @@
             padding: [0, 0]
           },
           examdata: {
-            color: '#7049f0',
+            color: '#1a98f8',
             fontSize: 30 * scale,
             padding: [0, 0],
             fontWeight: 'bold'
@@ -137,7 +145,7 @@
             width: 14,
             height: 14,
             borderRadius: 3,
-            backgroundColor: '#7049f0'
+            backgroundColor: '#1a98f8'
           },
           rectred: {
             width: 14,
@@ -159,7 +167,7 @@
             align: 'left',
             orient: 'vertical',
             textStyle: {
-              color: '#115b70',
+              color: '#fff',
               fontSize: 14 * scale,
               rich: rich
             },
@@ -207,7 +215,7 @@
                 }
               }]
             },
-            // 免考人数圆环
+            // 未监控设备数圆环
             {
               name: '未监控设备数',
               type: 'pie',

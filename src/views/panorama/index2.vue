@@ -35,7 +35,7 @@
                 <template slot-scope="scope">
                   <!--<i class="el-icon-info"></i>-->
                   <!--<el-tag type="danger" >{{ scope.row.date }}</el-tag>-->
-                  <span>{{ scope.row.date }}</span>
+                  <span>{{ scope.row.statusCode }}</span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -44,16 +44,17 @@
                 <template slot-scope="scope">
                   <el-popover trigger="hover" placement="top">
                     <p>设备名称: {{ scope.row.name }}</p>
-                    <p>url: {{ scope.row.address }}</p>
+                    <p>url: {{ scope.row.url }}</p>
                     <div slot="reference" class="name-wrapper">{{ scope.row.name }}
                       <!--<el-tag type="danger">{{ scope.row.name }}</el-tag>-->
                     </div>
                   </el-popover>
                 </template>
               </el-table-column>
-              <el-table-column label="操作" width="180">
+              <el-table-column label="查看详细信息" width="180">
                 <template slot-scope="scope">
-                  <el-button type="danger" plain icon="el-icon-question" @click="handleEdit(scope.$index, scope.row)"></el-button>
+                  <!--scope.$index,-->
+                  <el-button type="danger"  plain icon="el-icon-question" @click="handleCheck(scope.row)"></el-button>
                   <!--<el-button-->
                     <!--size="mini"-->
                     <!--type="danger"-->
@@ -108,21 +109,10 @@
         exceptionCount: [], // 应用异常数量
         // test
         tableData: [{
-          date: '500',
-          name: 'revsjd',
-          address: 'www.zzzzzzzzz.com'
-        }, {
-          date: '404',
-          name: 'sdjidhi',
-          address: 'www.zzzzzzzzz.com'
-        }, {
-          date: '501',
-          name: 'dshfiuh',
-          address: 'www.zzzzzzzzz.com'
-        }, {
-          date: '405',
-          name: 'daskdjhjk',
-          address: 'www.zzzzzzzzz.com'
+          statusCode: '',
+          name: '',
+          url: '',
+          serverIp: ''
         }]
       }
     },
@@ -133,39 +123,68 @@
     created() {
     },
     mounted() {
-      // 解析接口数据
-      // 1.应用信息
-      getApplication()
-        .then(response => {
-          const allData = response.data
-          // 服务人民群众应用资源
-          const peopleApp = allData.peopleApp
-          const exceptionCount1 = peopleApp.exceptionCount
-          const normalCount1 = peopleApp.totalCount - exceptionCount1 - peopleApp.degradationCount
-          // 服务司法管理应用资源
-          const managerApp = allData.managerApp
-          const exceptionCount2 = managerApp.exceptionCount
-          const normalCount2 = managerApp.totalCount - exceptionCount2 - managerApp.degradationCount
-          // 服务审判执行应用资源
-          const executionApp = allData.managerApp
-          const exceptionCount3 = executionApp.exceptionCount
-          const normalCount3 = executionApp.totalCount - exceptionCount3 - executionApp.degradationCount
-          // 传递给子组件的数组
-          this.normalCount.push(normalCount1, normalCount2, normalCount3)
-          this.exceptionCount.push(exceptionCount1, exceptionCount2, exceptionCount2)
-          // 异常应用的服务器信息
-          // const exception = executionApp.exceptionApplication
-          // // console.log(exception)
-          // const serverIp = []
-          // for (var k in exception) {
-          //   // console.log(exception[k])
-          //   // console.log(exception[k].serverIp)
-          //   serverIp.push(exception[k].serverIp)
-          // }
-          // console.log(serverIp)
-        })
+      this.getAppInfo()
     },
-    method: {
+    methods: {
+      getAppInfo() {
+        // 获取json数据
+        getApplication()
+          .then(response => {
+            // 清空表格数据
+            this.tableData = []
+            // 获取异常信息
+            const peopleApp = response.data.peopleApp // 服务人民群众应用资源
+            const executionApp = response.data.executionApp // 服务审判执行应用资源
+            const managerApp = response.data.managerApp // 服务司法管理应用资源
+            const exception1 = peopleApp.exceptionApplication
+            const exception2 = executionApp.exceptionApplication
+            const exception3 = managerApp.exceptionApplication
+            // 数据放入table中
+            this.getExceptionData(exception1)
+            this.getExceptionData(exception2)
+            this.getExceptionData(exception3)
+          })
+      },
+      // 遍历取出异常的详细信息
+      getExceptionData(exception) {
+        for (var k in exception) {
+          const exceptionName = exception[k].name
+          const exceptionStatus = exception[k].statusCode
+          const exceptionUrl = exception[k].url
+          const exceptionServerIp = exception[k].serverIp
+          this.tableData.push({ name: exceptionName, url: exceptionUrl, statusCode: exceptionStatus, serverIp: exceptionServerIp })
+        }
+      },
+      // 操作栏点击事件 查看异常详情
+      handleCheck(row) {
+        console.log(row.serverIp)
+        // const h = this.$createElement
+        this.$msgbox({
+          title: '详细信息',
+          message: row.serverIp,
+          // h('p', null, [
+          // h('span', null, '内容可以是 '),
+          // h('i', { style: 'color: teal' }, 'VNode')
+          // ]),
+          // showCancelButton: true,
+          confirmButtonText: '确定'
+          // cancelButtonText: '取消'
+          // beforeClose: (action, instance, done) => {
+          //   if (action === 'confirm') {
+          //     instance.confirmButtonLoading = true;
+          //     instance.confirmButtonText = '执行中...';
+          //     setTimeout(() => {
+          //       done()
+          //       setTimeout(() => {
+          //         instance.confirmButtonLoading = false;
+          //       }, 300)
+          //     }, 3000)
+          //   } else {
+          //     done()
+          //   }
+          // }
+        })
+      }
     }
   }
 </script>

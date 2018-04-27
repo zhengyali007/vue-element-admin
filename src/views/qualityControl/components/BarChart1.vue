@@ -20,21 +20,49 @@
       height: {
         type: String,
         default: '300px'
+      },
+      deviceCount: {
+        type: Array,
+        default: function() {
+          return [0, 0, 0]
+        }
+      },
+      monitorCount: {
+        type: Array,
+        default: function() {
+          return [0, 0, 0]
+        }
+      },
+      waringCount: {
+        type: Array,
+        default: function() {
+          return [0, 0, 0]
+        }
       }
     },
     data() {
       return {
         chart: null,
-        breakNumber: undefined,
-        vTp2: 35,
-        vTp1: 15,
-        vTp0: 18
+        dCount: this.deviceCount,
+        mCount: this.monitorCount,
+        wCount: this.waringCount
       }
     },
     computed: {
     },
+    watch: {
+      dCount: function() {
+        this.initChart()
+      },
+      mCount: function() {
+        this.initChart()
+      },
+      wCount: function() {
+        this.initChart()
+      }
+    },
     mounted() {
-      this.initChart()
+      // this.initChart()
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -61,7 +89,10 @@
             }
           },
           legend: {
-            data: ['总设备数', '已监控设备数', '故障设备数']
+            data: ['总设备数', '已监控设备数', '故障设备数'],
+            textStyle: {
+              color: '#fff'
+            }
           },
           grid: {
             left: '3%',
@@ -71,17 +102,23 @@
           },
           xAxis: {
             type: 'value',
-            boundaryGap: [0, 0.01]
+            boundaryGap: [0, 0.01],
+            axisLabel: {
+              color: 'white'
+            }
           },
           yAxis: {
             type: 'category',
-            data: ['外部专网', '互联网', '数据专网']
+            data: ['基础设备', '主机设备', '应用设备'],
+            axisLabel: {
+              color: 'white'
+            }
           },
           series: [
             {
               name: '总设备数',
               type: 'bar',
-              data: [232, 100, 232],
+              data: this.dCount,
               itemStyle: {
                 normal: {
                   show: true,
@@ -100,7 +137,7 @@
             {
               name: '已监控设备数',
               type: 'bar',
-              data: [58, 46, 68],
+              data: this.mCount,
               itemStyle: {
                 normal: {
                   show: true,
@@ -119,7 +156,7 @@
             {
               name: '故障设备数',
               type: 'bar',
-              data: [18, 43, 8],
+              data: this.wCount,
               itemStyle: {
                 normal: {
                   show: true,

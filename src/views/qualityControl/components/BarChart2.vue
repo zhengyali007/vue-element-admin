@@ -56,9 +56,9 @@
         this.chart.setOption({
           legend: {
             top: 20,
-            // textStyle: {
-            //   color: '#fff'
-            // },
+            textStyle: {
+              color: '#fff'
+            },
             data: ['应用设备总数', '已监控设备数']
           },
           grid: {
@@ -97,7 +97,7 @@
             // },
             axisLabel: {
               textStyle: {
-                // color: '#fff',
+                color: '#fff',
                 fontWeight: 'normal',
                 fontSize: '12'
               }
@@ -117,7 +117,7 @@
             axisLabel: {
               inside: false,
               textStyle: {
-                // color: '#fff',
+                color: '#fff',
                 fontWeight: 'normal',
                 fontSize: '12'
               }
@@ -126,26 +126,7 @@
               // },
             },
             data: ['核心应用', '重要应用', '一般应用']
-          }, {
-            type: 'category',
-            axisLine: {
-              show: false
-            },
-            axisTick: {
-              show: false
-            },
-            axisLabel: {
-              show: false
-            },
-            splitArea: {
-              show: false
-            },
-            splitLine: {
-              show: false
-            },
-            data: ['核心应用', '重要应用', '一般应用']
           }
-
           ],
           series: [
             {
@@ -177,10 +158,10 @@
                   show: true,
                   color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                     offset: 0,
-                    color: '#96d668'
+                    color: '#1a98f8'
                   }, {
                     offset: 1,
-                    color: '#01babc'
+                    color: '#7049f0'
                   }]),
                   // barBorderRadius: 50,
                   borderWidth: 0
