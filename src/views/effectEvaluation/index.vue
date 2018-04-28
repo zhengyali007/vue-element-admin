@@ -1,6 +1,7 @@
 <template>
-
   <div id="evalContainer">
+    <div class="stars"></div>
+    <div class="twinkling"></div>
     <el-row :gutter="20">
       <el-col :span="6" >
         <div  class="effBox1 effLeft">
@@ -110,19 +111,12 @@
 </script>
 
 <style>
-
-  /*html body {*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-  /*}*/
-  /*#app {*/
-    /*width: 100%;*/
-    /*height: 100%;*/
-  /*}*/
+  * { margin: 0; padding: 0; border: 0; }
   html,body,#app,#evalContainer {
     height: 100%;
     color: white;
-    background-color: #04243E;
+    background-color: #000;
+    /*background-color: #04243E;*/
   }
 
   .effLeft{
@@ -134,6 +128,7 @@
   }
 
   .effBox1{
+    z-index: 2;
     position: relative;
     /*border:1px solid #bfd1eb;*/
     /*background:#f3faff;*/
@@ -144,6 +139,7 @@
   }
 
   .effBox2{
+    z-index: 2;
     position: relative;
     /*border:1px solid #bfd1eb;*/
     /*background:#f3faff;*/
@@ -166,7 +162,7 @@
     width: 100%;
   }
 
-
+  /**********告警：呼吸灯效果********/
   .breatheTitle {
     margin-top: 40%;
     left: 50%;
@@ -193,9 +189,9 @@
   }
 
   .breathe1 {
-    margin-left: 20%;
-    border:1px solid #2b92d4;
-    background-image:-webkit-gradient(linear,left top,left bottom,from(#6cc3fe),to(#21a1d0));
+    margin-left: 10%;
+    border:1px solid #009eff;
+    background-image:-webkit-gradient(linear,left top,left bottom,from(#6cc3fe),to(#009eff));
     -webkit-animation-name:breathe1;
     -webkit-animation-duration:3000ms;
   }
@@ -212,8 +208,9 @@
   }
 
   .breathe2 {
+    margin-left: 10%;
     border:1px solid #e12945;
-    background-image:-webkit-gradient(linear,left top,left bottom,from(#f7734e),to(#e12945));
+    background-image:-webkit-gradient(linear,left top,left bottom,from(#f7734e),to(#C1232B));
     -webkit-animation-name:breathe2;
     -webkit-animation-duration:1000ms;
   }
@@ -228,5 +225,53 @@
       box-shadow: 0 1px 30px rgba(255,165,0, 1);
     }
   }
+
+
+  /******背景动画效果********/
+  @keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+  @-webkit-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+  @-moz-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+  @-ms-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+
+  .stars, .twinkling {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+    display:block;
+  }
+
+  .stars {
+    background:#000 url(/src/assets/customView/img/stars.png) repeat top center;
+    z-index:0;
+  }
+
+  .twinkling{
+    background:transparent url(/src/assets/customView/img/twinkling.png) repeat top center;
+    z-index:1;
+    -moz-animation:move-twink-back 200s linear infinite;
+    -ms-animation:move-twink-back 200s linear infinite;
+    -o-animation:move-twink-back 200s linear infinite;
+    -webkit-animation:move-twink-back 200s linear infinite;
+    animation:move-twink-back 200s linear infinite;
+  }
+
+
+
 
 </style>

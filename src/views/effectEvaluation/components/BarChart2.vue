@@ -60,10 +60,26 @@
               type: 'shadow'
             }
           },
-          color: ['#888', '#f9d'],
-          legend: {
-            data: ['响应时长', '标准时长']
-          },
+          // legend: {
+          //   show: true,
+          //   // left: '10%',
+          //   textStyle: {
+          //     fontSize: 14,
+          //     color: '#fff'
+          //   },
+          //   itemWidth: 19,
+          //   data: [{
+          //     name: '响应时长',
+          //     textStyle: {
+          //       color: '#E87C25'
+          //     }
+          //   }, {
+          //     name: '标准时长',
+          //     textStyle: {
+          //       color: '#27727B'
+          //     }
+          //   }]
+          // },
           grid: {
             left: '3%',
             right: '4%',
@@ -72,11 +88,29 @@
           },
           yAxis: {
             type: 'value',
-            boundaryGap: [0, 0.01]
+            boundaryGap: [0, 0.01],
+            splitLine: {
+              show: true,
+              lineStyle: {
+                color: '#3a4b61'
+              }
+            },
+            axisLabel: {
+              textStyle: {
+                fontSize: 14,
+                color: '#fff'
+              }
+            }
           },
           xAxis: {
             type: 'category',
-            data: ['响应时长(ms)', '标准时长(ms)']
+            data: ['响应时长(ms)', '标准时长(ms)'],
+            axisLabel: {
+              textStyle: {
+                fontSize: 14,
+                color: '#fff'
+              }
+            }
           },
           series: [
             {
@@ -86,7 +120,8 @@
                   color: function(params) {
                     var colorList = [
                       '#E87C25',
-                      '#27727B',
+                      // '#27727B',
+                      '#009eff',
                       '#C1232B',
                       '#B5C334',
                       '#FCCE10']

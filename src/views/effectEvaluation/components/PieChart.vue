@@ -163,8 +163,8 @@
               },
               itemStyle: {
                 normal: {
-                  color: '#f74369',
-                  shadowColor: '#f74369',
+                  color: '#009eff',
+                  shadowColor: '#009eff',
                   shadowBlur: 10
                 }
               }
@@ -201,7 +201,7 @@
               name: '性能劣化',
               itemStyle: {
                 normal: {
-                  color: '#e7b507'
+                  color: '#E87C25'
                 }
               }
             }, {
@@ -217,14 +217,14 @@
               name: '故障状态',
               itemStyle: {
                 normal: {
-                  color: '#f74369'
+                  color: '#e12945'
                 }
               }
             }],
             itemStyle: {
               normal: {
                 borderWidth: 3,
-                borderColor: '#00264d'
+                borderColor: '#3a4b61'
               }
             }
           }

@@ -50,45 +50,6 @@
     methods: {
       initChart() {
         this.chart = echarts.init(this.$el, 'macarons')
-        var barColor = []
-        var emColor = []
-        var color0 = ['#089280', '#af540b', '#17559e']
-        var color10 = ['#12ffd0', '#ffcc00', '#0cb0ed']
-        if (navigator.userAgent.indexOf('MSIE 8.0') > 0) {
-          for (var i = 0; i < color0.length; i++) {
-            barColor[i] = {
-              color: color0[i]
-            }
-            emColor[i] = {
-              color: color10[i]
-            }
-          }
-        } else {
-          for (var j = 0; j < color0.length; j++) {
-            barColor[j] = {
-              color: {
-                colorStops: [{
-                  offset: 0,
-                  color: color0[j] // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: color10[j] // 100% 处的颜色
-                }]
-              }
-            }
-            emColor[j] = {
-              color: {
-                colorStops: [{
-                  offset: 0,
-                  color: color10[j] // 0% 处的颜色
-                }, {
-                  offset: 1,
-                  color: color0[j] // 100% 处的颜色
-                }]
-              }
-            }
-          }
-        }
         this.chart.setOption({
           tooltip: {
             axisPointer: {
@@ -110,7 +71,7 @@
               //				padding: [3, 5, 5, 2]
             },
             //			itemWidth: 64,
-            itemHeight: 3
+            itemHeight: 15
           },
           grid: {
             top: '30%',
@@ -123,14 +84,15 @@
             type: 'value',
             boundaryGap: [0, 0.01],
             axisLabel: {
-              color: '#2d67a7'
+              color: '#fff'
             },
             axisLine: {
               show: false
             },
             splitLine: {
+              // show: false
               lineStyle: {
-                color: '#2d67a7'
+                color: '#3a4b61'
               }
             },
             axisTick: {
@@ -153,8 +115,11 @@
               type: 'bar',
               data: [50],
               itemStyle: {
-                normal: barColor[1],
-                emphasis: emColor[1]
+                // normal: barColor[1],
+                normal: {
+                  color: '#E87C25'
+                }
+                // emphasis: emColor[1]
               },
               barGap: '40%',
               barWidth: '16%'
@@ -164,8 +129,10 @@
               type: 'bar',
               data: [90],
               itemStyle: {
-                normal: barColor[2],
-                emphasis: emColor[2]
+                normal: {
+                  color: '#009eff'
+                }
+                // emphasis: emColor[2]
               },
               barGap: '40%',
               barWidth: '16%'

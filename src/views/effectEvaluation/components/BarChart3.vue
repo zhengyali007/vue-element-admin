@@ -52,7 +52,7 @@
     },
     mounted() {
       this.option = {
-        color: ['#f5cb62', '#43a6f7'],
+        // color: ['#E87C25', '#27727B'],
         grid: {
           left: '7%',
           right: '6%',
@@ -75,12 +75,12 @@
           data: [{
             name: '使用量',
             textStyle: {
-              color: '#43a6f7'
+              color: '#E87C25'
             }
           }, {
             name: '剩余量',
             textStyle: {
-              color: '#f5cb62'
+              color: '#009eff'
             }
           }]
         },
@@ -113,23 +113,24 @@
           axisLabel: {
             textStyle: {
               fontSize: 14,
-              color: '#eeeeee'
+              color: '#fff'
             }
           }
         },
         series: [{
           name: '使用量',
           type: 'bar',
-          barWidth: 16,
+          barWidth: 32,
           itemStyle: {
             normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                offset: 0,
-                color: '#43a6f7'
-              }, {
-                offset: 1,
-                color: '#02f3ff'
-              }]),
+              color: '#E87C25',
+              //   new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+              //   offset: 0,
+              //   color: '#43a6f7'
+              // }, {
+              //   offset: 1,
+              //   color: '#02f3ff'
+              // }]),
               barBorderRadius: [2.7, 2.7, 0, 0]
             }
           },
@@ -140,13 +141,14 @@
           barWidth: 32,
           itemStyle: {
             normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                offset: 0,
-                color: '#f5cb62'
-              }, {
-                offset: 1,
-                color: '#fbff0f'
-              }]),
+              color: '#009eff',
+              //   new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+              //   offset: 0,
+              //   color: '#f5cb62'
+              // }, {
+              //   offset: 1,
+              //   color: '#fbff0f'
+              // }]),
               barBorderRadius: [2, 2, 0, 0]
             }
           },

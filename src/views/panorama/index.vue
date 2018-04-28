@@ -610,7 +610,7 @@
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    border: 0.2rem solid #20ff4d;
+    border: 0.2rem solid #fff3e1;
     overflow: hidden;
   }
   .radar:before {
@@ -627,7 +627,7 @@
   .radar:after {
     content: ' ';
     display: block;
-    background-image: linear-gradient(44deg, rgba(0, 255, 51, 0) 50%, #00ff33 100%);
+    background-image: linear-gradient(44deg, rgba(0, 255, 51, 0) 50%, #fff3e1 100%);
     width: 50%;
     height: 50%;
     position: absolute;
