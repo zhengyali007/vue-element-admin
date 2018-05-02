@@ -95,11 +95,14 @@
             axisLine: {
               show: false,
               lineStyle: {
-                // color: '#fff'
+                color: '#fff'
               }
             },
             splitLine: {
-              show: true
+              show: true,
+              lineStyle: {
+                color: '#3a4b61'
+              }
             }
           },
           yAxis: [
@@ -115,7 +118,7 @@
               axisLine: {
                 show: true,
                 lineStyle: {
-                  // color: '#fff'
+                  color: '#fff'
                 }
               },
               data: ['在线', '离线']
@@ -126,6 +129,12 @@
             {
               name: '安全设备数量',
               type: 'bar',
+              label: {
+                normal: {
+                  show: true,
+                  position: 'right',
+                }
+              },
               itemStyle: {
                 normal: {
                   show: true,

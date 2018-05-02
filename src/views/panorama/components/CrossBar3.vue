@@ -89,7 +89,7 @@
           // },
           grid: {
             top: '10%',
-            left: '1%',
+            left: '0%',
             right: '3%',
             bottom: '3%',
             containLabel: true
@@ -131,6 +131,12 @@
             {
               name: '正常数量',
               type: 'bar',
+              label: {
+                normal: {
+                  show: true,
+                  position: 'right',
+                }
+              },
               // data: this.nCount,
               data: [45, 78, 12],
               barWidth: 'auto',
@@ -165,6 +171,12 @@
             {
               name: '异常数量',
               type: 'bar',
+              label: {
+                normal: {
+                  show: true,
+                  position: 'right',
+                }
+              },
               // data: this.eCount,
               data: [12, 23, 1],
               barWidth: 'auto',

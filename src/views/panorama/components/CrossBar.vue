@@ -118,9 +118,6 @@
                 normal: {
                   show: true,
                   position: 'right',
-                  textStyle: {
-                    // color: 'white'
-                  }
                 }
               },
               itemStyle: {

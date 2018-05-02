@@ -113,7 +113,6 @@
       ])
     },
     mounted() {
-      this.redirect()
       this.getAppInfo()
     },
     methods: {

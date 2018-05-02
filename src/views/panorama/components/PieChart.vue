@@ -134,6 +134,12 @@ export default {
           {
             name: '设备总览',
             type: 'pie',
+            label: {
+              normal: {
+                show: true,
+                position: 'right',
+              }
+            },
             radius: '55%',
             center: ['50%', '50%'],
             data: this.seriesData,

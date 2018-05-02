@@ -307,7 +307,7 @@
     created() {
     },
     mounted() {
-      this.redirect()
+      // this.redirect()
       this.initView()
       // 柱状图轮播效果
       setInterval(() => {
