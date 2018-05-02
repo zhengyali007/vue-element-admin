@@ -1,5 +1,7 @@
 <template>
   <div id="bodyContainer2" class="backgroundStyle" :style="backgroundStyle">
+    <div class="stars"></div>
+    <div class="twinkling"></div>
     <el-row :gutter="20">
       <el-col :span="10">
         <div class=" grid-content2 left" >
@@ -79,7 +81,6 @@
 <script>
   import { mapGetters } from 'vuex'
   // 组件
-  import BarLine from './components/BarChart2'
   import PieChart from './components/PieChart2'
   import CrossBar from './components/CrossBar2'
   // 接口
@@ -95,7 +96,6 @@
       // RaddarChart,
       // GuageChart,
       // PictorialBar,
-      BarLine
     },
     data() {
       return {
@@ -198,7 +198,7 @@
     height: 100%;
     width: 100%;
     color: #fff;
-    background-color: #04243E;
+    background-color: #000;
   }
   #bodyContainer2{
     /*background: #191970;*/
@@ -272,6 +272,53 @@
 
   .right{
     margin-right: 20px;
+  }
+
+
+  /******背景动画效果********/
+  @keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+  @-webkit-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+  @-moz-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+  @-ms-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+
+  .stars, .twinkling {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+    display:block;
+  }
+
+  .stars {
+    background:#000 url(/src/assets/customView/img/stars.png) repeat top center;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    z-index:0;
+  }
+
+  .twinkling{
+    background:transparent url(/src/assets/customView/img/twinkling.png) repeat top center;
+    z-index:0;
+    -moz-animation:move-twink-back 200s linear infinite;
+    -ms-animation:move-twink-back 200s linear infinite;
+    -o-animation:move-twink-back 200s linear infinite;
+    -webkit-animation:move-twink-back 200s linear infinite;
+    animation:move-twink-back 200s linear infinite;
   }
 
 

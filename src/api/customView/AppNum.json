@@ -5,13 +5,13 @@
     "exceptionCount": 2
   },
   "generalApplication": {
-    "normalCount": 2,
-    "degradationCount": 0,
-    "exceptionCount": 0
+    "normalCount": 10,
+    "degradationCount": 2,
+    "exceptionCount": 5
   },
   "importApplication": {
-    "normalCount": 2,
-    "degradationCount": 0,
-    "exceptionCount": 0
+    "normalCount": 20,
+    "degradationCount": 10,
+    "exceptionCount": 6
   }
 }

@@ -2,23 +2,23 @@
 	<div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}">
 		<sidebar class="sidebar-container"></sidebar>
 		<div class="main-container">
-			<navbar></navbar>
-			<tags-view></tags-view>
+			<!--<navbar></navbar>-->
+			<!--<tags-view></tags-view>-->
 			<app-main></app-main>
 		</div>
 	</div>
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain, TagsView } from './components'
+import { Navbar, Sidebar, AppMain} from './components'
 
 export default {
   name: 'layout',
   components: {
     Navbar,
     Sidebar,
-    AppMain,
-    TagsView
+    AppMain
+    // TagsView
   },
   computed: {
     sidebar() {

@@ -49,47 +49,38 @@
     },
     methods: {
       initChart() {
-        var colorArray = [
-          {
-            top: 'rgba(173,39,49)', // 红
-            bottom: 'rgba(173,39,49, 0.3)'
-          },
-          {
-            top: 'rgba(195,175,49)', // 黄
-            bottom: 'rgba(195,175,49, 0.3)'
-          }, {
-            top: 'rgba(56,215,48)', // 绿
-            bottom: 'rgba(56,215,48, 0.3)'
-          },
-          {
-            top: 'rgba(40,203,195)', // 蓝
-            bottom: 'rgba(40,203,195, 0.3)'
-          }, {
-            top: 'rgba(42,45,221)', // 深蓝
-            bottom: 'rgba(42,45,221, 0.3)'
-          },
-          {
-            top: 'rgba(215,47,215)', // 粉
-            bottom: 'rgba(215,47,215, 0.3)'
-          }
-        ]
+        // var colorArray = [
+        //   {
+        //     top: 'rgba(173,39,49)', // 红
+        //     bottom: 'rgba(173,39,49, 0.3)'
+        //   },
+        //   {
+        //     top: 'rgba(195,175,49)', // 黄
+        //     bottom: 'rgba(195,175,49, 0.3)'
+        //   }, {
+        //     top: 'rgba(56,215,48)', // 绿
+        //     bottom: 'rgba(56,215,48, 0.3)'
+        //   },
+        //   {
+        //     top: 'rgba(40,203,195)', // 蓝
+        //     bottom: 'rgba(40,203,195, 0.3)'
+        //   }, {
+        //     top: 'rgba(42,45,221)', // 深蓝
+        //     bottom: 'rgba(42,45,221, 0.3)'
+        //   },
+        //   {
+        //     top: 'rgba(215,47,215)', // 粉
+        //     bottom: 'rgba(215,47,215, 0.3)'
+        //   }
+        // ]
         this.chart = echarts.init(this.$el, 'macarons')
         this.chart.setOption({
-          // backgroundColor: '#0E2A43',
-          // title: {
-          //   text: '条形七彩渐变柱状图',
-          //   textStyle: {
-          //     color: '#ffd285'
-          //   },
-          //   subtext: '@author亮'
-          // },
           grid: {
             left: '5%',
             right: '2%',
             bottom: '4%',
             containLabel: true
           },
-
           tooltip: {
             show: 'true',
             trigger: 'axis',
@@ -139,37 +130,52 @@
                 normal: {
                   show: true,
                   color: function(params) {
-                    const num = colorArray.length
-                    return {
-                      type: 'linear',
-                      colorStops: [{
-                        offset: 0, color: colorArray[params.dataIndex % num].bottom
-                      }, {
-                        offset: 1, color: colorArray[params.dataIndex % num].top
-                      }, {
-                        offset: 0, color: colorArray[params.dataIndex % num].bottom
-                      }, {
-                        offset: 1, color: colorArray[params.dataIndex % num].top
-                      }, {
-                        offset: 0, color: colorArray[params.dataIndex % num].bottom
-                      }, {
-                        offset: 1, color: colorArray[params.dataIndex % num].top
-                      }, {
-                        offset: 0, color: colorArray[params.dataIndex % num].bottom
-                      }, {
-                        offset: 1, color: colorArray[params.dataIndex % num].top
-                      }, {
-                        offset: 0, color: colorArray[params.dataIndex % num].bottom
-                      }, {
-                        offset: 1, color: colorArray[params.dataIndex % num].top
-                      }, {
-                        offset: 0, color: colorArray[params.dataIndex % num].bottom
-                      }, {
-                        offset: 1, color: colorArray[params.dataIndex % num].top
-                      }]
-                      //global Coord: false
-                    }
+                    var colorList = [
+                      // '#FF7F00',
+                      // '#FFFF33',
+                      // '#E41A1C',
+                      // '#377EB8',
+                      // '#4DAF4A'
+                      '#009eff',
+                      '#E87C25',
+                      '#C1232B',
+                      '#B5C334',
+                      '#FCCE10'
+                    ]
+                    return colorList[params.dataIndex]
                   },
+                    // function(params) {
+                    // const num = colorArray.length
+                    // return {
+                    //   type: 'linear',
+                    //   colorStops: [{
+                    //     offset: 0, color: colorArray[params.dataIndex % num].bottom
+                    //   }, {
+                    //     offset: 1, color: colorArray[params.dataIndex % num].top
+                    //   }, {
+                    //     offset: 0, color: colorArray[params.dataIndex % num].bottom
+                    //   }, {
+                    //     offset: 1, color: colorArray[params.dataIndex % num].top
+                    //   }, {
+                    //     offset: 0, color: colorArray[params.dataIndex % num].bottom
+                    //   }, {
+                    //     offset: 1, color: colorArray[params.dataIndex % num].top
+                    //   }, {
+                    //     offset: 0, color: colorArray[params.dataIndex % num].bottom
+                    //   }, {
+                    //     offset: 1, color: colorArray[params.dataIndex % num].top
+                    //   }, {
+                    //     offset: 0, color: colorArray[params.dataIndex % num].bottom
+                    //   }, {
+                    //     offset: 1, color: colorArray[params.dataIndex % num].top
+                    //   }, {
+                    //     offset: 0, color: colorArray[params.dataIndex % num].bottom
+                    //   }, {
+                    //     offset: 1, color: colorArray[params.dataIndex % num].top
+                    //   }]
+                    //   //global Coord: false
+                    // }
+                  // },
                   // barBorderRadius: 88,
                   borderWidth: 0,
                   borderColor: '#333'
@@ -179,7 +185,6 @@
               barCategoryGap: '50%',
               data: [260, 132]
             }
-
           ]
         })
       }

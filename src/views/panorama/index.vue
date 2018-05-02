@@ -1,5 +1,7 @@
 <template>
 <div id="bodyContainer" class="backgroundStyle" :style="backgroundStyle">
+  <div class="stars"></div>
+  <div class="twinkling"></div>
   <el-row :gutter="20">
     <el-col :span="6">
       <div id="box1" class="colBox0 grid-content left" >
@@ -147,14 +149,10 @@
 <script>
   import { mapGetters } from 'vuex'
   // 组件
-  import BarChart from './components/BarChart'
-  import BarLine from './components/BarChart2'
   import CrossBar from './components/CrossBar'
   import AppBar from './components/CrossBar3'
   import PieChart from './components/PieChart'
   // import BreakPie from './components/PieChart2'
-  import LineChart from './components/LineChart'
-  import GuageChart from './components/GuageChart'
   import PictorialBar from './components/PictorialBar'
   import Chart from 'vue-bulma-chartjs'
   // 接口
@@ -168,15 +166,11 @@
   export default {
     name: 'panorama',
     components: {
-      BarChart,
       PieChart,
       Chart,
-      LineChart,
-      GuageChart,
       PictorialBar,
       CrossBar,
-      AppBar,
-      BarLine
+      AppBar
     },
     data() {
       return {
@@ -217,11 +211,12 @@
         },
         // 动态柱状图颜色配置
         backgroundColor: [
-          '#E41A1C',
-          '#377EB8',
-          '#4DAF4A',
-          '#FF7F00',
-          '#FFFF33'
+          '#E87C25',
+          '#009eff',
+          '#C1232B',
+          '#B5C334',
+          '#FCCE10'
+          // '#27727B',
           // '#FB3B4E',
           // '#1D4D8F',
           // '#05F1D6',
@@ -312,6 +307,7 @@
     created() {
     },
     mounted() {
+      this.redirect()
       this.initView()
       // 柱状图轮播效果
       setInterval(() => {
@@ -323,6 +319,26 @@
       }, 2000)
     },
     methods: {
+      redirect() {
+        var flag = 0
+        setInterval(() => {
+          if (flag === 0){
+            window.location.href = 'http://localhost:9527/#/panorama/index2'
+            flag = 1
+          }else {
+            window.location.href = 'http://localhost:9527/#/panorama/index'
+            flag = 0
+          }
+        },30000)
+      },
+      sleep(d){
+        var t = Date.now();
+        console.log(t);
+        while(Date.now - t >= d){
+          console.log(11111)
+          window.location.href = 'http://localhost:9527/#/panorama/index2'
+        }
+      },
       initView() {
         // 接口
         // 1.设备数量信息
@@ -441,6 +457,7 @@
 </script>
 
 <style>
+  * { margin: 0; padding: 0; border: 0; }
   html {
     width: 100%;
     height: 100%;
@@ -450,7 +467,8 @@
     width: 100%;
     margin: auto;
     color: white;
-    background-color: #04243E;
+    background-color: #000;
+    /*background-color: #04243E;*/
   }
 
   .el-row {
@@ -481,15 +499,18 @@
   }
 
   .colBox0{
+    z-index:2;
     margin-top: 20px;
     height: 300px;
   }
 
   .colBox1{
+    z-index:2;
     /*margin-top: 20px;*/
     height: 250px;
   }
   .colBox2{
+    z-index:2;
     /*margin-top: 10px;*/
     height: 600px;
   }
@@ -610,7 +631,7 @@
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    border: 0.2rem solid #fff3e1;
+    border: 0.2rem solid #009eff;
     overflow: hidden;
   }
   .radar:before {
@@ -627,7 +648,7 @@
   .radar:after {
     content: ' ';
     display: block;
-    background-image: linear-gradient(44deg, rgba(0, 255, 51, 0) 50%, #fff3e1 100%);
+    background-image: linear-gradient(44deg, rgba(0, 255, 51, 0) 50%, #009eff 100%);
     width: 50%;
     height: 50%;
     position: absolute;
@@ -666,6 +687,53 @@
       /*opacity: 0;*/
     /*}*/
   /*}*/
+
+
+  /******背景动画效果********/
+  @keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+  @-webkit-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+  @-moz-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+  @-ms-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+
+  .stars, .twinkling {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+    display:block;
+  }
+
+  .stars {
+    background:#000 url(/src/assets/customView/img/stars.png) repeat top center;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    z-index:0;
+  }
+
+  .twinkling{
+    background:transparent url(/src/assets/customView/img/twinkling.png) repeat top center;
+    z-index:0;
+    -moz-animation:move-twink-back 200s linear infinite;
+    -ms-animation:move-twink-back 200s linear infinite;
+    -o-animation:move-twink-back 200s linear infinite;
+    -webkit-animation:move-twink-back 200s linear infinite;
+    animation:move-twink-back 200s linear infinite;
+  }
 
 
 

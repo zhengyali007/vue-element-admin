@@ -1,6 +1,7 @@
 <template>
-
   <div id="quaContainer" style="height: 100%">
+    <div class="stars"></div>
+    <div class="twinkling"></div>
     <el-row :gutter="20" >
       <el-col :span="12">
         <div  class="quaBox1 quaLeft">
@@ -113,7 +114,7 @@
   html,body,#app,#quaContainer {
     height: 100%;
     color: white;
-    background-color: #04243E;
+    background-color: #000;
   }
 
   .quaLeft{
@@ -151,6 +152,52 @@
     height: 95%;
     width: 95%;
     margin: auto;
+  }
+
+  /******背景动画效果********/
+  @keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+  @-webkit-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+  @-moz-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+  @-ms-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+  }
+
+  .stars, .twinkling {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+    display:block;
+  }
+
+  .stars {
+    background:#000 url(/src/assets/customView/img/stars.png) repeat top center;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    z-index:0;
+  }
+
+  .twinkling{
+    background:transparent url(/src/assets/customView/img/twinkling.png) repeat top center;
+    z-index:0;
+    -moz-animation:move-twink-back 200s linear infinite;
+    -ms-animation:move-twink-back 200s linear infinite;
+    -o-animation:move-twink-back 200s linear infinite;
+    -webkit-animation:move-twink-back 200s linear infinite;
+    animation:move-twink-back 200s linear infinite;
   }
 
 </style>

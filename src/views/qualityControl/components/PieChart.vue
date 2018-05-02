@@ -92,12 +92,13 @@
           y: 0,
           x2: 0,
           y2: 1,
+          // color: '#E87C25',
           colorStops: [{
             offset: 0.2,
-            color: 'rgba(225,41,69,0.3)' // 0% 处的颜色
+            color: 'rgba(232,124,37,1.0)' // 0% 处的颜色
           }, {
             offset: 1,
-            color: 'rgba(225,41,69,1.0)' // 100% 处的颜色
+            color: 'rgba(232,124,37,1.0)' // 100% 处的颜色
           }],
           globalCoord: false // 缺省为 false
         }, 'none']
@@ -110,33 +111,33 @@
           y2: 1,
           colorStops: [{
             offset: 0.3,
-            color: 'rgba(26,152,248,0.3)' // 0% 处的颜色
+            color: 'rgba(0,158,255,1.0)' // 0% 处的颜色
           }, {
             offset: 1,
-            color: 'rgba(26,152,248,1.0)' // 100% 处的颜色
+            color: 'rgba(0,158,255,1.0)' // 100% 处的颜色
           }],
           globalCoord: false // 缺省为 false
         }, 'none']
         /* ---------------------富文本----------------------------*/
         var rich = {
           exemptname: {
-            color: '#115b70',
+            color: '#fff',
             fontSize: 14 * scale,
             padding: [0, 0]
           },
           examptdata: {
-            color: '#e12945',
+            color: '#E87C25',
             fontSize: 30 * scale,
             padding: [0, 0],
             fontWeight: 'bold'
           },
           exemname: {
-            color: '#115b70',
+            color: '#fff',
             fontSize: 14 * scale,
             padding: [0, 0]
           },
           examdata: {
-            color: '#1a98f8',
+            color: '#009eff',
             fontSize: 30 * scale,
             padding: [0, 0],
             fontWeight: 'bold'
@@ -145,13 +146,13 @@
             width: 14,
             height: 14,
             borderRadius: 3,
-            backgroundColor: '#1a98f8'
+            backgroundColor: '#009eff'
           },
           rectred: {
             width: 14,
             height: 14,
             borderRadius: 3,
-            backgroundColor: '#e12945'
+            backgroundColor: '#E87C25'
           },
           space: {
             padding: [0, 10, 0, 0]
@@ -201,7 +202,7 @@
                 itemStyle: {
                   normal: {
                     borderWidth: 2,
-                    borderColor: '#0b5263'
+                    borderColor: '#3a4b61'
                   }
                 }
               }, {
@@ -240,7 +241,7 @@
                   length: 90,
                   length2: 20,
                   lineStyle: {
-                    color: '#eb297d'
+                    color: '#E87C25'
                   }
                 }
               },
@@ -270,7 +271,7 @@
                   length: 70,
                   length2: 20,
                   lineStyle: {
-                    color: '#3fdaff'
+                    color: '#009eff'
                   }
                 }
               },
@@ -296,7 +297,7 @@
                 itemStyle: {
                   normal: {
                     borderWidth: 2,
-                    borderColor: '#0b5263'
+                    borderColor: '#3a4b61'
                   }
                 }
               }, {

@@ -129,9 +129,14 @@
                     var colorList = [
                       // '#FF7F00',
                       // '#FFFF33',
-                      '#E41A1C',
-                      '#377EB8',
-                      '#4DAF4A'
+                      // '#E41A1C',
+                      // '#377EB8',
+                      // '#4DAF4A'
+                      '#E87C25',
+                      '#009eff',
+                      '#C1232B',
+                      '#B5C334',
+                      '#FCCE10'
                     ]
                     return colorList[params.dataIndex]
                   }

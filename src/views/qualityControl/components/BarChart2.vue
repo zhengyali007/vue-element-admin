@@ -89,12 +89,12 @@
             //     color: '#363e83'
             //   }
             // },
-            // splitLine: {
-            //   show: false,
-            //   lineStyle: {
-            //     color: '#363e83 '
-            //   }
-            // },
+            splitLine: {
+              show: true,
+              lineStyle: {
+                color: '#3a4b61 '
+              }
+            },
             axisLabel: {
               textStyle: {
                 color: '#fff',
@@ -135,13 +135,14 @@
               itemStyle: {
                 normal: {
                   show: true,
-                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                    offset: 0,
-                    color: '#f7734e'
-                  }, {
-                    offset: 1,
-                    color: '#e12945'
-                  }]),
+                  color:  '#009eff',
+                  //   new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  //   offset: 0,
+                  //   color: '#f7734e'
+                  // }, {
+                  //   offset: 1,
+                  //   color: '#e12945'
+                  // }]),
                   // barBorderRadius: 50,
                   borderWidth: 0
                 }
@@ -156,13 +157,14 @@
               itemStyle: {
                 normal: {
                   show: true,
-                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                    offset: 0,
-                    color: '#1a98f8'
-                  }, {
-                    offset: 1,
-                    color: '#7049f0'
-                  }]),
+                  color: '#E87C25',
+                  //   new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  //   offset: 0,
+                  //   color: '#1a98f8'
+                  // }, {
+                  //   offset: 1,
+                  //   color: '#7049f0'
+                  // }]),
                   // barBorderRadius: 50,
                   borderWidth: 0
                 }

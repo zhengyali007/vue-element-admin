@@ -108,11 +108,11 @@ export default {
     initChart() {
       var i = 0
       var colors = [
-        '#E41A1C',
-        '#377EB8',
-        '#4DAF4A',
-        '#FF7F00',
-        '#FFFF33'
+        '#E87C25',
+        '#009eff',
+        '#C1232B',
+        '#B5C334',
+        '#FCCE10'
       ]
       this.chart = echarts.init(this.$el, 'macarons')
 

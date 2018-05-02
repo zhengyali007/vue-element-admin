@@ -216,7 +216,7 @@
               }
             },
             data: [{
-              value: 1,
+              value: 100,
               label: {
                 normal: {
                   formatter: '安全事件',

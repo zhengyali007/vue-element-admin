@@ -20,12 +20,20 @@
       height: {
         type: String,
         default: '300px'
+      },
+      appNum: {
+        type: Array,
+        default: function () {
+          return [0,0,0]
+        }
       }
     },
     data() {
       return {
         chart: null,
         breakNumber: undefined,
+        appNumber: this.appNum,
+        normalRate: undefined,
         vTp2: 35,
         vTp1: 15,
         vTp0: 18
@@ -33,8 +41,14 @@
     },
     computed: {
     },
+    watch: {
+      appNumber: function () {
+        this.normalRate  = parseInt(this.appNumber[0]/(this.appNumber[0]+this.appNumber[1]+this.appNumber[2])*100)
+        this.initChart()
+      }
+    },
     mounted() {
-      this.initChart()
+      // this.initChart()
       this.__resizeHanlder = debounce(() => {
         if (this.chart) {
           this.chart.resize()
@@ -51,7 +65,7 @@
       this.chart = null
     },
     methods: {
-      initChart() {
+    initChart() {
         this.chart = echarts.init(this.$el, 'macarons')
         this.chart.setOption({
           backgroundColor: 'transparent',
@@ -148,10 +162,10 @@
             hoverAnimation: false,
             center: ['50%', '50%'],
             data: [{
-              value: this.vTp2,
+              value: this.normalRate,
               label: {
                 normal: {
-                  formatter: '正常状态\n{d}%',
+                  formatter: '正常状态\n'+this.normalRate+'%',
                   position: 'center',
                   show: true,
                   textStyle: {
@@ -197,7 +211,7 @@
             hoverAnimation: false,
             center: ['50%', '50%'],
             data: [{
-              value: this.vTp0,
+              value: this.appNumber[1],
               name: '性能劣化',
               itemStyle: {
                 normal: {
@@ -205,7 +219,7 @@
                 }
               }
             }, {
-              value: this.vTp2,
+              value: this.appNumber[0],
               name: '正常状态',
               itemStyle: {
                 normal: {
@@ -213,7 +227,7 @@
                 }
               }
             }, {
-              value: this.vTp1,
+              value: this.appNumber[2],
               name: '故障状态',
               itemStyle: {
                 normal: {
@@ -223,7 +237,7 @@
             }],
             itemStyle: {
               normal: {
-                borderWidth: 3,
+                borderWidth: 1,
                 borderColor: '#3a4b61'
               }
             }

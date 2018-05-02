@@ -136,7 +136,7 @@
               barWidth: 'auto',
               itemStyle: {
                 normal: {
-                  color: '#E41A13'
+                  color: '#009eff'
                   //   {
                   //   type: 'linear',
                   //   x: 0,
@@ -170,7 +170,7 @@
               barWidth: 'auto',
               itemStyle: {
                 normal: {
-                  color: '#377EB8'
+                  color: '#E87C25'
                   //   {
                   //   type: 'linear',
                   //   x: 0,

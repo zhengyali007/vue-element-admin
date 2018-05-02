@@ -16,30 +16,30 @@
       <el-col :span="6">
         <div  class="effBox1">
           <div class="effTitle">
-            <span>基础设施状态</span>
+            <span>核心设施状态</span>
           </div>
           <div class="effContainer1">
-            <pie-chart height="100%" width="100%"></pie-chart>
+            <pie-chart :app-num="coreApplication" height="100%" width="100%"></pie-chart>
           </div>
         </div>
       </el-col>
       <el-col :span="6">
         <div class="effBox1">
           <div class="effTitle">
-            <span>核心应用状态</span>
+            <span>重要应用状态</span>
           </div>
           <div class="effContainer1">
-            <pie-chart height="100%" width="100%"></pie-chart>
+            <pie-chart :app-num="importApplication" height="100%" width="100%"></pie-chart>
           </div>
         </div>
       </el-col>
       <el-col :span="6">
         <div class="effBox1 effRight">
           <div class="effTitle">
-            <span>主机应用状态</span>
+            <span>基础应用状态</span>
           </div>
           <div class="effContainer1">
-            <pie-chart height="100%" width="100%"></pie-chart>
+            <pie-chart :app-num="generalApplication" height="100%" width="100%"></pie-chart>
           </div>
         </div>
       </el-col>
@@ -89,6 +89,8 @@
   import BarChart from './components/BarChart2'
   import RotateBar from './components/BarChart3'
   import PieChart from './components/PieChart'
+  // 接口
+  import { getAppNum } from '@/api/customView/index'
 
   export default {
     name: 'effectEvaluation',
@@ -101,13 +103,36 @@
     },
     data() {
       return {
+        coreApplication: [], // 核心应用
+        generalApplication: [], // 基础应用
+        importApplication: [] // 重要应用
       }
     },
     computed: {
       ...mapGetters([
       ])
+    },
+    mounted() {
+      this.redirect()
+      this.getAppInfo()
+    },
+    methods: {
+      getAppInfo() {
+        getAppNum()
+          .then(response => {
+            const allData = response.data
+            const coreApplication = allData.coreApplication
+            const generalApplication = allData.generalApplication
+            const importApplication = allData.importApplication
+            // 设备的 正常数量 劣化数量 异常数量
+            this.coreApplication.push(coreApplication.normalCount,coreApplication.degradationCount, coreApplication.exceptionCount)
+            this.generalApplication.push(generalApplication.normalCount,generalApplication.degradationCount, generalApplication.exceptionCount)
+            this.importApplication.push(importApplication.normalCount,importApplication.degradationCount, importApplication.exceptionCount)
+          })
+      }
     }
   }
+
 </script>
 
 <style>
@@ -191,9 +216,9 @@
   .breathe1 {
     margin-left: 10%;
     border:1px solid #009eff;
-    background-image:-webkit-gradient(linear,left top,left bottom,from(#6cc3fe),to(#009eff));
-    -webkit-animation-name:breathe1;
-    -webkit-animation-duration:3000ms;
+    background-image:-webkit-gradient(linear,left top,left bottom,from(#009eff),to(#009eff));
+    /*-webkit-animation-name:breathe1;*/
+    /*-webkit-animation-duration:3000ms;*/
   }
   @-webkit-keyframes breathe1 {
     0% {
@@ -202,17 +227,18 @@
     }
     100% {
       opacity: 1;
-      border: 1px solid rgba(59, 235, 235, 1);
-      box-shadow: 0 1px 30px rgba(59, 255, 255, 1);
+      border: 1px solid rgba(0,158,255, 1);
+      box-shadow: 0 1px 30px rgba(0,158,255, 1);
     }
   }
 
   .breathe2 {
     margin-left: 10%;
-    border:1px solid #e12945;
-    background-image:-webkit-gradient(linear,left top,left bottom,from(#f7734e),to(#C1232B));
+    border:1px solid #C1232B;
+    /*background-image:-webkit-gradient(linear,left top,left bottom,from(#f7734e),to(#C1232B));*/
+    background-image:-webkit-gradient(linear,left top,left bottom,from(#C1232B),to(#C1232B));
     -webkit-animation-name:breathe2;
-    -webkit-animation-duration:1000ms;
+    -webkit-animation-duration:500ms;
   }
   @-webkit-keyframes breathe2 {
     0% {
@@ -221,8 +247,8 @@
     }
     100% {
       opacity: 1;
-      border: 1px solid rgba(247,115,78, 1);
-      box-shadow: 0 1px 30px rgba(255,165,0, 1);
+      border: 1px solid rgba(193,35,43, 1);
+      box-shadow: 0 1px 30px rgba(193,35,43, 1);
     }
   }
 
@@ -258,6 +284,7 @@
 
   .stars {
     background:#000 url(/src/assets/customView/img/stars.png) repeat top center;
+    background-attachment: fixed;
     z-index:0;
   }
 

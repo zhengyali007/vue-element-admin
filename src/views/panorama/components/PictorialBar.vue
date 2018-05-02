@@ -80,17 +80,23 @@
         var deemph_color = 'rgb(165,165,165)'
         var bar_category_gap = '30%'
         var deemph_colors = [
-          '#4DAF4A',
-          '#377EB8',
-          '#E41A1C',
-          '#FF7F00',
-          '#FFFF33'
+          '#E87C25',
+          '#009eff',
+          '#C1232B',
+          '#B5C334',
+          '#FCCE10'
         ]
         var axis_line_color = 'rgb(135,135,135)'
         var category = ['上月存储量', '本月存储量', '总存储量']
 
         this.chart = echarts.init(this.$el, 'macarons')
         this.chart.setOption({
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            }
+          },
           grid: [{
             left: '20%',
             right: '5%',

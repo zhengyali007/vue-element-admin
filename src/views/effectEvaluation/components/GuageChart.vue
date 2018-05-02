@@ -104,7 +104,7 @@
               }]
             },
             {
-              name: '火力显示',
+              name: '',
               type: 'gauge',
               radius: '40%',
               startAngle: 359.9,
