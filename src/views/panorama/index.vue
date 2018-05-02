@@ -329,7 +329,7 @@
             window.location.href = 'http://localhost:9527/#/panorama/index'
             flag = 0
           }
-        },30000)
+        },10000)
       },
       sleep(d){
         var t = Date.now();

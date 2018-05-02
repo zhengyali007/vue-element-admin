@@ -53,6 +53,12 @@
     mounted() {
       this.option = {
         // color: ['#E87C25', '#27727B'],
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
         grid: {
           left: '7%',
           right: '6%',
