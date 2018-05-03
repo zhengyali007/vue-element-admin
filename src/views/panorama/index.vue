@@ -323,21 +323,13 @@
         var flag = 0
         setInterval(() => {
           if (flag === 0){
-            window.location.href = 'http://localhost:9527/#/panorama/index2'
+            window.location.href = 'http://47.96.163.237:9527/#/panorama/index2'
             flag = 1
           }else {
-            window.location.href = 'http://localhost:9527/#/panorama/index'
+            window.location.href = 'http://47.96.163.237:9527/#/panorama/index'
             flag = 0
           }
         },10000)
-      },
-      sleep(d){
-        var t = Date.now();
-        console.log(t);
-        while(Date.now - t >= d){
-          console.log(11111)
-          window.location.href = 'http://localhost:9527/#/panorama/index2'
-        }
       },
       initView() {
         // 接口
