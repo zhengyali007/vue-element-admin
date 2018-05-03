@@ -71,12 +71,19 @@
         this.chart = echarts.init(this.$el, 'macarons')
         this.chart.setOption({
           // backgroundColor: '#fff',
-          color: ['#fc7a26', '#fff', '#ffa127', '#fff', '#ffcd26'],
+          color: [
+            '#fc7a26',
+            '#fff',
+            '#ffa127',
+            '#fff',
+            '#ffcd26',
+            '#fff',
+          ],
           legend: [{
             orient: '',
             icon: 'circle',
             left: 'right',
-            top: 'center',
+            top: 'top',
             data: ['安全攻击', '违规事件', '安全漏洞'],
             textStyle: {
               color: '#fff'
@@ -110,15 +117,15 @@
               name: '70%'
             }, {
               value: 3,
-              name: '',
+              name: '外环',
               itemStyle: placeHolderStyle
             }]
           }, {
-            name: '白',
+            // name: '白',
             type: 'pie',
             clockWise: false,
             radius: [180, 180],
-            hoverAnimation: false,
+            hoverAnimation: true,
             data: [{
               value: 1
             }]

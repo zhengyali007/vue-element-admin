@@ -3,7 +3,7 @@
     <div class="stars"></div>
     <div class="twinkling"></div>
     <el-row :gutter="20">
-      <el-col :span="10">
+      <el-col :span="14">
         <div class=" grid-content2 left" >
           <div class="s_container1">
             <div class="title">
@@ -23,17 +23,17 @@
           </div>
         </div>
       </el-col>
-      <el-col :span="14">
+      <el-col :span="10">
         <div class="grid-content2 right" >
           <div class="title">
             <span>应用异常详情</span>
           </div>
-          <div style="width: 80%; height: 80%; margin: 20px; padding: 20px;">
+          <div style="width: 95%; height: 80%; margin: 20px; padding: 10px;">
             <!--<bar-line :normal-count="normalCount" :exception-count="exceptionCount" width="100%" height="100%"></bar-line>-->
-            <el-table :data="tableData" style="width: 80%;margin: auto;padding: 10px;"  max-height="800" stripe>
+            <el-table :data="tableData" style="width: 100%;margin: auto;padding: 5px;"  max-height="800" stripe>
               <el-table-column
                 label="状态码"
-                width="180">
+                width="160">
                 <template slot-scope="scope">
                   <!--<i class="el-icon-info"></i>-->
                   <!--<el-tag type="danger" >{{ scope.row.date }}</el-tag>-->
@@ -42,7 +42,7 @@
               </el-table-column>
               <el-table-column
                 label="设备名称"
-                width="180">
+                width="160">
                 <template slot-scope="scope">
                   <el-popover trigger="hover" placement="top">
                     <p>设备名称: {{ scope.row.name }}</p>
@@ -53,7 +53,7 @@
                   </el-popover>
                 </template>
               </el-table-column>
-              <el-table-column label="查看详细信息" width="180">
+              <el-table-column label="查看详细信息" width="160">
                 <template slot-scope="scope">
                   <!--scope.$index,-->
                   <el-button type="danger"  plain icon="el-icon-question" @click="handleCheck(scope.row)"></el-button>
