@@ -3,7 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-require ("babel-polyfill")
+// require ("babel-polyfill")
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -18,10 +18,16 @@ const createLintingRule = () => ({
     formatter: require('eslint-friendly-formatter'),
     emitWarning: !config.dev.showEslintErrorsInOverlay
   }
-})
+},
+  {
+    test: /\.js$/,
+    loader: 'babel-loader',
+    include: [resolve('src'), resolve('test'), resolve('/node_modules\/webpack-dev-server/')]
+  })
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
+
   entry: {
     app: './src/main.js'
   },
