@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import "babel-polyfill"
 import Vuex from 'vuex'
 import app from './modules/app'
 import errorLog from './modules/errorLog'

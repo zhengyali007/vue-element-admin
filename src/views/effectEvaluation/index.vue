@@ -182,6 +182,7 @@
   }
 
   .effContainer1 {
+    padding: 0 10%;
     height: 90%;
     width: 100%;
   }
