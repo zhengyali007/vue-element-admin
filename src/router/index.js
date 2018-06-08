@@ -60,6 +60,11 @@ export const constantRouterMap = [
       component: _import('panorama/index2'),
       name: 'panorama2',
       meta: { title: 'panorama2', icon: 'dashboard', noCache: true }
+    },{
+      path: 'panorama',
+      component: _import('panorama/panorama'),
+      name: 'panorama',
+      meta: { title: 'panorama', icon: 'dashboard', noCache: true }
     }]
   },
   {

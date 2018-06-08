@@ -32,17 +32,15 @@
             <!--<bar-line :normal-count="normalCount" :exception-count="exceptionCount" width="100%" height="100%"></bar-line>-->
             <el-table :data="tableData" style="width: 100%;margin: auto;padding: 5px;"  max-height="800" stripe>
               <el-table-column
-                label="状态码"
-                width="160">
+                label="状态码" align="center"
+                width="200">
                 <template slot-scope="scope">
-                  <!--<i class="el-icon-info"></i>-->
-                  <!--<el-tag type="danger" >{{ scope.row.date }}</el-tag>-->
                   <span>{{ scope.row.statusCode }}</span>
                 </template>
               </el-table-column>
               <el-table-column
                 label="设备名称"
-                width="160">
+                width="200" align="center" >
                 <template slot-scope="scope">
                   <el-popover trigger="hover" placement="top">
                     <p>设备名称: {{ scope.row.name }}</p>
@@ -53,14 +51,9 @@
                   </el-popover>
                 </template>
               </el-table-column>
-              <el-table-column label="查看详细信息" width="160">
+              <el-table-column align="center"  width="200" label="查看详细信息" >
                 <template slot-scope="scope">
-                  <!--scope.$index,-->
                   <el-button type="danger"  plain icon="el-icon-question" @click="handleCheck(scope.row)"></el-button>
-                  <!--<el-button-->
-                    <!--size="mini"-->
-                    <!--type="danger"-->
-                    <!--@click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
                 </template>
               </el-table-column>
             </el-table>
