@@ -35,12 +35,12 @@ export const constantRouterMap = [
   {
     path: '',
     component: Layout,
-    redirect: 'dashboard',
+    redirect: 'moka',
     children: [{
-      path: 'dashboard',
-      component: _import('dashboard/index'),
-      name: 'dashboard',
-      meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
+      path: 'moka',
+      component: _import('moka/index'),
+      name: 'moka',
+      meta: { title: 'moka', icon: 'dashboard', noCache: true }
     }]
   },
   {
