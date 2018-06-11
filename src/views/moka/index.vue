@@ -13,6 +13,9 @@
             <img src="../../assets/moka/title.png"/>
             <label>安全设备状态</label>
           </div>
+          <div class="data_status_view">
+            <equip-status></equip-status>
+          </div>
         </div>
         <div class="safe-event">
           <div class="common-title">
@@ -47,11 +50,17 @@
                 <img src="../../assets/moka/title.png"/>
                 <label>告警数</label>
               </div>
+              <div class="warn-num-view">
+                <warn-num></warn-num>
+              </div>
             </div>
             <div class="use-ratio first-ratio">
               <div class="common-title">
                 <img src="../../assets/moka/title.png"/>
                 <label>磁盘利用率</label>
+              </div>
+              <div class="use-ratio-view">
+                <use-rate></use-rate>
               </div>
             </div>
             <div class="use-ratio">
@@ -59,11 +68,17 @@
                 <img src="../../assets/moka/title.png"/>
                 <label>CPU利用率</label>
               </div>
+              <div class="use-ratio-view">
+                <use-rate></use-rate>
+              </div>
             </div>
             <div class="use-ratio">
               <div class="common-title">
                 <img src="../../assets/moka/title.png"/>
                 <label>内存利用率</label>
+              </div>
+              <div class="use-ratio-view">
+                <use-rate></use-rate>
               </div>
             </div>
           </div>
@@ -76,11 +91,17 @@
                 <img src="../../assets/moka/title.png"/>
                 <label>数据容量</label>
               </div>
+              <div class="data-capacity-view">
+                <data-capa></data-capa>
+              </div>
             </div>
             <div class="backup-rate safe-container">
               <div class="common-title">
                 <img src="../../assets/moka/title.png"/>
                 <label>备份率</label>
+              </div>
+              <div class="backup-rate-view">
+                <equip-status></equip-status>
               </div>
             </div>
           </div>
@@ -98,7 +119,7 @@
            <label>应用</label>
          </div>
          <div class="application-main-view">
-
+           <app-num></app-num>
          </div>
        </div>
      </div>
@@ -110,12 +131,22 @@
   import {mapGetters} from 'vuex'
   import   SafeEvent  from './components/SafeEvent'
   import   EquipNum  from './components/EquipNum'
+  import   AppNum  from './components/AppNum'
+  import   WarnNum  from './components/WarnNum'
+  import   EquipStatus  from './components/EquipStatus'
+  import   UseRate  from './components/UseRate'
+  import   DataCapa  from './components/DataCapa'
 
   export default {
     name: 'panorama',
     components: {
       SafeEvent,
-      EquipNum
+      EquipNum,
+      AppNum,
+      EquipStatus,
+      WarnNum,
+      UseRate,
+      DataCapa
     },
     data() {
       return {}
@@ -291,6 +322,13 @@
     height: 60%;
   }
 
+  .warn-num-view {
+    position: relative;
+    width: 100%;
+    height: 70%;
+    /*background-color: #fff;*/
+  }
+
   .use-ratio {
     display: inline-block;
     /*background-color: #227656;*/
@@ -298,6 +336,15 @@
     width: 32%;
     height: 40%;
     margin: 0 2px;
+  }
+
+  .use-ratio-view {
+    position: relative;
+    /*background-color: #fff;*/
+    width: 70%;
+    height: 70%;
+    left: 35%;
+    top: -10%;
   }
 
   .first-ratio {
@@ -313,6 +360,14 @@
     margin: auto;
     background: url("../../assets/moka/aqsbzt-bg.png") no-repeat;
     background-size: 100% 100%;
+  }
+
+  .data_status_view {
+    position: relative;
+    width: 96%;
+    height: 70%;
+    margin: auto;
+    /*background-color: #fff;*/
   }
 
   .safe-event {
@@ -386,8 +441,23 @@
       /*background-color: #2276d2;*/
   }
 
+  .data-capacity-view {
+    position: relative;
+    width: 100%;
+    height: 75%;
+    /*background-color: #fff;*/
+  }
+
   .backup-rate {
     /*background-color: #f0dacf;*/
+  }
+
+  .backup-rate-view {
+    position: relative;
+    /*background-color: #fff;*/
+    width: 100%;
+    height: 70%;
+    margin: auto;
   }
 
   .law-firm {
