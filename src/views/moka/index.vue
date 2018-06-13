@@ -1,7 +1,7 @@
 <template>
   <div id="view-container">
     <div class="view-title">
-      <div :class=" index1?'primary-title':'secondary-title' "  @click="toIndex1">效能评估</div>
+      <div :class=" index1?'primary-title':'secondary-title' " @click="toIndex1">效能评估</div>
       <div :class=" index2?'primary-title':'secondary-title' " @click="toIndex2">全景视图</div>
       <div :class=" index3?'primary-title':'secondary-title' " @click="toIndex3">质控态势</div>
     </div>
@@ -97,9 +97,9 @@
           </div>
           <div class="warn-status">
             <label style="font-size: 12px;color: #fff">是否告警</label>
-            <img src="../../assets/moka/warn.png" style="width: 60%; height: 80%;margin-left: 20%;padding-bottom: 10%"/>
+            <img src="../../assets/moka/warn.png" style="width: 60%; height: 80%;margin-left: 20%;padding-bottom: 12%"/>
           </div>
-          <div class="warn-status" style="left:60%;width: 40%;">
+          <div class="warn-status" style="left:60%;width: 40%;height: 22%">
             <time-anal></time-anal>
           </div>
           <div class="app-sys-detail">
@@ -113,9 +113,10 @@
           </div>
           <div class="warn-status" style="left:50%; top: -1%;">
             <label style="font-size: 12px;color: #fff">是否告警</label>
-            <img src="../../assets/moka/no-warn.png" style="width: 60%; height: 80%;margin-left: 20%;padding-bottom: 10%"/>
+            <img src="../../assets/moka/no-warn.png"
+                 style="width: 60%; height: 80%;margin-left: 20%;padding-bottom: 12%"/>
           </div>
-          <div class="warn-status" style="left:70%;top:-1%;width: 40%;">
+          <div class="warn-status" style="left:70%;top:-1%;width: 40%;height: 22%">
             <time-anal></time-anal>
           </div>
           <div class="app-sys-detail">
@@ -150,11 +151,11 @@
         <div class="Infrastructure-view">
           <div class="main-title">基础设施</div>
           <div class="Infrastructure-select">
-            <div  :class=" sel1 ? 'selected' : 'un-select'" @click="hostClick" >主机</div>
-            <div :class=" sel2 ? 'selected' : 'un-select'"  @click="storageClick" >存储</div>
-            <div :class=" sel3 ? 'selected' : 'un-select'"  @click="networkClick" >网络</div>
-            <div :class=" sel4 ? 'selected' : 'un-select'" @click="otherClick" >其他</div>
-            <div :class=" sel5 ? 'selected' : 'un-select'" @click="levelFourClick" >四级网络</div>
+            <div :class=" sel1 ? 'selected' : 'un-select'" @click="hostClick">主机</div>
+            <div :class=" sel2 ? 'selected' : 'un-select'" @click="storageClick">存储</div>
+            <div :class=" sel3 ? 'selected' : 'un-select'" @click="networkClick">网络</div>
+            <div :class=" sel4 ? 'selected' : 'un-select'" @click="otherClick">其他</div>
+            <div :class=" sel5 ? 'selected' : 'un-select'" @click="levelFourClick">四级网络</div>
           </div>
           <div class="Infrastructure-show" v-if="infraStatus === 1">
             <div class="device-num">
@@ -173,7 +174,10 @@
                 <warn-num></warn-num>
               </div>
             </div>
-            <div class="use-ratio first-ratio">
+            <div class="host-use-rate">
+              <host-view></host-view>
+            </div>
+         <!--   <div class="use-ratio first-ratio">
               <div class="common-title">
                 <img src="../../assets/moka/title.png"/>
                 <label>磁盘利用率</label>
@@ -199,7 +203,7 @@
               <div class="use-ratio-view">
                 <use-rate></use-rate>
               </div>
-            </div>
+            </div>-->
           </div>
           <div class="Infrastructure-show" v-if="infraStatus === 2">
             <div class="device-num">
@@ -406,42 +410,164 @@
           </div>
         </div>
       </div>
-     <div class="bottom-container">
-       <div class="law-firm">
-         <div class="big-title">法务系统驾驶舱</div>
-         <div class="l-spec">100%</div>
-       </div>
-       <div class="application-view">
-         <div class="app-title">应用</div>
-         <div class="common-title app-common-title">
-           <img src="../../assets/moka/title.png"/>
-           <label>应用</label>
-         </div>
-         <div class="application-main-view">
-           <app-num></app-num>
-         </div>
-       </div>
-     </div>
+      <div class="bottom-container">
+        <div class="law-firm">
+          <div class="big-title">法务系统驾驶舱</div>
+          <div class="l-spec">100%</div>
+        </div>
+        <div class="application-view">
+          <div class="app-title">应用</div>
+          <div class="common-title app-common-title">
+            <img src="../../assets/moka/title.png"/>
+            <label>应用</label>
+          </div>
+          <div class="application-main-view">
+            <app-num></app-num>
+          </div>
+        </div>
+      </div>
     </div>
     <div id="index3" class="index" v-if="indexStatus === 3">
+      <div class="quality-top-view">
+        <div class="quality-base-equip">
+          <div class="base-equip-title">基础设施</div>
+        </div>
+        <div class="base-equip-view">
+          <div class="common-title" style="left: 60%;">
+            <img src="../../assets/moka/title.png"/>
+            <label>总体监控情况</label>
+          </div>
+          <equip-num></equip-num>
+        </div>
+        <div class="all-app-eff">
+          <div class="common-title" style="left: 83%; top: 83%;">
+            <img src="../../assets/moka/title.png"/>
+            <label>各应用系统效能</label>
+          </div>
+          <div class="net-num-view">
+            <div class="net-num-title">
+              <label style=" left: 10%;">设备总数量</label>
+              <label style=" right: 10%;">已监控数量</label>
+            </div>
+            <div class="host-num-view">
+              <host-num></host-num>
+            </div>
+          </div>
+          <div class="monitor-num-index">
+            <div class="net-name"  :class="netSel1 ? 'selected' : 'un-select'" @click="outsideNetClick">外部专网</div>
+            <div class="net-name " :class="netSel2 ? 'selected' : 'un-select'" @click="internetClick">互联网</div>
+            <div class="net-name " :class="netSel3 ? 'selected' : 'un-select'" @click="dataNetClick">数据专网</div>
+            <div class="net-name " :class="netSel4 ? 'selected' : 'un-select'" @click="videoNetClick">视频专网</div>
+            <div class="net-name " :class="netSel5 ? 'selected' : 'un-select'" @click="secretNetClick">涉密专网</div>
+            <div class="net-name " :class="netSel6 ? 'selected' : 'un-select'" @click="moveNetClick">移动专网</div>
+          </div>
+          <div class="monitor-num-view" v-if="netStatus === 1">
+            <div class="monitor-num-tip">
+              <label>已监控数量：</label>
+              <br/>
+              <label style="font-size: 1.3rem">16</label>
+            </div>
+            <monitor-num></monitor-num>
+          </div>
+          <div class="monitor-num-view" v-if="netStatus === 2">
+            <div class="monitor-num-tip">
+              <label>已监控数量：</label>
+              <br/>
+              <label style="font-size: 1.3rem">20</label>
+            </div>
+            <monitor-num></monitor-num>
+          </div>
+          <div class="monitor-num-view" v-if="netStatus === 3">
+            <div class="monitor-num-tip">
+              <label>已监控数量：</label>
+              <br/>
+              <label style="font-size: 1.3rem">10</label>
+            </div>
+            <monitor-num></monitor-num>
+          </div>
+          <div class="monitor-num-view" v-if="netStatus === 4">
+            <div class="monitor-num-tip">
+              <label>已监控数量：</label>
+              <br/>
+              <label style="font-size: 1.3rem">89</label>
+            </div>
+            <monitor-num></monitor-num>
+          </div>
+          <div class="monitor-num-view" v-if="netStatus === 5">
+            <div class="monitor-num-tip">
+              <label>已监控数量：</label>
+              <br/>
+              <label style="font-size: 1.3rem">65</label>
+            </div>
+            <monitor-num></monitor-num>
+          </div>
+          <div class="monitor-num-view" v-if="netStatus === 6">
+            <div class="monitor-num-tip">
+              <label>已监控数量：</label>
+              <br/>
+              <label style="font-size: 1.3rem">6</label>
+            </div>
+            <monitor-num></monitor-num>
+          </div>
+        </div>
+        <div class="quality-all-equip">
+          <div class="all-equip-title">故障设备总览</div>
+          <div class="error-num-view">
+            <error-num></error-num>
+          </div>
+        </div>
+      </div>
+      <div class="quality-bottom-view">
+        <div class="quality-safe-view">
+          <div class="main-title" style="top:6%;letter-spacing: 0;left: -5%;">安全态势</div>
+          <div class="safe-status-view">
+            <safe-status></safe-status>
+          </div>
+        </div>
+        <div class="quality-data-view">
+          <div class="main-title" style="letter-spacing: 0;font-size: 1.2rem;left: -4%;">数据态势</div>
+          <div class="data-increase-view">
+            <data-increase></data-increase>
+          </div>
+          <div class="backup-status">
+            <div class="common-title" style=" position:absolute;top: 52%">
+              <img src="../../assets/moka/title.png"/>
+              <label>备份率</label>
+            </div>
+            <div class="backup-status-view">
+              <backup-rate></backup-rate>
+            </div>
+          </div>
+        </div>
+        <div class="quality-app-view">
+          <div class="main-title" style="letter-spacing: 0; top:2%;">应用态势</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
-  import   SafeEvent  from './components/SafeEvent'
-  import   EquipNum  from './components/EquipNum'
-  import   AppNum  from './components/AppNum'
-  import   WarnNum  from './components/WarnNum'
-  import   VisitNum  from './components/VisitNum'
-  import   EquipStatus  from './components/EquipStatus'
-  import   UseRate  from './components/UseRate'
-  import   DataCapa  from './components/DataCapa'
-  import   AvnuTime  from './components/AvnuTime'
-  import   TimeAnal  from './components/TimeAnal'
-  import   WorkOrder  from './components/WorkOrder'
-  import   AccuseStatus  from './components/AccuseStatus'
+  import SafeEvent from './components/SafeEvent'
+  import EquipNum from './components/EquipNum'
+  import AppNum from './components/AppNum'
+  import WarnNum from './components/WarnNum'
+  import VisitNum from './components/VisitNum'
+  import EquipStatus from './components/EquipStatus'
+  import UseRate from './components/UseRate'
+  import DataCapa from './components/DataCapa'
+  import AvnuTime from './components/AvnuTime'
+  import TimeAnal from './components/TimeAnal'
+  import WorkOrder from './components/WorkOrder'
+  import AccuseStatus from './components/AccuseStatus'
+  import HostView from './components/HostView'
+  import HostNum from './components/HostNum'
+  import MonitorNum from './components/MonitorNum'
+  import ErrorNum from './components/ErrorNum'
+  import DataIncrease from './components/DataIncrease'
+  import BackupRate from './components/BackupRate'
+  import SafeStatus from './components/SafeStatus'
 
   export default {
     name: 'moka',
@@ -457,7 +583,14 @@
       VisitNum,
       TimeAnal,
       WorkOrder,
-      AccuseStatus
+      AccuseStatus,
+      HostView,
+      HostNum,
+      MonitorNum,
+      ErrorNum,
+      DataIncrease,
+      BackupRate,
+      SafeStatus
     },
     data() {
       return {
@@ -473,6 +606,14 @@
         sel3: false,
         sel4: false,
         sel5: false,
+      //  质控态势 各应用系统效能 切换视图
+        netStatus: 1,
+        netSel1: true,
+        netSel2: false,
+        netSel3: false,
+        netSel4: false,
+        netSel5: false,
+        netSel6: false,
       }
     },
     methods: {
@@ -536,6 +677,61 @@
         this.sel3 = false;
         this.infraStatus = 5
       },
+      //切换  质控态势 各应用系统效能
+      outsideNetClick() {
+        this.netSel1 = true;
+        this.netSel2 = false;
+        this.netSel3 = false;
+        this.netSel4 = false;
+        this.netSel5 = false;
+        this.netSel6 = false;
+        this.netStatus = 1
+      },
+      internetClick() {
+        this.netSel1 = false;
+        this.netSel2 = true;
+        this.netSel3 = false;
+        this.netSel4 = false;
+        this.netSel5 = false;
+        this.netSel6 = false;
+        this.netStatus = 2
+      },
+      dataNetClick() {
+        this.netSel1 = false;
+        this.netSel2 = false;
+        this.netSel3 = true;
+        this.netSel4 = false;
+        this.netSel5 = false;
+        this.netSel6 = false;
+        this.netStatus = 3
+      },
+      videoNetClick() {
+        this.netSel1 = false;
+        this.netSel2 = false;
+        this.netSel3 = false;
+        this.netSel4 = true;
+        this.netSel5 = false;
+        this.netSel6 = false;
+        this.netStatus = 4
+      },
+      secretNetClick() {
+        this.netSel1 = false;
+        this.netSel2 = false;
+        this.netSel3 = false;
+        this.netSel4 = false;
+        this.netSel5 = true;
+        this.netSel6 = false;
+        this.netStatus = 5
+      },
+      moveNetClick() {
+        this.netSel1 = false;
+        this.netSel2 = false;
+        this.netSel3 = false;
+        this.netSel4 = false;
+        this.netSel5 = false;
+        this.netSel6 = true;
+        this.netStatus = 6
+      },
     }
   }
 </script>
@@ -553,7 +749,7 @@
     position: absolute;
     background: url("../../assets/moka/bg.png") no-repeat center fixed;
     background-size: 100% 100%;
-    font-family:"Microsoft YaHei";
+    font-family: "Microsoft YaHei";
     overflow: hidden;
   }
 
@@ -598,10 +794,9 @@
     width: 96%;
     margin-left: 2%;
     height: 66%;
-    top:10%;
+    top: 10%;
     /*background-color: #fff;*/
   }
-
 
   .app-efficacy-status {
     margin-top: 1%;
@@ -640,21 +835,20 @@
   .eff-status-source {
     position: relative;
     /*background-color: #fff;*/
-    width:90%;
+    width: 90%;
     height: 38%;
     margin: auto;
     background: url("../../assets/moka/sj.png");
     background-size: 100% 100%;
   }
 
-  .eff-status-source label{
+  .eff-status-source label {
     position: relative;
     color: #fff;
     left: 30%;
     top: 22%;
     font-size: 18px;
   }
-
 
   .operation-manage {
     background: url("../../assets/moka/ywglxn.png") no-repeat;
@@ -681,18 +875,18 @@
   }
 
   /*.call-back-time {*/
-    /*position: relative;*/
-    /*display: inline-block;*/
-    /*float: left;*/
-    /*background: #fff;*/
-    /*width: 60%;*/
-    /*height: 20%;*/
-    /*margin-left: 5px;*/
+  /*position: relative;*/
+  /*display: inline-block;*/
+  /*float: left;*/
+  /*background: #fff;*/
+  /*width: 60%;*/
+  /*height: 20%;*/
+  /*margin-left: 5px;*/
   /*}*/
 
   .warn-status {
     position: absolute;
-    top:-2%;
+    top: -2%;
     left: 40%;
     /*display: inline-block;*/
     /*float: left;*/
@@ -703,14 +897,14 @@
   }
 
   /*.if-warn {*/
-    /*position: absolute;*/
-    /*!*display: inline-block;*!*/
-    /*!*float: left;*!*/
-    /*background: #fff;*/
-    /*width: 60%;*/
-    /*height: 100%;*/
-    /*top:0;*/
-    /*right: 0;*/
+  /*position: absolute;*/
+  /*!*display: inline-block;*!*/
+  /*!*float: left;*!*/
+  /*background: #fff;*/
+  /*width: 60%;*/
+  /*height: 100%;*/
+  /*top:0;*/
+  /*right: 0;*/
   /*}*/
 
   .accuse-all {
@@ -750,10 +944,10 @@
     position: absolute;
     width: 10px;
     height: 20px;
-    background-color:#32bef2 ;
+    background-color: #32bef2;
   }
 
-  .tip-title label{
+  .tip-title label {
     position: absolute;
     left: 15px;
   }
@@ -829,8 +1023,8 @@
   }
 
   /*.operation-manage-title {*/
-    /*display: inline-block;*/
-    /*float: left;*/
+  /*display: inline-block;*/
+  /*float: left;*/
   /*}*/
 
   .primary-title {
@@ -852,8 +1046,8 @@
     position: relative;
     width: 20%;
     height: 95%;
-    top:2%;
-    left:3%;
+    top: 2%;
+    left: 3%;
     background: url("../../assets/moka/aqsj-bg.png") no-repeat;
     background-size: 100% 100%;
   }
@@ -865,8 +1059,8 @@
     font-weight: bold;
     width: 40%;
     margin: auto;
-    top:3%;
-    letter-spacing:3px;
+    top: 3%;
+    letter-spacing: 3px;
     text-align: center;
   }
 
@@ -874,9 +1068,20 @@
     top: 1%;
   }
 
+  .base-equip-title {
+    position: relative;
+    color: #fff;
+    width: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    top: 22%;
+    letter-spacing: 3px;
+    left: 4%;
+  }
+
   .app-sys-title {
     top: 4%;
-    letter-spacing:2px;
+    letter-spacing: 2px;
   }
 
   .Infrastructure-select {
@@ -903,10 +1108,12 @@
 
   .selected {
     background: url("../../assets/moka/selected.png") no-repeat;
+    background-size: 100% 100%;
   }
 
   .un-select {
     background: url("../../assets/moka/unselect.png") no-repeat;
+    background-size: 100% 100%;
   }
 
   .Infrastructure-show {
@@ -943,6 +1150,14 @@
     /*background-color: #fff;*/
   }
 
+  .host-use-rate {
+    position: absolute;
+    top:60%;
+    width: 100%;
+    height: 44%;
+    /*background-color: #fff;*/
+  }
+
   .use-ratio {
     display: inline-block;
     /*background-color: #227656;*/
@@ -965,7 +1180,6 @@
     margin-left: 1%;
   }
 
-
   .data-status {
     position: relative;
     top: 8%;
@@ -986,7 +1200,7 @@
 
   .safe-event {
     position: relative;
-    top:10%;
+    top: 10%;
     width: 88%;
     height: 52%;
     margin: auto;
@@ -1000,7 +1214,7 @@
     width: 90%;
     margin: auto;
     height: 80%;
-    top:5%;
+    top: 5%;
   }
 
   .Infrastructure-view {
@@ -1010,8 +1224,8 @@
     float: left;
     width: 50%;
     height: 100%;
-    top:2%;
-    left:5%;
+    top: 2%;
+    left: 5%;
     background: url("../../assets/moka/jcss-bg.png") no-repeat;
     background-size: 100% 100%;
   }
@@ -1023,8 +1237,8 @@
     float: left;
     width: 20%;
     height: 100%;
-    top:2%;
-    left:7%;
+    top: 2%;
+    left: 7%;
     background: url("../../assets/moka/aq.png") no-repeat;
     background-size: 100% 100%;
   }
@@ -1051,8 +1265,8 @@
     margin-top: 1%;
   }
 
-  .data-capacity{
-      /*background-color: #2276d2;*/
+  .data-capacity {
+    /*background-color: #2276d2;*/
   }
 
   .data-capacity-view {
@@ -1081,8 +1295,8 @@
     float: left;
     width: 22%;
     height: 80%;
-    top:10%;
-    left:3%;
+    top: 10%;
+    left: 3%;
     background: url("../../assets/moka/fwxtjsc.png") no-repeat;
     background-size: 100% 100%;
   }
@@ -1114,8 +1328,8 @@
     float: left;
     width: 52%;
     height: 100%;
-    top:3%;
-    left:3%;
+    top: 3%;
+    left: 3%;
     background: url("../../assets/moka/yy.png") no-repeat;
     background-size: 100% 100%;
   }
@@ -1127,7 +1341,7 @@
     font-weight: bold;
     top: 10%;
     left: 4%;
-    letter-spacing:8px;
+    letter-spacing: 8px;
   }
 
   .app-common-title {
@@ -1143,6 +1357,216 @@
     left: 36%;
     height: 70%;
     top: 5%;
+  }
+
+  .quality-top-view {
+    position: relative;
+    height: 40%;
+    width: 96%;
+    margin-left: 2%;
+    /*background: #fff;*/
+  }
+
+  .quality-bottom-view {
+    position: relative;
+    height: 55%;
+    width: 96%;
+    margin-left: 2%;
+    /*background: #fff;*/
+    margin-top: 1%;
+  }
+
+  .quality-base-equip {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 80%;
+    height: 100%;
+    background: url("../../assets/moka/jcss.png") no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .base-equip-view {
+    position: absolute;
+    /*background: #fff;*/
+    width: 22%;
+    height: 80%;
+    left: 8%;
+    top: 11%;
+  }
+
+  .all-app-eff {
+    position: absolute;
+    /*background: #fff;*/
+    width: 44%;
+    height: 80%;
+    left: 33%;
+    top: 11%;
+  }
+
+  .net-num-view {
+    position: absolute;
+    width: 55%;
+    height: 100%;
+    /*background-color: #fff;*/
+    top: 0%;
+  }
+
+  .net-num-title {
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    top:0;
+    /*background-color: #fff;*/
+  }
+
+  .net-num-title label{
+    /*width: 50%;*/
+    position: absolute;
+    height: 100%;
+    color: #fff;
+    /*top:10%;*/
+  }
+
+  .host-num-view {
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    top:5%;
+    /*background-color: #0a76a4;*/
+  }
+
+  .monitor-num-index {
+    position: absolute;
+    width: 10%;
+    height: 100%;
+    top: 0;
+    left:65%;
+    /*background: #fff;*/
+  }
+
+  .net-name {
+    position: relative;
+    width: 90%;
+    height: 14%;
+    margin-top: 5%;
+    color: #fff;
+    line-height: 40px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 1rem;
+    /*background: #fff;*/
+  }
+
+  .monitor-num-view {
+    position: absolute;
+    width: 30%;
+    height: 80%;
+    top:0;
+    left: 73%;
+    /*background: #f0dacf;*/
+  }
+
+  .monitor-num-tip {
+    position: absolute;
+    width: 50%;
+    height: 40%;
+    margin-left: 26%;
+    top:40%;
+    color: #fff;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .quality-all-equip {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 18%;
+    left: 1%;
+    height: 100%;
+    background: url("../../assets/moka/ztjkqk.png") no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .all-equip-title {
+    position: absolute;
+    color: #fff;
+    width: 84%;
+    height: 10%;
+    margin-left: 8%;
+    top: 11%;
+    /*line-height: 40px;*/
+    vertical-align: center;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .error-num-view {
+    position: absolute;
+    width: 87%;
+    height: 66%;
+    margin-left: 6%;
+    top: 25%;
+    /*background-color: #fff;*/
+  }
+
+  .quality-safe-view {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 30%;
+    height: 100%;
+    background: url("../../assets/moka/aqts-bg.png") no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .safe-status-view {
+    position: absolute;
+    width: 90%;
+    height: 78%;
+    margin-left: 5%;
+    /*background-color: #fff;*/
+    top: 15%;
+  }
+
+  .quality-data-view {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 18%;
+    margin-left: 1%;
+    height: 100%;
+    background: url("../../assets/moka/sjts-bg.png") no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .data-increase-view {
+    position: absolute;
+    width: 100%;
+    height: 40%;
+    top:10%;
+    /*background-color: #fff;*/
+  }
+
+  .backup-status-view {
+    position: absolute;
+    /*background-color: #fff;*/
+    width: 90%;
+    margin-left: 5%;
+    height: 30%;
+    top:60%;
+  }
+
+  .quality-app-view {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 49%;
+    margin-left: 1%;
+    height: 100%;
+    background: url("../../assets/moka/yyts-bg.png") no-repeat;
+    background-size: 100% 100%;
   }
 
 </style>
