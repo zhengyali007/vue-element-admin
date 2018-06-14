@@ -203,71 +203,19 @@
             },
             data: singleData
           },
-            {
-              name: '综合安全评分',
-              type: 'bar',
-              stack:'综合安全评分',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#83e0fc',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },
-           /* {
-              name: '综合安全评分',
-              type: 'bar',
-              stack:'综合安全评分',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#83e0fc',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },
-            {
-              name: '综合安全评分',
-              type: 'bar',
-              stack:'综合安全评分',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#83e0fc',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },
-            {
-              name: '综合安全评分',
-              type: 'bar',
-              stack:'综合安全评分',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#83e0fc',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },
-            {
-              name: '综合安全评分',
-              type: 'bar',
-              stack:'综合安全评分',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#83e0fc',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },*/
+            // {
+            //   name: '综合安全评分',
+            //   type: 'bar',
+            //   stack:'综合安全评分',
+            //   barWidth: '15%',
+            //   barGap:'40%',
+            //   itemStyle: {
+            //     normal: {
+            //       color:'#83e0fc',
+            //     }
+            //   },
+            //   data: [2*scale, 2*scale, 2*scale]
+            // },
             {
               name: '防护完备性评分',
               type: 'bar',
@@ -295,71 +243,19 @@
               },
               data: multipleData
             },
-            {
-              name: '防护完备性评分',
-              type: 'bar',
-              stack:'防护完备性评分',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#23aecb',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },
-           /* {
-              name: '防护完备性评分',
-              type: 'bar',
-              stack:'防护完备性评分',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#23aecb',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },
-            {
-              name: '防护完备性评分',
-              type: 'bar',
-              stack:'防护完备性评分',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#23aecb',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },
-            {
-              name: '防护完备性评分',
-              type: 'bar',
-              stack:'防护完备性评分',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#23aecb',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },
-            {
-              name: '防护完备性评分',
-              type: 'bar',
-              stack:'防护完备性评分',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#23aecb',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },*/
+            // {
+            //   name: '防护完备性评分',
+            //   type: 'bar',
+            //   stack:'防护完备性评分',
+            //   barWidth: '15%',
+            //   barGap:'40%',
+            //   itemStyle: {
+            //     normal: {
+            //       color:'#23aecb',
+            //     }
+            //   },
+            //   data: [2*scale, 2*scale, 2*scale]
+            // },
             {
               name: '数据交规违规事件数',
               type: 'bar',
@@ -387,71 +283,19 @@
               },
               data: judgeData
             },
-            {
-              name: '数据交规违规事件数',
-              type: 'bar',
-              stack:'数据交规违规事件数',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#10c8a7',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },
-          /*  {
-              name: '数据交规违规事件数',
-              type: 'bar',
-              stack:'数据交规违规事件数',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#10c8a7',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },
-            {
-              name: '数据交规违规事件数',
-              type: 'bar',
-              stack:'数据交规违规事件数',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#10c8a7',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },
-            {
-              name: '数据交规违规事件数',
-              type: 'bar',
-              stack:'数据交规违规事件数',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#10c8a7',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },
-            {
-              name: '数据交规违规事件数',
-              type: 'bar',
-              stack:'数据交规违规事件数',
-              barWidth: '15%',
-              barGap:'40%',
-              itemStyle: {
-                normal: {
-                  color:'#10c8a7',
-                }
-              },
-              data: [2*scale, 2*scale, 2*scale]
-            },*/
+            // {
+            //   name: '数据交规违规事件数',
+            //   type: 'bar',
+            //   stack:'数据交规违规事件数',
+            //   barWidth: '15%',
+            //   barGap:'40%',
+            //   itemStyle: {
+            //     normal: {
+            //       color:'#10c8a7',
+            //     }
+            //   },
+            //   data: [2*scale, 2*scale, 2*scale]
+            // },
 
           ]
         })

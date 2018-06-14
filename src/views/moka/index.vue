@@ -19,15 +19,22 @@
         </div>
         <div class="app-efficacy-all app-efficacy-status">
           <div class="app-eff-status-view eff-status1">
-            <div class="common-title">
+            <div class="common-title" style="position: absolute">
               <img src="../../assets/moka/title.png"/>
               <label>基础设施状态</label>
             </div>
+            <div class="base-app-eff">
+              <status-water></status-water>
+            </div>
+            <!---->
           </div>
           <div class="app-eff-status-view eff-status1">
-            <div class="common-title eff-status-title">
+            <div class="common-title eff-status-title" style="position: absolute">
               <img src="../../assets/moka/title.png"/>
               <label>应用状态</label>
+            </div>
+            <div class="base-app-eff" style="left: 6%">
+              <status-water></status-water>
             </div>
           </div>
           <div class="app-eff-status-view eff-status2">
@@ -432,12 +439,12 @@
         <div class="quality-base-equip">
           <div class="base-equip-title">基础设施</div>
         </div>
-        <div class="base-equip-view">
-          <div class="common-title" style="left: 60%;">
+        <div class="base-equip-view" >
+          <div class="common-title" style="position:absolute; left: 60%;">
             <img src="../../assets/moka/title.png"/>
             <label>总体监控情况</label>
           </div>
-          <equip-num></equip-num>
+          <over-all></over-all>
         </div>
         <div class="all-app-eff">
           <div class="common-title" style="left: 83%; top: 83%;">
@@ -445,13 +452,13 @@
             <label>各应用系统效能</label>
           </div>
           <div class="net-num-view">
-            <div class="net-num-title">
-              <label style=" left: 10%;">设备总数量</label>
-              <label style=" right: 10%;">已监控数量</label>
-            </div>
-            <div class="host-num-view">
+            <!--<div class="net-num-title">-->
+              <!--<label style=" left: 10%;">设备总数量</label>-->
+              <!--<label style=" right: 10%;">已监控数量</label>-->
+            <!--</div>-->
+            <!--<div class="host-num-view">-->
               <host-num></host-num>
-            </div>
+            <!--</div>-->
           </div>
           <div class="monitor-num-index">
             <div class="net-name"  :class="netSel1 ? 'selected' : 'un-select'" @click="outsideNetClick">外部专网</div>
@@ -511,7 +518,7 @@
           </div>
         </div>
         <div class="quality-all-equip">
-          <div class="all-equip-title">故障设备总览</div>
+          <div class="all-equip-title">报警情况总览</div>
           <div class="error-num-view">
             <error-num></error-num>
           </div>
@@ -541,6 +548,9 @@
         </div>
         <div class="quality-app-view">
           <div class="main-title" style="letter-spacing: 0; top:2%;">应用态势</div>
+          <div class="qua-app-status">
+            <app-status></app-status>
+          </div>
         </div>
       </div>
     </div>
@@ -568,6 +578,9 @@
   import DataIncrease from './components/DataIncrease'
   import BackupRate from './components/BackupRate'
   import SafeStatus from './components/SafeStatus'
+  import AppStatus from './components/AppStatus'
+  import OverAll from './components/OverAll'
+  import StatusWater from './components/StatusWater'
 
   export default {
     name: 'moka',
@@ -590,7 +603,10 @@
       ErrorNum,
       DataIncrease,
       BackupRate,
-      SafeStatus
+      SafeStatus,
+      AppStatus,
+      OverAll,
+      StatusWater
     },
     data() {
       return {
@@ -812,6 +828,15 @@
     margin-left: 2%;
     height: 26%;
     margin-top: 1%;
+  }
+
+  .base-app-eff {
+    position: absolute;
+    /*background-color: #fff;*/
+    width: 50%;
+    height: 100%;
+    left: 30%;
+    top: 3%;
   }
 
   .eff-status1 {
@@ -1567,6 +1592,15 @@
     height: 100%;
     background: url("../../assets/moka/yyts-bg.png") no-repeat;
     background-size: 100% 100%;
+  }
+
+  .qua-app-status {
+    position: absolute;
+    width: 90%;
+    margin-left: 5%;
+    height: 86%;
+    margin-top:  2%;
+    /*background-color: #fff;*/
   }
 
 </style>

@@ -72,49 +72,60 @@
     },
     methods: {
       initOption() {
-        var myData = ['核心应用', '重要应用', '一般应用',]
-        var databeast = {1: [389, 559, 262]}
-        var databeauty = {1: [121, 388, 233]}
+        var myData = ['核心应用', '重要应用', '一般应用']
+        var lineData = [180, 90, 120]
+        var lastYearData = {
+          1: [3, 20, 62]
+        }
+        var thisYearData = {
+          1: [11, 38, 23]
+        }
         var timeLineData = [1]
 
         this.option = {
           baseOption: {
+            tooltip: {
+              trigger: 'axis'
+            },
             timeline: {
               show: false,
               top: 0,
               data: []
             },
-            tooltip: {
-              show: true,
-              trigger: 'axis',
-              // formatter: '{b}<br/>{a}: {c}人',
-              axisPointer: {
-                type: 'shadow'
-              }
+            legend : {
+              top : '5%',
+              left : '6%',
+              itemWidth : 12,
+              itemHeight : 12,
+              itemGap: 70,
+              icon : 'horizontal',
+              textStyle : {
+                color : '#ffffff',
+                fontSize : 12,
+              },
+              data: ['已监控数占比','总数量', '告警数占比']
             },
-
             grid: [{
               show: false,
               left: '5%',
-              top: 0,
-              bottom: 0,
+              top: '10%',
+              bottom: '8%',
               containLabel: true,
-              width: '45%'
+              width: '50%'
             }, {
               show: false,
-              left: '51%',
-              top: 20,
-              bottom: 0,
+              left: '53%',
+              top: '16%',
+              bottom: '8%',
               width: '0%'
             }, {
               show: false,
-              right: '5%',
-              top: 0,
-              bottom: 0,
+              right: '2%',
+              top: '10%',
+              bottom: '8%',
               containLabel: true,
-              width: '45%'
+              width: '50%'
             }],
-
             xAxis: [{
               type: 'value',
               inverse: true,
@@ -136,10 +147,6 @@
               show: false
             }, {
               gridIndex: 2,
-              nameTextStyle: {
-                color: '#fff',
-                fontSize: 14
-              },
               axisLine: {
                 show: false
               },
@@ -182,12 +189,12 @@
               axisLabel: {
                 show: true,
                 textStyle: {
-                  color: '#fff',
+                  color: '#ffffff',
                   fontSize: 14
                 }
 
               },
-              data: myData.map(function (value) {
+              data: myData.map(function(value) {
                 return {
                   value: value,
                   textStyle: {
@@ -220,59 +227,121 @@
 
         this.option.baseOption.timeline.data.push(timeLineData[0])
         this.option.options.push({
-          tooltip: {
-            trigger: 'axis',
-            formatter: '{b}<br/>{c} {a}'
-          },
-          series: [{
-            name: '台',
-            type: 'bar',
-            barWidth: 30,
-            label: {
-              normal: {
-                show: true,
-                position: 'left',
-                offset: [0, 0],
-                textStyle: {
-                  color: '#fff',
-                  fontSize: 12
+          series: [
+            {
+              type: 'pictorialBar',
+              xAxisIndex: 0,
+              yAxisIndex: 0,
+              symbol: 'rect',
+              itemStyle: {
+                normal: {
+                  color: 'rgba(3,147,114,0.27)'
                 }
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: '#4ca8f6',
-                barBorderRadius: 0
-              }
-            },
-
-            data: databeast[timeLineData[0]]
-          }, {
-            name: '台',
-            type: 'bar',
-            barWidth: 30,
-            xAxisIndex: 2,
-            yAxisIndex: 2,
-            label: {
-              normal: {
-                show: true,
-                position: 'right',
-                offset: [0, 0],
-                textStyle: {
-                  color: '#fff',
-                  fontSize: 12
+              },
+              barWidth: 10,
+              symbolRepeat: true,
+              symbolSize: 14,
+              data: lineData,
+              barGap: '-100%',
+              barCategoryGap: 0,
+              label: {
+                normal: {
+                  show: true,
+                  formatter: (series) => {
+                    return lastYearData[timeLineData[0]][series.dataIndex] + '%('+ lineData[series.dataIndex] + ')'
+                  },
+                  position: 'insideTopLeft',
+                  textStyle:{
+                    color: '#ffffff',
+                    fontSize: 16,
+                  },
+                  offset: [0, -35],
                 }
+              },
+              z: -100,
+              animationEasing: 'elasticOut',
+              animationDelay: function (dataIndex, params) {
+                return params.index * 30;
+              }
+            }, {
+              name: '已监控数占比',
+              type: 'pictorialBar',
+              xAxisIndex: 0,
+              yAxisIndex: 0,
+              symbol: 'rect',
+              barWidth: 10,
+              itemStyle: {
+                normal: {
+                  barBorderRadius: 5,
+                  color: '#039372'
+                }
+              },
+              symbolRepeat: true,
+              symbolSize: 14,
+              data: lastYearData[timeLineData[0]],
+              animationEasing: 'elasticOut',
+              animationDelay: function (dataIndex, params) {
+                return params.index * 30 * 1.1;
               }
             },
-            itemStyle: {
-              normal: {
-                color: '#32aca9',
-                barBorderRadius: 0
+            {
+              type: 'pictorialBar',
+              name: '总数量',
+              xAxisIndex: 2,
+              yAxisIndex: 2,
+              symbol: 'rect',
+              itemStyle: {
+                normal: {
+                  color: 'rgba(54,215,182,0.27)'
+                }
+              },
+              barWidth: 10,
+              symbolRepeat: true,
+              symbolSize: 14,
+              data: lineData,
+              barGap: '-100%',
+              barCategoryGap: 0,
+              label: {
+                normal: {
+                  show: true,
+                  formatter: (series) => {
+                    return thisYearData[timeLineData[0]][series.dataIndex] + '%('+ lineData[series.dataIndex] + ')'
+                  },
+                  position: 'insideTopRight',
+                  textStyle:{
+                    color: '#ffffff',
+                    fontSize: 16,
+                  },
+                  offset: [0, -35],
+                }
+              },
+              z: -100,
+              animationEasing: 'elasticOut',
+              animationDelay: function (dataIndex, params) {
+                return params.index * 30;
               }
-            },
-            data: databeauty[timeLineData[0]]
-          }]
-
+            }, {
+              name: '告警数占比',
+              type: 'pictorialBar',
+              xAxisIndex: 2,
+              yAxisIndex: 2,
+              symbol: 'rect',
+              barWidth: 10,
+              itemStyle: {
+                normal: {
+                  barBorderRadius: 5,
+                  color: '#ff0200'
+                }
+              },
+              symbolRepeat: true,
+              symbolSize: 14,
+              data: thisYearData[timeLineData[0]],
+              animationEasing: 'elasticOut',
+              animationDelay: function (dataIndex, params) {
+                return params.index * 30 * 1.1;
+              }
+            }
+          ]
         })
       },
 
