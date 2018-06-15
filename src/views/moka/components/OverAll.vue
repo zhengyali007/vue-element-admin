@@ -83,8 +83,8 @@
             }*/
           },
           legend: {
-            x: '2%',
-            bottom: '2%',
+            x: '1%',
+            bottom: '0%',
             textStyle: {
               color: '#ffd285',
             },
@@ -243,7 +243,7 @@
             {
               type: 'pie',
               name: '监控情况总览',
-              center: ['80%', '40%'],
+              center: ['80%', '44%'],
               radius: ['30%', '32%'],
               tooltip: {
                 trigger: 'item',
@@ -303,7 +303,7 @@
             {
               type: 'pie',
               name: '故障情况总览',
-              center: ['80%', '80%'],
+              center: ['80%', '78%'],
               radius: ['30%', '32%'],
               tooltip: {
                 trigger: 'item',

@@ -106,9 +106,9 @@
             <label style="font-size: 12px;color: #fff">是否告警</label>
             <img src="../../assets/moka/warn.png" style="width: 60%; height: 80%;margin-left: 20%;padding-bottom: 12%"/>
           </div>
-          <div class="warn-status" style="left:60%;width: 40%;height: 22%">
-            <time-anal></time-anal>
-          </div>
+          <!--<div class="warn-status" style="left:60%;width: 40%;height: 22%">-->
+            <!--<time-anal></time-anal>-->
+          <!--</div>-->
           <div class="app-sys-detail">
             <visit-num></visit-num>
           </div>
@@ -118,14 +118,15 @@
             <img src="../../assets/moka/title.png" style="width: 30%;"/>
             <label>最高人民法院机关办公平台</label>
           </div>
-          <div class="warn-status" style="left:50%; top: -1%;">
+          <div class="warn-status" style="left:60%; top: 2%;">
             <label style="font-size: 12px;color: #fff">是否告警</label>
             <img src="../../assets/moka/no-warn.png"
                  style="width: 60%; height: 80%;margin-left: 20%;padding-bottom: 12%"/>
           </div>
-          <div class="warn-status" style="left:70%;top:-1%;width: 40%;height: 22%">
-            <time-anal></time-anal>
-          </div>
+          <!--<div class="warn-status" style="left:76%;top:2%;width: 40%;height: 22%">-->
+            <!--<label style="font-size: 12px;color: #fff">响应时长</label>-->
+            <!--<time-anal></time-anal>-->
+          <!--</div>-->
           <div class="app-sys-detail">
             <visit-num></visit-num>
           </div>
@@ -870,9 +871,9 @@
   .eff-status-source label {
     position: relative;
     color: #fff;
-    left: 30%;
+    left: 22%;
     top: 22%;
-    font-size: 18px;
+    font-size: 0.8rem;
   }
 
   .operation-manage {
@@ -912,7 +913,7 @@
   .warn-status {
     position: absolute;
     top: -2%;
-    left: 40%;
+    left: 60%;
     /*display: inline-block;*/
     /*float: left;*/
     width: 25%;
@@ -1084,7 +1085,7 @@
     font-weight: bold;
     width: 40%;
     margin: auto;
-    top: 3%;
+    top: 2%;
     letter-spacing: 3px;
     text-align: center;
   }
@@ -1177,9 +1178,9 @@
 
   .host-use-rate {
     position: absolute;
-    top:60%;
+    top:66%;
     width: 100%;
-    height: 44%;
+    height: 38%;
     /*background-color: #fff;*/
   }
 
@@ -1463,7 +1464,7 @@
 
   .monitor-num-index {
     position: absolute;
-    width: 10%;
+    width: 16%;
     height: 100%;
     top: 0;
     left:65%;
@@ -1474,7 +1475,7 @@
     position: relative;
     width: 90%;
     height: 14%;
-    margin-top: 5%;
+    margin-top: 4%;
     color: #fff;
     line-height: 40px;
     vertical-align: middle;
@@ -1488,7 +1489,7 @@
     width: 30%;
     height: 80%;
     top:0;
-    left: 73%;
+    left: 76%;
     /*background: #f0dacf;*/
   }
 
@@ -1500,7 +1501,7 @@
     top:40%;
     color: #fff;
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   .quality-all-equip {

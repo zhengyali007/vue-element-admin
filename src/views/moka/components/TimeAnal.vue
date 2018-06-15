@@ -134,22 +134,22 @@
 
         this.chart = echarts.init(this.$el, 'macarons')
         this.chart.setOption({
-          title: [{
-            text: '响应时长',
-            x: '20%',
-            y: 0,
-            textAlign: 'center',
-            textStyle: {
-              color: '#fff',
-              textAlign: 'center',
-              fontSize: 12 * scale,
-              fontFamily:'Microsoft YaHei'
-            },
-          }],
+          // title: [{
+          //   text: '响应时长',
+          //   x: '20%',
+          //   y: 0,
+          //   textAlign: 'center',
+          //   textStyle: {
+          //     color: '#fff',
+          //     textAlign: 'center',
+          //     fontSize: 12 * scale,
+          //     fontFamily:'Microsoft YaHei'
+          //   },
+          // }],
           grid: {
-            top: '10%',
-            left:'10%',
-            bottom: '10%',
+            top: '0',
+            left:'15%',
+            bottom: '20%',
             right: '1%',
           },
           series: [
@@ -160,7 +160,7 @@
               clockWise: false, //顺时加载
               hoverAnimation: false, //鼠标移入变大
               center: ['50%', '50%'],
-              radius: ['50%', '51.5%'],
+              radius: ['50%', '51%'],
               itemStyle: {
                 normal: {
                   color: innerColor
@@ -178,7 +178,7 @@
                   },
                   position: 'center',
                   textStyle: {
-                    fontSize: 38 * scale,
+                    fontSize: 20 * scale,
                     fontWeight: 'bold',
                     color: textColor
                   },
@@ -193,7 +193,7 @@
               clockWise: false, //顺时加载
               hoverAnimation: false, //鼠标移入变大
               center: ['50%', '50%'],
-              radius: ['75%', '65%'],
+              radius: ['60%', '62%'],
               color: color,
               itemStyle: {
                 normal: {
@@ -214,7 +214,7 @@
               clockWise: false, //顺时加载
               hoverAnimation: false, //鼠标移入变大
               center: ['50%', '50%'],
-              radius: ['75%', '85%'],
+              radius: ['75%', '80%'],
               itemStyle: {
                 normal: {
                   borderWidth: 2* scale,

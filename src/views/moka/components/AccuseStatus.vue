@@ -83,14 +83,14 @@
           },
           title: {
             text: '已处理工单占比：',
-            x: '20%',
-            y: '10%',
+            x: '16%',
+            y: '4%',
             textAlign: 'center',
             textStyle: {
               color: '#fff',
               textAlign: 'center',
-              fontSize: 14,
-              fontWeight: 'bold',
+              fontSize: 12,
+              // fontWeight: 'bold',
               fontFamily:'Microsoft YaHei'
             },
           },

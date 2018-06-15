@@ -90,7 +90,7 @@
           legend: {
             data: ['综合安全评分', '防护完备性评分', '数据交规违规事件数'],
             align: 'left',
-            itemGap: 50,
+            itemGap: 30,
             // x: 'right',
             // top: '-10%',
             right:'0',

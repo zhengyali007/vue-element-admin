@@ -97,7 +97,7 @@
               left : '6%',
               itemWidth : 12,
               itemHeight : 12,
-              itemGap: 70,
+              itemGap: 50,
               icon : 'horizontal',
               textStyle : {
                 color : '#ffffff',
@@ -156,7 +156,7 @@
               position: 'top',
               axisLabel: {
                 show: false
-              },
+            },
               splitLine: {
                 show: false
               }
